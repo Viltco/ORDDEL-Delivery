@@ -453,9 +453,9 @@ useFocusEffect(
                 <Text
                   style={{
                     color: Colors.themeColor,
-                    width: "61%",
+                    width: "75%",
                     textAlign: "center",
-                    paddingLeft: "15%",
+                    // paddingLeft: "15%",
                     fontWeight:'bold'
                   }}
                 >
@@ -464,9 +464,9 @@ useFocusEffect(
                 <Text
                 style={{
                   color: Colors.themeColor,
-                  width: "61%",
+                  width: "75%",
                   textAlign: "center",
-                  paddingLeft: "15%",
+                  // paddingLeft: "15%",
                   fontWeight:'bold'
                 }}
               >

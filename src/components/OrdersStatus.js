@@ -305,7 +305,7 @@ function OrdersStatus({navigation,route}) {
                 <Text
                   style={{
                     color: Colors.themeColor,
-                    width: "15%",
+                    width: "20%",
                     textAlign: "center",
                     marginLeft: "5%",
                     fontWeight:'bold'
@@ -316,9 +316,9 @@ function OrdersStatus({navigation,route}) {
                 <Text
                   style={{
                     color: Colors.themeColor,
-                    width: "62%",
+                    width: "65%",
                     textAlign: "center",
-                    paddingLeft: "15%",
+                    // paddingLeft: "15%",
                     fontWeight:'bold'
                   }}
                 >

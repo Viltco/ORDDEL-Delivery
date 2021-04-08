@@ -249,9 +249,9 @@ function PurchasedOrderStatus({navigation,route}) {
                 <Text
                   style={{
                     color: Colors.themeColor,
-                    width: "30%",
+                    width: "45%",
                     textAlign: "center",
-                    paddingLeft: "15%",
+                    // paddingLeft: "15%",
                     fontWeight:'bold'
                   }}
                 >

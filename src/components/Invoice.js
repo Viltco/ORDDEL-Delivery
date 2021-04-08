@@ -484,7 +484,7 @@ style={{ width:Platform.OS=='ios'? 50:50,height:Platform.OS=='ios'? 50:50,border
         <View style={{flexDirection:'row',width:"100%",borderBottomWidth:0.5,borderBottomColor:'grey',marginTop:10,}}>
 
             <Text style={{color:Colors.themeColor,width:"12%",textAlign:'center',marginLeft:'5%',fontWeight:'bold'}}>Total</Text>
-            <Text style={{color:Colors.themeColor,width:"23%",textAlign:'center',paddingLeft:"15%",fontWeight:'bold'}}>{invoiceData.total_qty}</Text>
+            <Text style={{color:Colors.themeColor,width:"23%",textAlign:'center',paddingLeft:"11%",fontWeight:'bold'}}>{invoiceData.total_qty}</Text>
             <Text style={{color:Colors.themeColor,width:"37%",textAlign:'center',paddingLeft:"25%",fontWeight:'bold'}}>£ {invoiceData.total_vat}</Text>
 
             <Text style={{color:Colors.themeColor,width:"26%",textAlign:'center',paddingRight:'5%',fontWeight:'bold'}}>£ {invoiceData.total_amount}</Text>

@@ -442,7 +442,7 @@ const getClientImage=(id)=>{
 
 <Text style={{color:Colors.themeColor,width:"10%",textAlign:'center',marginLeft:'5%'}}>Total</Text>
 <Text style={{color:Colors.themeColor,width:"25%",textAlign:'center',paddingLeft:"15%"}}>{invoiceData.total_qty}</Text>
-<Text style={{color:Colors.themeColor,width:"35%",textAlign:'center',paddingLeft:"25%"}}>£ {invoiceData.total_vat}</Text>
+<Text style={{color:Colors.themeColor,width:"36%",textAlign:'center',paddingLeft:"25%"}}>£ {invoiceData.total_vat}</Text>
 
 <Text style={{color:Colors.themeColor,width:"30%",textAlign:'center',paddingRight:'5%'}}>£ {invoiceData.total_amount}</Text>
 
