@@ -54,6 +54,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 function ShowInvoice({navigation,route}) {
     const dispatch = useDispatch();
   const RiderImage = useSelector((state) => state.ApiData.RiderImage);
+  const RiderName = useSelector((state) => state.ApiData.RiderName);
 
     const [isLoading,setIsLoading]=useState(false);
     const { OID,orderBoxId } = route.params;
@@ -64,6 +65,7 @@ function ShowInvoice({navigation,route}) {
    const [order,setOrder]=useState("");
    const [totalAmount,setTotalAmount]=useState("");
    const [clientImage,setClientImage]=useState("");
+   console.log("OOOOOOOIIIIIIDDDD",OID);
     var downloadInvoice = "http://ec2-3-129-128-169.us-east-2.compute.amazonaws.com:8000/payment/generate_invoice_pdf/"+OID+"/?download=true"
 
        const toggleBottomNavigationView = () => {
@@ -134,35 +136,34 @@ function ShowInvoice({navigation,route}) {
       // Get config and fs from RNFetchBlob
       // config: To pass the downloading related options
       // fs: Directory path where we want our image to download
-      const { config, fs } = RNFetchBlob;
-      let PictureDir = fs.dirs.DownloadDir;
+      const { config, fs } = RNFetchBlob
+      let DownloadDir = fs.dirs.DownloadDir     // this is the Downloads directory.
       let options = {
         fileCache: true,
-        addAndroidDownloads: {
-          // Related to the Android only
-          useDownloadManager: true,
-          notification: true,
-          path:
-            PictureDir +
-              '/pdf_' + 
-            Math.floor(date.getTime() + date.getSeconds() / 2) +
-            ext,
-          description: 'Slip',
-        },
-      };
+        autorename : false,
+        //  appendExt : extension, //Adds Extension only during the download, optional
+         addAndroidDownloads : {
+          useDownloadManager : true,      //uses the device's native download manager.
+          notification : true,
+          // autorename : false,
+          //  mime: 'text/plain',
+          title : "Invoice_"+invoiceData.client,    // Title of download notification.
+          path:  DownloadDir + "/me_"+ '.' + ext, // this is the path where your download file will be in
+          description : 'Downloading file.'
+        }
+      }
       config(options)
-        .fetch('GET', image_URL)
-        .then(res => {
-          // Showing alert after successful downloading
-          console.log('res -> ', JSON.stringify(res));
-          alert('Image Downloaded Successfully.');
-        });
-    };
+      .fetch('GET',"http://ec2-3-129-128-169.us-east-2.compute.amazonaws.com:8000/payment/generate_invoice_pdf/"+OID+"/?download=true")
+      .then((res) => {
+        //console.log("Success");
+        })
+      .catch((err) => {console.log('error')})    // To execute when download  cancelled and other errors
+    }
   
     const getExtention = filename => {
       // To get the file extension
       return /[.]/.exec(filename) ?
-               /[^.]+$/.exec(filename) : undefined;
+               /[^.]+$/.exec(filename) : filename;
     };
 
 
@@ -271,7 +272,7 @@ const getClientImage=(id)=>{
                 .catch((error) => console.error(error))
          
         }
-
+        
 
 
 
@@ -409,15 +410,15 @@ const getClientImage=(id)=>{
 
     
     
-     <View style={{flexDirection:'row',marginTop:30,justifyContent:'space-around'}}>
-        <Text style={{color:Colors.themeColor,width:100,fontSize:17,fontWeight:'bold',textAlign:'center'}}>Product</Text>
+     <View style={{flexDirection:'row',marginTop:30,}}>
+        <Text style={{color:Colors.themeColor,width:"20%",fontSize:17,fontWeight:'bold',textAlign:"left"}}>Product</Text>
         {/* <Text style={{color:Colors.themeColor,width:35,fontSize:17,fontWeight:'bold',textAlign:'center'}}>Unit</Text> */}
-        <Text style={{color:Colors.themeColor,width:72,fontSize:17,fontWeight:'bold',textAlign:'center',marginRight:10}}>Quantity</Text>
-        <Text style={{color:Colors.themeColor,width:50,fontSize:17,fontWeight:'bold',textAlign:'center'}}>Unit Price</Text>
+        <Text style={{color:Colors.themeColor,width:"23%",fontSize:17,fontWeight:'bold',textAlign:'center'}}>Quantity</Text>
+        <Text style={{color:Colors.themeColor,width:"20%",fontSize:17,fontWeight:'bold',textAlign:'center'}}>Unit Price</Text>
 
-        <Text style={{color:Colors.themeColor,width:70,fontSize:17,fontWeight:'bold',textAlign:'center'}}>VAT</Text>
+        <Text style={{color:Colors.themeColor,width:"16%",fontSize:17,fontWeight:'bold',textAlign:'center'}}>VAT</Text>
 
-        <Text style={{color:Colors.themeColor,fontSize:17,fontWeight:'bold',marginRight:20}}>Amount</Text>
+        <Text style={{color:Colors.themeColor,fontSize:17,fontWeight:'bold',width:"20%",textAlign:"right"}}>Amount</Text>
     </View>
     
     <View style={{marginBottom:10}}>
@@ -438,7 +439,18 @@ const getClientImage=(id)=>{
             />
             )}
         />
-       <View style={{flexDirection:'row',width:"100%",borderBottomWidth:0.5,borderBottomColor:'grey',marginTop:10,}}>
+        <View style={{flexDirection:'row',borderBottomWidth:0.5,borderBottomColor:'grey',marginTop:10}}>
+
+<Text style={{color:Colors.themeColor,width:"22%",textAlign:'left',fontWeight:'bold',}}>Total</Text>
+<Text style={{color:Colors.themeColor,width:Platform.OS=="android"?"20%":"20%",fontWeight:'bold',fontSize:14,textAlign:"center"}}>{invoiceData.total_qty}</Text>
+{invoiceData.total_vat==0?<Text style={{color:Colors.themeColor,width:"33%",fontWeight:'bold',textAlign:"right",fontSize:14,}}>£ {invoiceData.total_vat}</Text>:<Text style={{color:Colors.themeColor,width:"33%",fontWeight:'bold',textAlign:"right",fontSize:14,}}>£ {parseFloat(invoiceData.total_vat).toFixed(2)}</Text>}
+{/* <Text style={{color:Colors.themeColor,width:"33%",fontWeight:'bold',textAlign:"right",fontSize:14,}}>£ {invoiceData.total_vat}</Text> */}
+{/* {invoiceData.total_amount!=0} */}
+<Text style={{color:Colors.themeColor,width:"24%",fontWeight:'bold',textAlign:"right",fontSize:14}}>£ {parseFloat(invoiceData.total_amount).toFixed(2)}</Text>
+
+</View>
+        
+       {/* <View style={{flexDirection:'row',width:"100%",borderBottomWidth:0.5,borderBottomColor:'grey',marginTop:10,}}>
 
 <Text style={{color:Colors.themeColor,width:"10%",textAlign:'center',marginLeft:'5%'}}>Total</Text>
 <Text style={{color:Colors.themeColor,width:"25%",textAlign:'center',paddingLeft:"15%"}}>{invoiceData.total_qty}</Text>
@@ -446,7 +458,7 @@ const getClientImage=(id)=>{
 
 <Text style={{color:Colors.themeColor,width:"30%",textAlign:'center',paddingRight:'5%'}}>£ {invoiceData.total_amount}</Text>
 
-</View>
+</View> */}
         </View>
         
         <View style={{padding:10}}>
@@ -479,7 +491,7 @@ const getClientImage=(id)=>{
         
          <View style={{alignSelf:'center'}}>
             <TouchableOpacity onPress={checkPermission} style={styles.button}>
-            <Text style={styles.buttonText}>DOWNLOAD INVOICE</Text>
+            <Text style={styles.buttonText}>PRINT INVOICE</Text>
             </TouchableOpacity>
         </View> 
         </>

@@ -30,6 +30,7 @@
     "react-native-base64": "^0.2.1",
     "react-native-btr": "^1.1.5",
     "react-native-confirmation-code-field": "^6.5.1",
+    "react-native-currency-format": "^1.0.19",
     "react-native-document-picker": "^5.0.1",
     "react-native-dropdownalert": "^4.3.0",
     "react-native-gesture-handler": "^1.9.0",

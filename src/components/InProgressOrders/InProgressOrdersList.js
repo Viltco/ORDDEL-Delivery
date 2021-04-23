@@ -76,7 +76,7 @@ const InProgressOrdersList = ({ navigation, route }) => {
               else{
                   console.log("InProgress:",data.response);
                   setLoading(false)
-                  setData(data);
+                  setData(data.response);
                   setIsLoading(false)
               }
              
@@ -141,7 +141,7 @@ const InProgressOrdersList = ({ navigation, route }) => {
         </View>:
          <View style={{marginTop:10}}>
         <FlatList
-          data={data.response}
+          data={data.reverse()}
           style={{alignSelf:'center'}}
           showsVerticalScrollIndicator={false}
           // keyExtractor={item => item.index_id.toString()}

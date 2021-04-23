@@ -10,7 +10,8 @@ import {
     LogBox,
     TextInput,
     BackHandler,
-    Platform
+    Platform,
+    PermissionsAndroid
   } from "react-native";
   
   
@@ -51,6 +52,7 @@ import DropdownAlert from 'react-native-dropdownalert';
   import DeliveryCart from '../components/DeliveryCart';
   import { BottomSheet } from 'react-native-btr';
   import * as OrderBox from '../store/actions/OrderBox';
+  import RNFetchBlob from 'rn-fetch-blob';
 function DeliveryNote({navigation,route}) {
     const dispatch = useDispatch();
 
@@ -68,7 +70,7 @@ function DeliveryNote({navigation,route}) {
    const [DN,setDN]=useState("")
   const RiderImage = useSelector((state) => state.ApiData.RiderImage);
   const RiderAddress = useSelector((state) => state.ApiData.RiderAddress);
-
+  var downloadInvoice =URL+"/payment/generate_delivery_note_pdf/"+id+"/?download=true";
 console.log("dataaaaaaaaaaaaaaaaaaaaa",RiderAddress)
     const toggleBottomNavigationView = () => {
       //Toggling the visibility state of the bottom sheet
@@ -150,17 +152,134 @@ const changeStatus=()=>{
         console.log("Something went wrong", error)
       )
 }
+const checkPermission = async () => {
+    
+  // Function to check the platform
+  // If iOS then start downloading
+  // If Android then ask for permission
+  
+  if (Platform.OS === 'ios') {
+    downloadImage();
+  } else {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        {
+          title: 'Storage Permission Required',
+          message:
+            'App needs access to your storage to download Photos',
+        }
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        // Once user grant the permission start downloading
+        console.log('Storage Permission Granted.');
+        downloadImage();
+      } else {
+        // If permission denied then show alert
+        alert('Storage Permission Not Granted');
+      }
+    } catch (err) {
+      // To handle permission related exception
+      console.warn(err);
+    }
+  }
+};
 
+
+const downloadImage = () => {
+  // Main function to download the image
+ 
+  // To add the time suffix in filename
+  let date = new Date();
+  // Image URL which we want to download
+  let image_URL = downloadInvoice;    
+  // Getting the extention of the file
+  let ext = getExtention(image_URL.uri);
+  // ext = '.' + ext[0];
+  // Get config and fs from RNFetchBlob
+  // config: To pass the downloading related options
+  // fs: Directory path where we want our image to download
+  const { config, fs } = RNFetchBlob
+  let DownloadDir = fs.dirs.DownloadDir     // this is the Downloads directory.
+  let options = {
+    fileCache: true,
+    autorename : false,
+    //  appendExt : extension, //Adds Extension only during the download, optional
+     addAndroidDownloads : {
+      useDownloadManager : true,      //uses the device's native download manager.
+      notification : true,
+      // autorename : false,
+      //  mime: 'text/plain',
+      title : "Delivery_Note_"+data.client,    // Title of download notification.
+      path:  DownloadDir + "/me_"+ '.' + ext, // this is the path where your download file will be in
+      description : 'Downloading file.'
+    }
+  }
+  config(options)
+  .fetch('GET',URL+"/payment/generate_delivery_note_pdf/"+id+"/?download=true")
+  .then((res) => {
+    //console.log("Success");
+    })
+  .catch((err) => {console.log('error')})    // To execute when download  cancelled and other errors
+}
+
+const getExtention = filename => {
+  // To get the file extension
+  return /[.]/.exec(filename) ?
+           /[^.]+$/.exec(filename) : filename;
+};
+
+
+const Delivery_Note_Download=()=>{
+  fetch(URL+'/payment/add_delivery_note/', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body:JSON.stringify({
+    
+        "order_id": id,
+        "delivery_note_number": DN,
+        "delivery_note": deliveryNote,
+        "purchased_products":cartItems 
+   })
+  
+     
+  }).then( async (response) => {
+   let data = await response.json();
+   console.log("put",data)
+   console.log("put",response.status)
+  //  if(response.status==200){
+    //  alert("Delivery Note Created Successfully.");
+    //  dispatch(DeliveryNoteAction.AllClear(1));
+    //  console.log("Its work");
+    //  setDeliveryNote("");
+    //  checkPermission();
+    checkPermission();
+    //  changeStatus();
+    //   setCount(0);
+    //  navigation.navigate("Dashboard")
+  //  }
+
+   //send_Verification_Code()
+   // navigation.navigate("VerificationCode" , {Email : email , Phone_No : phoneNumber})
+ })
+  .catch ((error)=>
+    console.log("Something went wrong", error)
+  )
+}
 
 const invoice=()=>{
     console.log("orderId",id)
     console.log("Box Id",d_orderBoxId)
     console.log("Cart Items",cartItems);
+   
     dispatch(OrderBox.clear());
 
          navigation.navigate("Invoice",{orderBoxId:d_orderBoxId,OID:id,image:ClientImage})
 
-    fetch('http://ec2-3-129-128-169.us-east-2.compute.amazonaws.com:8000/payment/add_delivery_note/', {
+    fetch(URL+'/payment/add_delivery_note/', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -184,10 +303,16 @@ const invoice=()=>{
          dispatch(DeliveryNoteAction.AllClear(1));
          console.log("Its work");
          setDeliveryNote("");
+        //  checkPermission();
+        // checkPermission();
          changeStatus();
         //   setCount(0);
         //  navigation.navigate("Dashboard")
        }
+       else{
+        changeStatus();
+       }
+       
     
        //send_Verification_Code()
        // navigation.navigate("VerificationCode" , {Email : email , Phone_No : phoneNumber})
@@ -225,7 +350,7 @@ useFocusEffect(
         // console.log(PoNumber,"-----");
         // console.log(OrderId,"------")
         setIsLoading(true)
-    console.log("iddddddd",d_orderBoxId)
+    console.log("iddddddd",id)
     if(d_orderBoxId!=""){
         fetch(URL+'/payment/get_delivery_note_number/'+d_orderBoxId)
         // fetch(URL+'/client_app/clients_list/33/')
@@ -403,10 +528,10 @@ useFocusEffect(
 
     
     {/* <View style={{backgroundColor:"#E2E2E2"}}> */}
-    <View style={{flexDirection:'row',marginTop:30,justifyContent:'space-around'}}>
-        <Text style={{color:Colors.themeColor,width:120,fontSize:17,fontWeight:'bold',textAlign:'center'}}>Product</Text>
-        <Text style={{color:Colors.themeColor,width:35,fontSize:17,fontWeight:'bold',textAlign:'center'}}>Unit</Text>
-        <Text style={{color:Colors.themeColor,width:72,fontSize:17,fontWeight:'bold',textAlign:'center',marginRight:20}}>Quantity</Text>
+    <View style={{flexDirection:'row',marginTop:30}}>
+        <Text style={{color:Colors.themeColor,width:"41%",fontSize:17,fontWeight:'bold',textAlign:'left'}}>Product</Text>
+        <Text style={{color:Colors.themeColor,width:"25%",fontSize:17,fontWeight:'bold',textAlign:'center'}}>Unit</Text>
+        <Text style={{color:Colors.themeColor,width:"22%",fontSize:17,fontWeight:'bold',textAlign:'center',marginRight:20}}>Quantity</Text>
         {/* <Text style={{color:Colors.themeColor,fontSize:17,fontWeight:'bold',marginRight:20}}>Price</Text> */}
     </View>
     {/* <View style={{borderBottomColor:Colors.textGreyColor,borderBottomWidth:2,}}> */}
@@ -441,9 +566,9 @@ useFocusEffect(
                 <Text
                   style={{
                     color: Colors.themeColor,
-                    width: "35%",
-                    textAlign: "center",
-                    marginLeft: "5%",
+                    width: "40%",
+                    textAlign: "left",
+                    // marginLeft: "2%",
                     fontWeight:'bold'
                   }}
                 >
@@ -513,11 +638,16 @@ useFocusEffect(
 
 
 
+       
         <View style={{alignSelf:'center',marginTop:20}}>
+            <TouchableOpacity onPress={Delivery_Note_Download} style={styles.button}>
+            <Text style={styles.buttonText}>PRINT DELIVERY NOTE</Text>
+            </TouchableOpacity>
             <TouchableOpacity onPress={invoice} style={styles.button}>
             <Text style={styles.buttonText}>CREATE INVOICE</Text>
             </TouchableOpacity>
         </View> 
+        
         {/* </View> */}
         {/* {dataStatus=="in progress"?null:
         <View style={{alignSelf:'center',marginTop:20}}>
@@ -653,7 +783,7 @@ const styles = StyleSheet.create({
     backgroundColor:Colors.themeColor,
     justifyContent:"center",
     borderRadius: 25,
-    marginVertical: 20,
+    marginVertical: 5,
     },
     s_button: {
         height: 40,

@@ -64,7 +64,7 @@ const PaymentMethods = ({ navigation, route }) => {
     const [date, setDate] = useState(new Date());
     const RiderId=useSelector(state=>state.ApiData.RiderId);
     // const Brand=useSelector(state=>state.Payment.brand);
-
+    var reg = /^\d+$/;
     // const Last4=useSelector(state=>state.Payment.last4);
     var datee;
     var monthh;
@@ -211,6 +211,17 @@ useEffect(() => {
             console.log("Something went wrong", error)
           )
     }
+    // const checkCardNumber=()=>{
+    //     if(cardNumber!=""){
+
+    //     }
+    // }
+    // const checkCvc=()=>{
+    //     if(cardNumber!=""){
+            
+    //     }
+    // }
+
 
 
 

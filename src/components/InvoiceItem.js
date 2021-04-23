@@ -9,6 +9,7 @@ import {
 import  Ionicons  from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Colors from '../ColorCodes/Colors';
+// import CurrencyFormatter from "react-native-currency-format";
 
 
 const InvoiceItem = props => {
@@ -21,30 +22,30 @@ const InvoiceItem = props => {
 
     <View style={{flexDirection:'row',borderBottomWidth:0.5,borderBottomColor:'grey',marginTop:10,alignItems:'space-around',width:'100%',marginBottom:1,paddingRight:10}}>
 
-        <View style = {{width:'25%',alignItems:'center'}}>
-            <Text style={{marginLeft:5,color:Colors.productGrey,fontWeight:'bold',textAlign:'center'}}>{props.name}</Text>
+        <View style = {{width:'25%'}}>
+            <Text style={{marginLeft:2,color:Colors.productGrey,fontWeight:'bold',textAlign:'left'}}>{props.name}</Text>
         </View>
         {/* <View style = {{width:'20%',alignItems:'center'}}>
         
         <Text style={{color:Colors.productGrey}}>{props.unit}</Text>
         </View> */}
-        <View style = {{width:'20%',alignItems:'center'}}>
+        <View style = {{width:'15%',alignItems:"center"}}>
         
             <Text style={{color:Colors.productGrey}}>{props.quantity}</Text>
         </View>
         
         
-        <View style = {{width:'20%',alignItems:'center'}}>
+        <View style = {{width:'20%'}}>
         
-            <Text style={{color:Colors.productGrey}}>£ {props.price}</Text>
+            <Text style={{color:Colors.productGrey,textAlign:'right'}}>£ {parseFloat(props.price).toFixed(2)}</Text>
         </View>
-        <View style = {{width:'15%',alignItems:'center'}}>
+        <View style = {{width:'18%',paddingLeft:"2%"}}>
         
-            <Text style={{color:Colors.productGrey,textAlign:'center'}}>£ {props.vat}</Text>
+            <Text style={{color:Colors.productGrey,textAlign:'right',marginRight:5}}>£ {parseFloat(props.vat).toFixed(2)}</Text>
         </View>
-        <View style = {{width:'20%',alignItems:'center',marginRight:15}}>
+        <View style = {{width:'25%'}}>
         
-            <Text style={{color:Colors.productGrey}}>£ {props.amount}</Text>
+            <Text style={{color:Colors.productGrey,textAlign:'right',marginRight:5}}>£ {parseFloat(props.amount).toFixed(2)}</Text>
         </View>
         
     </View>

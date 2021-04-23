@@ -271,11 +271,11 @@ function OrdersStatus({navigation,route}) {
   
     </View>
 
-    <View style={{flexDirection:'row',marginTop:30,justifyContent:'space-around'}}>
-        <Text style={{color:Colors.themeColor,width:120,fontSize:17,fontWeight:'bold',textAlign:'center'}}>Product</Text>
-        <Text style={{color:Colors.themeColor,width:35,fontSize:17,fontWeight:'bold',textAlign:'center'}}>Unit</Text>
-        <Text style={{color:Colors.themeColor,width:72,fontSize:17,fontWeight:'bold',textAlign:'center'}}>Quantity</Text>
-        <Text style={{color:Colors.themeColor,fontSize:17,fontWeight:'bold',marginRight:20,width:100,textAlign:'center'}}>Price Per Unit</Text>
+    <View style={{flexDirection:'row',marginTop:30,}}>
+        <Text style={{color:Colors.themeColor,width:"30%",fontSize:17,fontWeight:'bold',textAlign:"left",marginLeft:"1%"}}>Product</Text>
+        <Text style={{color:Colors.themeColor,width:"20%",fontSize:17,fontWeight:'bold',textAlign:'center'}}>Unit</Text>
+        <Text style={{color:Colors.themeColor,width:"20%",fontSize:17,fontWeight:'bold',textAlign:'center'}}>Quantity</Text>
+        <Text style={{color:Colors.themeColor,fontSize:17,fontWeight:'bold',marginRight:20,width:"25%",textAlign:"right"}}>Price Per Unit</Text>
     </View>
     {/* <View style={{borderBottomColor:Colors.textGreyColor,borderBottomWidth:2,}}> */}
         <View style={{marginBottom:10}}>
@@ -293,7 +293,7 @@ function OrdersStatus({navigation,route}) {
             />
             )}
         />
-        <View
+         <View
                 style={{
                   flexDirection: "row",
                   width: "100%",
@@ -305,9 +305,9 @@ function OrdersStatus({navigation,route}) {
                 <Text
                   style={{
                     color: Colors.themeColor,
-                    width: "20%",
-                    textAlign: "center",
-                    marginLeft: "5%",
+                    width: "21%",
+                    textAlign: "left",
+                    marginLeft: "1%",
                     fontWeight:'bold'
                   }}
                 >
@@ -316,7 +316,7 @@ function OrdersStatus({navigation,route}) {
                 <Text
                   style={{
                     color: Colors.themeColor,
-                    width: "65%",
+                    width: "75%",
                     textAlign: "center",
                     // paddingLeft: "15%",
                     fontWeight:'bold'

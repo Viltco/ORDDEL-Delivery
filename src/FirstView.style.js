@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { Platform, StyleSheet } from 'react-native'
 import Colors from '../src/ColorCodes/Colors';
 export default StyleSheet.create({
     image: {
@@ -16,7 +16,7 @@ export default StyleSheet.create({
         alignItems:'center',
     },
     topContainer : {
-    marginTop:"30%",
+    marginTop:Platform.OS=="android"?"30%":"50%",
     alignSelf:'center',
       
     },

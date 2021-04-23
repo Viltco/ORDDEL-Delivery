@@ -46,6 +46,7 @@ import BuisnessDetail from "../components/BuisnessDetails/BuisnessDetail";
 import EditBuisnessDetail from "../components/BuisnessDetails/EditBuisnessDetail";
 import NewBuisnessDetail from "../components/BuisnessDetails/NewBuisnessDetail";
 import MyAlert from '../components/MyAlert';
+import BankDetails from '../BankDetails/BankDetails';
 //const Stack = createStackNavigator();
 // function MyStack() {
 //   const Drawer = createDrawerNavigator();
@@ -275,6 +276,20 @@ function MyStack() {
    <Stack.Screen name="OrderStatus" component={OrderStatus} options={{
      headerShown: true,
      title:"ORDER STATUS",
+     headerTitleStyle:{
+       color:"white",
+       alignSelf:'center'
+     },
+     headerStyle:{
+      backgroundColor:Colors.themeColor,
+    },
+    headerTintColor: '#ffffff',
+    headerRight: ()=><Image source={require('../assets/colorLogo.png')} style={{width:Platform.OS=='ios'? 40:50,height:Platform.OS=='ios'? 40:50}} />
+ 
+   }}/>
+   <Stack.Screen name="BankDetails" component={BankDetails} options={{
+     headerShown: true,
+     title:"BANK DETAIL",
      headerTitleStyle:{
        color:"white",
        alignSelf:'center'

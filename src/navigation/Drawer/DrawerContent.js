@@ -113,6 +113,31 @@ const DrawerContent = (props) => {
         
         </View>
 
+        <View
+          style={{ marginTop:20,marginLeft:10,borderBottomColor:Colors.bottomLine,borderBottomWidth:1,width:240}}
+        >
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate("BankDetails")}
+            style={{ flexDirection: "row", marginBottom: 10 }}
+          >
+            <AntDesign
+              name="form"
+              color={Colors.textBlack}
+              size={Platform.OS == "android" ? 20 : 20}
+              style={{ marginLeft: 10 }}
+            />
+            <Text
+              style={{ marginLeft: 20, fontSize: 16, color: Colors.textBlack }}
+            >
+              Bank Details
+            </Text>
+            <MaterialIcons name="navigate-next" color = {Colors.textBlack} size={Platform.OS=='android'?20:20} style={{marginLeft:90}} />
+
+          </TouchableOpacity>
+        </View>
+
+       
+
         <View style={{ marginTop:20,marginLeft:15,borderBottomColor:Colors.bottomLine,borderBottomWidth:1,width:240}}>
         
         <TouchableOpacity onPress={()=>props.navigation.navigate("Support")} style={{flexDirection:'row',marginBottom:10}}>

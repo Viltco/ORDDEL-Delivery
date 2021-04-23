@@ -11,7 +11,10 @@ import {
     TextInput,
     BackHandler,
     PermissionsAndroid,
-    Linking
+    Linking,
+    Platform,
+    Modal,
+    Pressable
   } from "react-native";
   
   
@@ -60,13 +63,15 @@ function Invoice({navigation,route}) {
     const { OID,orderBoxId,image } = route.params;
     var downloadInvoice = "http://ec2-3-129-128-169.us-east-2.compute.amazonaws.com:8000/payment/generate_invoice_pdf/"+OID+"/?download=true"
     const RiderImage = useSelector((state) => state.ApiData.RiderImage);
-
+    const RiderName = useSelector((state) => state.ApiData.RiderName);
 //    const packages=Packages;
    const [invoiceData,setInvoiceData]=useState("");
    const [invoiceNo,setInvoiceNo]=useState("");
    const [orderList,setOrderList]=useState("");
    const [order,setOrder]=useState("");
    const [totalAmount,setTotalAmount]=useState("");
+   const [modalVisible, setModalVisible] = useState(false);
+   const [loading,setLoading]=useState(false);
        const toggleBottomNavigationView = () => {
       //Toggling the visibility state of the bottom sheet
       setVisible(!visible);
@@ -127,37 +132,35 @@ function Invoice({navigation,route}) {
         // Get config and fs from RNFetchBlob
         // config: To pass the downloading related options
         // fs: Directory path where we want our image to download
-        const { config, fs } = RNFetchBlob;
-        let PictureDir = fs.dirs.DownloadDir;
-        let options = {
-          fileCache: true,
-          addAndroidDownloads: {
-            // Related to the Android only
-            useDownloadManager: true,
-            notification: true,
-            path:
-              PictureDir +
-                '/pdf_' + 
-              Math.floor(date.getTime() + date.getSeconds() / 2) +
-              ext,
-            description: 'Slip',
-          },
-        };
-        config(options)
-          .fetch('GET', image_URL)
-          .then(res => {
-            // Showing alert after successful downloading
-            console.log('res -> ', JSON.stringify(res));
-            alert('Image Downloaded Successfully.');
-          });
-      };
-    
-      const getExtention = filename => {
-        // To get the file extension
-        return /[.]/.exec(filename) ?
-                 /[^.]+$/.exec(filename) : undefined;
-      };
-
+        const { config, fs } = RNFetchBlob
+      let DownloadDir = fs.dirs.DownloadDir     // this is the Downloads directory.
+      let options = {
+        fileCache: true,
+        autorename : false,
+        //  appendExt : extension, //Adds Extension only during the download, optional
+         addAndroidDownloads : {
+          useDownloadManager : true,      //uses the device's native download manager.
+          notification : true,
+          // autorename : false,
+          //  mime: 'text/plain',
+          title : "Invoice_"+invoiceData.client,    // Title of download notification.
+          path:  DownloadDir + "/me_"+ '.' + ext, // this is the path where your download file will be in
+          description : 'Downloading file.'
+        }
+      }
+      config(options)
+      .fetch('GET',"http://ec2-3-129-128-169.us-east-2.compute.amazonaws.com:8000/payment/generate_invoice_pdf/"+OID+"/?download=true")
+      .then((res) => {
+        //console.log("Success");
+        })
+      .catch((err) => {console.log('error')})    // To execute when download  cancelled and other errors
+    }
+  
+    const getExtention = filename => {
+      // To get the file extension
+      return /[.]/.exec(filename) ?
+               /[^.]+$/.exec(filename) : filename;
+    };
 
 
     const setting=()=>{
@@ -321,11 +324,11 @@ const sendInvoice=()=>{
     // console.log("Order Box Id:",boxDetail);
     return (
         
-        <View style={{flex:1}}>
+        <View style={{flex:1,width:"100%",height:"100%"}}>
             
 
             {/* <MyHeader name="INVOICE" nav={navigation}/> */}
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
          {isLoading ? (
         <Spinner color={Colors.themeColor} />
         
@@ -438,29 +441,118 @@ style={{ width:Platform.OS=='ios'? 50:50,height:Platform.OS=='ios'? 50:50,border
                 
             </Card>
             </View> */}
-
-            <View style={{elevation:0,shadowRadius:0,backgroundColor:'white'}}>
-       
-        <Text style={{alignSelf:'center',flexDirection:'row',fontSize:16,fontWeight:'bold'}}>{invoiceData.purchase_order_no}</Text>
-
+             <Modal
+        animationType="slide"
         
-        </View>
-     
-     </View>
-     
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+        //   Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView2}>
+          <View style={styles.modalView2}>
+          <View style = {{width:"95%",height:Platform.OS=="android"?"95%":"90%",backgroundColor:'white',alignSelf:"center",borderRadius:10,flexDirection:'row',
+          shadowColor: "#000",
+          shadowOffset: { width: 0, height: 2 },
+          // shadowOpacity: 0.25,
+          shadowRadius: 3.84,
+          elevation: 0,
+          }}>
+            {/* <Card style={{borderRadius:10,width:"90%",height:"90%",alignItems:'center',backgroundColor:"white"}}> */}
+              <ScrollView keyboardShouldPersistTaps="always"  showsVerticalScrollIndicator={false} style={{padding:10}}>
+            <View style={{alignSelf:"center",padding:"3%",paddingBottom:"2%",marginRight:10}}>
+              <Text style={{color:Colors.themeColor,fontSize:24,fontWeight:"bold",textAlign:"center"}}>PREVIEW</Text>
+            </View>
+            <View style={{ flexDirection: "row",padding:5,alignSelf:"center" }}>
+            <View style = {{width:"50%",backgroundColor:'#e6e6e6',alignSelf:"center",borderRadius:10,
+          shadowColor: "#000",
+          shadowOffset: { width: 0, height: 2 },
+          // shadowOpacity: 0.25,
+          shadowRadius: 3.84,
+          elevation: 0,
+          padding:10
+          }}>
+            
+            <View style={{flexDirection:'row',alignSelf:'center',alignItems:'center',justifyContent:'center',width:"100%"}}>
+
+<View style={{marginLeft:Platform.OS=="android"?0:0,width:"35%"}}>
+
+ <Image source={RiderImage==null||RiderImage==""?require('../assets/profilelogo.png'):{uri:RiderImage}} 
+ style={{ width:Platform.OS=='ios'? 50:50,height:Platform.OS=='ios'? 50:50,borderRadius:60}}  
+ />
+ 
+</View>
+
+<View style={{paddingLeft:Platform.OS=="android"?5:0,width:"65%"}}>
+
+ <Text style={{color:Colors.themeColor,fontSize:12}}>Delivery Person:</Text>
+
+ 
+ 
+ <Text style={{fontSize:14,fontWeight:'bold'}}>{invoiceData.delivery_person_name}</Text>
+ <Text style={{fontSize:12,color:'#666666'}}>{invoiceData.delivery_person_address}</Text>
 
 
-    
-    
-     <View style={{flexDirection:'row',marginTop:30,justifyContent:'space-around'}}>
-        <Text style={{color:Colors.themeColor,width:100,fontSize:17,fontWeight:'bold',textAlign:'center'}}>Product</Text>
+
+
+
+</View>
+</View>
+                
+              </View>
+              <View style = {{width:"50%",backgroundColor:'#e6e6e6',alignSelf:"center",borderRadius:10,
+          shadowColor: "#000",
+          shadowOffset: { width: 0, height: 2 },
+          // shadowOpacity: 0.25,
+          shadowRadius: 3.84,
+          elevation: 0,
+          padding:10,
+          marginLeft:5
+          }}>
+                
+                <View style={{flexDirection:'row',alignSelf:'center',alignItems:'center',justifyContent:'center',width:"100%"}}>
+
+<View style={{marginLeft:Platform.OS=="android"?0:0,width:"35%"}}>
+
+<Image source={ClientImage==null||ClientImage==""?require('../assets/profilelogo.png'):{uri:ClientImage}} 
+style={{ width:Platform.OS=='ios'? 50:50,height:Platform.OS=='ios'? 50:50,borderRadius:60}}  
+/>
+
+</View>
+
+<View style={{paddingLeft:Platform.OS=="android"?5:0,width:"65%"}}>
+
+<Text style={{color:Colors.themeColor,fontSize:12}}>Client:</Text>
+
+
+
+<Text style={{fontSize:14,fontWeight:'bold'}}>{invoiceData.client}</Text>
+<Text style={{fontSize:12,color:'#666666'}}>{invoiceData.business_address}</Text>
+
+
+
+
+
+</View>
+</View>
+                
+              </View>
+              </View>
+
+              
+
+              
+              <View style={{flexDirection:'row',marginTop:30,}}>
+        <Text style={{color:Colors.themeColor,width:"20%",fontSize:17,fontWeight:'bold',textAlign:"left"}}>Product</Text>
         {/* <Text style={{color:Colors.themeColor,width:35,fontSize:17,fontWeight:'bold',textAlign:'center'}}>Unit</Text> */}
-        <Text style={{color:Colors.themeColor,width:72,fontSize:17,fontWeight:'bold',textAlign:'center',marginRight:10}}>Quantity</Text>
-        <Text style={{color:Colors.themeColor,width:50,fontSize:17,fontWeight:'bold',textAlign:'center'}}>Unit Price</Text>
+        <Text style={{color:Colors.themeColor,width:"23%",fontSize:17,fontWeight:'bold',textAlign:'center'}}>Quantity</Text>
+        <Text style={{color:Colors.themeColor,width:"20%",fontSize:17,fontWeight:'bold',textAlign:'center'}}>Unit Price</Text>
 
-        <Text style={{color:Colors.themeColor,width:70,fontSize:17,fontWeight:'bold',textAlign:'center'}}>VAT</Text>
+        <Text style={{color:Colors.themeColor,width:"16%",fontSize:17,fontWeight:'bold',textAlign:'center'}}>VAT</Text>
 
-        <Text style={{color:Colors.themeColor,fontSize:17,fontWeight:'bold',marginRight:20}}>Amount</Text>
+        <Text style={{color:Colors.themeColor,fontSize:17,fontWeight:'bold',width:"20%",textAlign:"right"}}>Amount</Text>
     </View>
     
     <View style={{marginBottom:10}}>
@@ -481,15 +573,105 @@ style={{ width:Platform.OS=='ios'? 50:50,height:Platform.OS=='ios'? 50:50,border
             />
             )}
         />
-        <View style={{flexDirection:'row',width:"100%",borderBottomWidth:0.5,borderBottomColor:'grey',marginTop:10,}}>
+       <View style={{flexDirection:'row',borderBottomWidth:0.5,borderBottomColor:'grey',marginTop:10}}>
 
-            <Text style={{color:Colors.themeColor,width:"12%",textAlign:'center',marginLeft:'5%',fontWeight:'bold'}}>Total</Text>
-            <Text style={{color:Colors.themeColor,width:"23%",textAlign:'center',paddingLeft:"11%",fontWeight:'bold'}}>{invoiceData.total_qty}</Text>
-            <Text style={{color:Colors.themeColor,width:"37%",textAlign:'center',paddingLeft:"25%",fontWeight:'bold'}}>£ {invoiceData.total_vat}</Text>
+<Text style={{color:Colors.themeColor,width:"22%",textAlign:'left',fontWeight:'bold',}}>Total</Text>
+<Text style={{color:Colors.themeColor,width:Platform.OS=="android"?"20%":"20%",fontWeight:'bold',fontSize:14,textAlign:"center"}}>{invoiceData.total_qty}</Text>
+{invoiceData.total_vat==0?<Text style={{color:Colors.themeColor,width:"33%",fontWeight:'bold',textAlign:"right",fontSize:14,}}>£ {invoiceData.total_vat}</Text>:<Text style={{color:Colors.themeColor,width:"33%",fontWeight:'bold',textAlign:"right",fontSize:14,}}>£ {parseFloat(invoiceData.total_vat).toFixed(2)}</Text>}
 
-            <Text style={{color:Colors.themeColor,width:"26%",textAlign:'center',paddingRight:'5%',fontWeight:'bold'}}>£ {invoiceData.total_amount}</Text>
+<Text style={{color:Colors.themeColor,width:"24%",fontWeight:'bold',textAlign:"right",fontSize:14}}>£ {parseFloat(invoiceData.total_amount).toFixed(2)}</Text>
 
+</View>
         </View>
+
+
+                  {invoiceData.delivery_note==""?null:
+                <View style={{alignSelf:"center",paddingTop:"20%"}}>
+                  <Text>Note: {invoiceData.delivery_note}</Text>
+                </View>}
+
+
+          <View style={{marginTop:"10%",alignSelf:"center"}}>
+            <Pressable
+               style={styles.signupButton1}
+               activeOpacity={0.7}
+              onPress={()=>setModalVisible(!modalVisible)}
+            >
+              {loading ? (
+                <Spinner color={"white"} size={20} />
+              ) : (
+              <Text style={styles.signupButtonText1}>CONFIRM</Text>)}
+            </Pressable>
+            <Pressable
+               style={{...styles.bu_signupButton1,borderWidth:1,marginBottom:"10%"}}
+               activeOpacity={0.7}
+              onPress={()=>
+                setModalVisible(!modalVisible)
+                }
+            >
+              <Text style={styles.bu_signupButtonText1}>CANCEL</Text>
+            </Pressable>
+            </View>
+            </ScrollView>
+           </View>
+        
+ 
+            
+          </View>
+        </View>
+      </Modal>
+
+            <View style={{elevation:0,shadowRadius:0,backgroundColor:'white'}}>
+       
+        <Text style={{alignSelf:'center',flexDirection:'row',fontSize:16,fontWeight:'bold'}}>{invoiceData.purchase_order_no}</Text>
+
+        
+        </View>
+     
+     </View>
+     
+
+
+    
+    
+     <View style={{flexDirection:'row',marginTop:30,}}>
+        <Text style={{color:Colors.themeColor,width:"20%",fontSize:17,fontWeight:'bold',textAlign:"left"}}>Product</Text>
+        {/* <Text style={{color:Colors.themeColor,width:35,fontSize:17,fontWeight:'bold',textAlign:'center'}}>Unit</Text> */}
+        <Text style={{color:Colors.themeColor,width:"23%",fontSize:17,fontWeight:'bold',textAlign:'center'}}>Quantity</Text>
+        <Text style={{color:Colors.themeColor,width:"20%",fontSize:17,fontWeight:'bold',textAlign:'center'}}>Unit Price</Text>
+
+        <Text style={{color:Colors.themeColor,width:"16%",fontSize:17,fontWeight:'bold',textAlign:'center'}}>VAT</Text>
+
+        <Text style={{color:Colors.themeColor,fontSize:17,fontWeight:'bold',width:"20%",textAlign:"right"}}>Amount</Text>
+    </View>
+    
+    <View style={{marginBottom:10}}>
+        <FlatList
+            data={orderList}
+            keyExtractor={item => item.product_id}
+            renderItem={itemData => (
+            <InvoiceItem
+            
+                id={itemData.item.product_id}
+                quantity={itemData.item.purchased_qty}
+                total_amount={itemData.item.total_amount}
+                name={itemData.item.product_name}
+                unit={itemData.item.product_unit}
+                price={itemData.item.unit_sales_price}
+                vat={itemData.item.vat_amount}
+                amount={itemData.item.amount}
+            />
+            )}
+        />
+       <View style={{flexDirection:'row',borderBottomWidth:0.5,borderBottomColor:'grey',marginTop:10}}>
+
+<Text style={{color:Colors.themeColor,width:"22%",textAlign:'left',fontWeight:'bold',}}>Total</Text>
+<Text style={{color:Colors.themeColor,width:Platform.OS=="android"?"20%":"20%",fontWeight:'bold',fontSize:14,textAlign:"center"}}>{invoiceData.total_qty}</Text>
+{invoiceData.total_vat==0?<Text style={{color:Colors.themeColor,width:"33%",fontWeight:'bold',textAlign:"right",fontSize:14,}}>£ {invoiceData.total_vat}</Text>:<Text style={{color:Colors.themeColor,width:"33%",fontWeight:'bold',textAlign:"right",fontSize:14,}}>£ {parseFloat(invoiceData.total_vat).toFixed(2)}</Text>}
+
+<Text style={{color:Colors.themeColor,width:"24%",fontWeight:'bold',textAlign:"right",fontSize:14}}>£ {parseFloat(invoiceData.total_amount).toFixed(2)}</Text>
+
+</View>
         </View>
         
         <View style={{padding:10}}>
@@ -503,7 +685,7 @@ style={{ width:Platform.OS=='ios'? 50:50,height:Platform.OS=='ios'? 50:50,border
 </View>}
         <View style={{flexDirection:'row',width:'100%',alignSelf:'center',padding:10,paddingBottom:0,justifyContent:'center'}}>
 
-<View style={{height: 80,width: 80,borderRadius: 100,borderColor:Colors.textGreyColor,borderWidth:5,marginTop:'3%'}}>
+<View style={{height:80,width:80,borderRadius:100,borderColor:Colors.textGreyColor,borderWidth:5,marginTop:'3%'}}>
     <Text style={{textAlign:'center',color:Colors.themeColor,marginTop:"35%",fontWeight:'bold',fontSize:12}}>{invoiceData.order_delivery_datetime}</Text>
 </View>
 <View style={{alignSelf:'center',marginLeft:"5%"}}>
@@ -517,9 +699,13 @@ style={{ width:Platform.OS=='ios'? 50:50,height:Platform.OS=='ios'? 50:50,border
 
 
         <View style={{alignSelf:'center'}}>
-            <TouchableOpacity onPress={sendInvoice} style={styles.button}>
-            <Text style={styles.buttonText}>DOWNLOAD INVOICE</Text>
+        <TouchableOpacity onPress={()=>setModalVisible(!modalVisible)} style={styles.button}>
+            <Text style={styles.buttonText}>PREVIEW</Text>
             </TouchableOpacity>
+            <TouchableOpacity onPress={sendInvoice} style={styles.button}>
+            <Text style={styles.buttonText}>PRINT INVOICE</Text>
+            </TouchableOpacity>
+           
         </View> 
         
         </Content>
@@ -633,7 +819,7 @@ const styles = StyleSheet.create({
     backgroundColor:Colors.themeColor,
     justifyContent:"center",
     borderRadius: 25,
-    marginVertical: 20,
+    marginVertical: 5,
     },
     s_button: {
         height: 40,
@@ -657,6 +843,67 @@ const styles = StyleSheet.create({
        // justifyContent: 'center',
         //alignItems: 'center',
       },
+      centeredView2: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        // marginTop: 60,
+        
+    
+      },
+      modalView2: {
+        margin: 20,
+        // height:"100%",
+        height:'100%',
+        width:"100%",
+        backgroundColor: 'rgba(0,0,0,0.3)',
+       // borderRadius: 20,
+        // padding: 35,
+        alignItems: "center",
+        justifyContent:'center',
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+      },
+      signupButtonText1:{
+        fontSize: 20,
+      color: "white",
+      fontWeight: '700',
+      textAlign: 'center',
+      },
+      bu_signupButtonText1:{
+          fontSize: 20,
+        color: Colors.themeColor,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        },
+        signupButton1: {
+          marginTop:5,
+        height: 30,
+      width: 150,
+    backgroundColor: Colors.themeColor,
+    justifyContent:"center",
+    alignSelf:'center',
+    borderRadius: 25,
+    // marginVertical: 20,
+      },
+      bu_signupButton1: {
+        marginTop:10,
+      height: 30,
+    width: 150,
+    backgroundColor: 'white',
+    borderColor:Colors.themeColor,
+    borderWidth:2,
+    justifyContent:"center",
+    alignSelf:'center',
+    borderRadius: 25,
+    // marginVertical: 20,
+    },
     });
     
 export default Invoice;

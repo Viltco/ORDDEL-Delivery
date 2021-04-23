@@ -64,7 +64,7 @@ function PurchasedOrderStatus({navigation,route}) {
    const [clientId,setClientId]=useState("");
    const [clientImage,setClientImage]=useState("");
 //    const [note,setNote]=useState("")
-
+const RiderId = useSelector((state) => state.ApiData.RiderId);
 
 
 
@@ -84,6 +84,37 @@ function PurchasedOrderStatus({navigation,route}) {
 
         // }
     }
+
+    const checkBankDetail=()=>{
+      if(RiderId!=""){
+        fetch(URL+'/delivery_person/list_bank_details/delivery_person/'+RiderId+'/')
+        // fetch(URL+'/client_app/clients_list/33/')
+        .then((response) => response.json())
+        .then((responseJson) => {
+            
+              console.log("Show Invoic",responseJson);
+        //       setInvoiceNo(responseJson.order.inv_number);
+        //   setOrderList(responseJson.order.order_products);
+        //   setInvoiceData(responseJson.order);
+        //   setTotalAmount(responseJson.order.total_amount)
+        // getClientImage(responseJson.order.client_id);
+          if(responseJson.bank_details==""){
+            alert("Please Add Bank Details.")
+            navigation.navigate("BankDetails");
+            
+          }
+          else {
+            purchase();
+          }
+
+    // setIsLoading(false);
+
+            })
+            .catch((error) => console.error(error))
+     
+    }
+    }
+
 
     
     const purchase=()=>{
@@ -204,7 +235,7 @@ function PurchasedOrderStatus({navigation,route}) {
     </View>
 
     <View style={{flexDirection:'row',marginTop:30,justifyContent:'space-around'}}>
-        <Text style={{color:Colors.themeColor,width:100,fontSize:17,fontWeight:'bold',textAlign:'center'}}>Product</Text>
+        <Text style={{color:Colors.themeColor,width:103,fontSize:17,fontWeight:'bold',textAlign:'left'}}>Product</Text>
         <Text style={{color:Colors.themeColor,width:35,fontSize:17,fontWeight:'bold',textAlign:'center'}}>Unit</Text>
         <Text style={{color:Colors.themeColor,width:72,fontSize:17,fontWeight:'bold',textAlign:'center'}}>Quantity</Text>
         <Text style={{color:Colors.themeColor,fontSize:17,fontWeight:'bold',marginRight:10,width:70,textAlign:'center'}}>Price Per Unit</Text>
@@ -238,9 +269,9 @@ function PurchasedOrderStatus({navigation,route}) {
                 <Text
                   style={{
                     color: Colors.themeColor,
-                    width: "40%",
-                    textAlign: "center",
-                    marginLeft: "0%",
+                    width: "37%",
+                    textAlign: 'left',
+                    marginLeft: 2,
                     fontWeight:'bold'
                   }}
                 >
@@ -268,7 +299,7 @@ function PurchasedOrderStatus({navigation,route}) {
         <View style={{alignSelf:'center',padding:20}}>
               
             
-            <TouchableOpacity onPress={purchase} style={styles.button}>
+            <TouchableOpacity onPress={checkBankDetail} style={styles.button}>
                 <Text style={styles.buttonText}>CREATE DELIVERY NOTE</Text>
             </TouchableOpacity>
               </View>

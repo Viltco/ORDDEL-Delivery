@@ -136,8 +136,8 @@ if(qtty!=""){
 
     <View style={{flexDirection:'row',borderBottomWidth:0.5,borderBottomColor:'grey',alignItems:'space-around',width:'100%',paddingRight:10}}>
 
-        <View style = {{width:'40%',alignItems:'center'}}>
-            <Text style={{marginLeft:5,color:Colors.productGrey,fontWeight:'bold',textAlign:'center'}}>{props.name}</Text>
+        <View style = {{width:'40%'}}>
+            <Text style={{marginLeft:2,color:Colors.productGrey,fontWeight:'bold',textAlign:'left'}}>{props.name}</Text>
         </View>
         <View style = {{width:'30%',alignItems:'center'}}>
         

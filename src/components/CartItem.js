@@ -19,6 +19,7 @@ const CartItem = props => {
         // dispatch(DeliveryNoteAction.add(props.id,props.quantity));
 
 
+
   const MyIcon1 = <FontAwesome name="minus" size={15} color="#EE0202" solid />;
   const MyIcon2 = <FontAwesome name="plus" size={15} color="#EE0202" solid />;
 
@@ -37,25 +38,24 @@ const CartItem = props => {
 
     <View style={{flexDirection:'row',borderBottomWidth:0.5,borderBottomColor:'grey',marginTop:10,alignItems:'space-around',width:'100%',marginTop:5,marginBottom:1,paddingRight:10}}>
 
-        <View style = {{width:'33%',alignItems:'center'}}>
-            <Text style={{marginLeft:5,color:Colors.productGrey,fontWeight:'bold',textAlign:'center'}}>{props.name}</Text>
+        <View style = {{width:'33%'}}>
+            <Text style={{marginLeft:5,color:Colors.productGrey,fontWeight:'bold'}}>{props.name}</Text>
         </View>
         <View style = {{width:'18%',alignItems:'center'}}>
         
         <Text style={{color:Colors.productGrey,textAlign:'center'}}>{props.unit}</Text>
         </View>
-        <View style = {{width:'15%',alignItems:'center'}}>
+        <View style = {{width:'15%',}}>
         
-            <Text style={{color:Colors.productGrey,textAlign:'center'}}>{props.quantity}</Text>
+            <Text style={{color:Colors.productGrey,textAlign:'right',marginRight:"20%"}}>{props.quantity}</Text>
         </View>
         
-        <View style = {{width:'27%',alignItems:'center',marginLeft:"3%"}}>
+        <View style = {{width:'27%',marginLeft:"3%"}}>
         
-            <Text style={{color:Colors.productGrey,textAlign:'center'}}>£ {props.price}</Text>
+            <Text style={{color:Colors.productGrey,textAlign:"right"}}>£ {parseFloat(props.price).toFixed(2)}</Text>
         </View>
         
     </View>
-
 
 
 

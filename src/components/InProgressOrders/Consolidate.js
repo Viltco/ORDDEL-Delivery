@@ -190,8 +190,11 @@ const Consolidate = ({ navigation, route }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedProductName,setSelectedProductName]=useState("");
   const [selectedQty,setSelectedQty]=useState("");
+  const [selectedUnit,setSelectedUnit]=useState("");
   const [selectedProductId,setSelectedProductId]=useState("");
   const [checked, setChecked] = useState('percentage');
+  var reg = /^\d+(\.\d{1,2})?$/;
+  var reg1 = /^\d+$/;
   const bgColor=[
     '#E21B1B',
     '#F7931E',
@@ -202,6 +205,44 @@ const Consolidate = ({ navigation, route }) => {
   ];
   const [checkColor,setCheckColor]=useState(true);
   
+
+  const checkPurchasedPrice=()=>{
+    if(unitPurchasedPrice!=""){
+      if(reg.test(unitPurchasedPrice) === false) {
+
+        alert("Invalid Unit Purchased Price");
+        setUnitPurchasedPrice("");
+          return false;
+      }
+    }
+    
+  }
+  const checkProfitMargin=()=>{
+    if(profitMargin!=""){
+      if(reg.test(profitMargin) === false) {
+
+        alert("Invalid Profit Margin");
+        setProfitMargin("");
+          return false;
+      }
+    }
+    
+  }
+  const checkPorteragePrice=()=>{
+    if(portagePrice!=""){
+      if(reg.test(portagePrice) === false) {
+
+        alert("Invalid Porterage Price");
+        setPortagePrice("");
+          return false;
+      }
+    }
+    
+  }
+
+
+
+
   useEffect(() => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 }, [])
@@ -418,7 +459,8 @@ onChange={onChange}
                 else{
                     setSelectedProductId(item.product_id),
                 setSelectedProductName(item.product_name),
-                setSelectedQty(item.qty),setModalVisible(!modalVisible)}}
+                setSelectedQty(item.qty),setSelectedUnit(item.unit),setModalVisible(!modalVisible)}}
+                
                 }
                 
             >
@@ -551,7 +593,7 @@ onChange={onChange}
              
              <View style={{flexDirection:'row',paddingTop:25,paddingBottom:5,justifyContent:'center',width:220,}}>
              <Text style={{fontSize:17,fontWeight:'bold',color:Colors.themeColor,textAlign:'center',width:"100%"}}>{selectedProductName.toUpperCase()}</Text>
-            <Text style={{fontSize:20,fontWeight:'bold',color:Colors.themeColor,width:"40%"}}> # {selectedQty}</Text>
+            <Text style={{fontSize:17,fontWeight:'bold',color:Colors.themeColor,width:"40%"}}>{selectedQty} {selectedUnit.toUpperCase()}</Text>
             </View>
             
              {/* </View> */}
@@ -585,6 +627,7 @@ onChange={onChange}
             value={unitPurchasedPrice}
             required={true}
             onChangeText={(value) => setUnitPurchasedPrice(value)}
+            onEndEditing={checkPurchasedPrice}
             initialValue=""
           />
           
@@ -604,6 +647,7 @@ onChange={onChange}
                 // console.log(unitPurchasedPrice*item.qty+unitPurchasedPrice*item.qty/100*profitMargin,"======");
                 
             }}
+            onEndEditing={checkProfitMargin}
             initialValue=""
           />
 
@@ -622,6 +666,7 @@ onChange={onChange}
                 // console.log(unitPurchasedPrice*item.qty+unitPurchasedPrice*item.qty/100*profitMargin,"======");
                 
             }}
+            onEndEditing={checkPorteragePrice}
             initialValue=""
           />
           <View style={{flexDirection:'row',justifyContent:'center'}}>
@@ -670,7 +715,40 @@ onChange={onChange}
                     alert("Please Fill All Fields.");
 
                       // alert("Please fill all fields")
-                  }else{
+                  }
+                  else if(reg.test(unitPurchasedPrice) === false) {
+
+                    alert("Invalid Unit Purchased Price");
+                    setUnitPurchasedPrice("");
+                      return false;
+                  }
+                  else if(reg.test(profitMargin) === false) {
+
+                    alert("Invalid Profit Margin");
+                    setProfitMargin("");
+                      return false;
+                  }
+                  else  if(reg.test(portagePrice) === false) {
+
+                    alert("Invalid Porterage Price");
+                    setPortagePrice("");
+                      return false;
+                  }
+                  // else if(reg.test(unitPurchasedPrice) === false) {
+
+                  //   alert("Invalid Unit Purchased Price");
+                  //   setUnitPurchasedPrice("");
+                  //     return false;
+                  // }
+                  // else if(reg.test() === false) {
+
+                  //   alert("Invalid Unit Purchased Price");
+                  //   setUnitPurchasedPrice("");
+                  //     return false;
+                  // }
+                  
+                  
+                  else{
                     setModalVisible(!modalVisible)
                     //setUnitSalePrice(((unitPurchasedPrice*item.qty)+(unitPurchasedPrice*item.qty/100*profitMargin))),
                     dispatch(ConsolidateAction.AddConsolidateData(RiderId,selectedProductId,supplier,unitPurchasedPrice,profitMargin,selectedQty,unitPurchasedPrice*selectedQty,checked,portagePrice)),
@@ -727,7 +805,7 @@ onChange={onChange}
                 <Text
                   style={{
                     color:Colors.productGrey,
-                    width: "55%",
+                    width: "53%",
                     textAlign: "center",
                     // marginLeft: "10%",
                     fontWeight:'bold'
