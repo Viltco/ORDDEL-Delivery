@@ -99,7 +99,7 @@ useEffect(() => {
               setLast4(data.card.last4);
               setDisable(false);
               setCheck(true);
-              setCardNumber("************"+data.card.last4);
+              setCardNumber("********"+data.card.last4);
               setCvc("***");
               setMonth("**");
               setYear("**");
@@ -222,7 +222,74 @@ useEffect(() => {
     //     }
     // }
 
+const checkCardNumber=()=>{
+    if(cardNumber!=""){
+        if (reg.test(cardNumber) === false) {
+          // setToastMessage("Email is Not Correct");
+          alert("Invalid Card Number");
+          setCardNumber("");
+          // setButtonCheck(false);
+          // setAccountNumberMsg1(true);
+          // setLoading(false);
+          return false;
+        }
+        if(cardNumber.length < 16) {
+          
+          alert("Invalid Card Number");
+          setCardNumber("");
+          // setToastMessage("Password limit should be Greater than 8 Digits");
+    
+        }
+      }
+}
 
+const checkCvc=()=>{
+    if(cvc!=""){
+        if (reg.test(cvc) === false) {
+          // setToastMessage("Email is Not Correct");
+          alert("Invalid Cvc Number");
+          setCvc("");
+          // setButtonCheck(false);
+          // setAccountNumberMsg1(true);
+          // setLoading(false);
+          return false;
+        }
+        if(cvc.length < 3) {
+          // setButtonCheck(false);
+          // setAccountNumberMsg2(true);
+          // setLoading(false);
+          alert("Invalid Cvc Number");
+          setCvc("");
+          // setToastMessage("Password limit should be Greater than 8 Digits");
+    
+        }
+      }
+}
+
+
+const checkMonth=()=>{
+    if(month!=""){
+        if (reg.test(month) === false) {
+          // setToastMessage("Email is Not Correct");
+          alert("Invalid Month");
+          setMonth("");
+          return false;
+        }
+        
+      }
+}
+
+const checkYear=()=>{
+    if(year!=""){
+        if (reg.test(year) === false) {
+          // setToastMessage("Email is Not Correct");
+          alert("Invalid year");
+          setYear("");
+          return false;
+        }
+        
+      }
+}
 
 
     const onSubmit=()=>{
@@ -259,6 +326,36 @@ useEffect(() => {
                 setIsLoading(false);
                 alert("Invalid CVC Number");
             }
+            else  if (reg.test(year) === false) {
+                // setToastMessage("Email is Not Correct");
+                alert("Invalid year");
+                setYear("");
+                return false;
+              }
+            else  if (reg.test(month) === false) {
+                // setToastMessage("Email is Not Correct");
+                alert("Invalid Month");
+                setMonth("");
+                return false;
+              }
+              else if (reg.test(cvc) === false) {
+                // setToastMessage("Email is Not Correct");
+                alert("Invalid Cvc Number");
+                setCvc("");
+                // setButtonCheck(false);
+                // setAccountNumberMsg1(true);
+                // setLoading(false);
+                return false;
+              }
+              else if (reg.test(cardNumber) === false) {
+                // setToastMessage("Email is Not Correct");
+                alert("Invalid Card Number");
+                setCardNumber("");
+                // setButtonCheck(false);
+                // setAccountNumberMsg1(true);
+                // setLoading(false);
+                return false;
+              }
             else{
                 if(cardNumber!=""&&cvc!=""&&month!=""&&year!=""){
                     fetch(URL+'/payment/save_stripe_info/', {
@@ -322,7 +419,7 @@ useEffect(() => {
     }
 
 
-
+    var reg = /^\d+$/;
 
 return (
 <View style={{ flex: 1, height: "100%" }}>
@@ -422,30 +519,7 @@ Enter Your Bank Card Details
 {/* <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={50}> */}
 <ScrollView style={{marginTop:'10%'}}>
 
-{/* <View style={styles.inputArea}>
-<TextInput
-style={{ width: 250 }}
-placeholder="Bank Name"
-autoCapitalize="none"
-required={true}
-placeholderTextColor={Colors.productGrey}
-minLength={6}
-errorMessage="Please enter Minimum 6 characters password"
-initialValue=""
-/>
-</View>
-<View style={styles.inputArea}>
-<TextInput
-style={{ width: 250 }}
-placeholder="Branch Code"
-autoCapitalize="none"
-required={true}
-placeholderTextColor={Colors.productGrey}
-minLength={6}
-errorMessage="Please enter Minimum 6 characters password"
-initialValue=""
-/>
-</View> */}
+
     <View style={styles.inputArea}>
         <TextInput
         editable={disable}
@@ -461,6 +535,7 @@ initialValue=""
             errorMessage="Please enter Minimum 6 characters password"
             value={cardNumber}
             onChangeText={(value) => setCardNumber(value)}
+            onEndEditing={checkCardNumber}
             initialValue=""
           />
     </View>
@@ -483,6 +558,7 @@ initialValue=""
                 setCvc(value)
                 
             }}
+            onEndEditing={checkCvc}
             initialValue=""
           />
     </View>
@@ -503,6 +579,7 @@ initialValue=""
             errorMessage="Please enter Minimum 6 characters password"
             value={month}
             onChangeText={(value) => setMonth(value)}
+            onEndEditing={checkMonth}
             initialValue=""
           />
     </View>
@@ -522,6 +599,7 @@ initialValue=""
             errorMessage="Please enter Minimum 6 characters password"
             value={year}
             onChangeText={(value) => setYear(value)}
+            onEndEditing={checkYear}
             initialValue=""
           />
     </View>

@@ -33,7 +33,7 @@ function BankDetails({navigation}) {
     const [accountTitleCheck,setAccountTitleCheck]=useState(false);
     const [bankDetail,setBankDetail]=useState("");
     var reg = /^\d+$/;
-    var reg1=/^[A-Za-z]+$/;
+    var reg1=/^[a-zA-Z ]*$/;
     useEffect(() => {
       
       setIsLoading(true)
@@ -87,7 +87,7 @@ function BankDetails({navigation}) {
           // setLoading(false);
           return false;
         }
-        if(accountNumber.length < 16) {
+        if(accountNumber.length < 8) {
           // setButtonCheck(false);
           // setAccountNumberMsg2(true);
           // setLoading(false);
@@ -124,7 +124,7 @@ function BankDetails({navigation}) {
           // setLoading(false);
           return false;
         }
-        if(sortCode.length < 3) {
+        if(sortCode.length < 6) {
           // setButtonCheck(false);
           // setSortCodeMsg2(true);
           alert("Invalid Sort Code");
@@ -142,52 +142,6 @@ function BankDetails({navigation}) {
 
 const update=()=>{
 
-// if(bankName==""){
-//   setBankName(bankDetail[0]["bank_name"]);
-// }else if(accountTitle==""){
-//   setAccountTitle(bankDetail[0]["account_title"]);
-// }
-// else if(accountNumber==""){
-//   setAccountNumber(bankDetail[0]["credit_card_no"]);
-// }
-// else if(sortCode==""){
-//   setSortCode(bankDetail[0]["sort_code"]);
-// }
-
-
-  // if (bankName == ""||bankName==" ") {
-  //   setBankNameMsg(true);
-  //   setLoading(false);
-  //   setButtonCheck(false);
-  // } else {
-  //   setBankNameMsg(false);
-  //   setLoading(false);
-  // }
-  // if (accountTitle == ""||accountTitle==" ") {
-  //   setAccountTitleMsg(true);
-  //   setLoading(false);
-  //   setButtonCheck(false);
-  // } else {
-  //   setAccountTitleMsg(false);
-  //   setLoading(false);
-  // }
-  // if (accountNumber == ""||accountNumber==" ") {
-  //   setButtonCheck(false);
-  //   setAccountNumberMsg(true);
-  //   setLoading(false);
-  // } else {
-  //   setAccountNumberMsg(false);
-  //   setLoading(false);
-  // }
-  // if (sortCode == ""||sortCode==" ") {
-  //   setButtonCheck(false);
-  //   setSortCodeMsg(true);
-  //   setLoading(false);
-  // } else {
-  //   setSortCodeMsg(false);
-  //   setLoading(false);
-  
-  // }
 
 if(bankName!=""){
   if (reg1.test(bankName) === false) {
@@ -214,56 +168,65 @@ if(accountTitle!=""){
   
 
 
-  if(accountNumber!=""){
-    if (reg.test(accountNumber) === false) {
-      // setToastMessage("Email is Not Correct");
-      alert("Invalid Account Number");
-      setAccountNumber("");
-      // setButtonCheck(false);
-      // setAccountNumberMsg1(true);
-      // setLoading(false);
-      return false;
-    }
-    if(accountNumber.length < 16) {
-      // setButtonCheck(false);
-      // setAccountNumberMsg2(true);
-      // setLoading(false);
-      alert("Invalid Account Number");
-      setAccountNumber("");
-      // setToastMessage("Password limit should be Greater than 8 Digits");
-
-    }
+if(accountNumber!=""){
+  if (reg.test(accountNumber) === false) {
+    // setToastMessage("Email is Not Correct");
+    setButtonCheck(false);
+    setAccountNumberMsg1(true);
+    setLoading(false);
+    return false;
   }
+  else{
+    setAccountNumberMsg1(false);
+    setLoading(false);
+  }
+
+  if(accountNumber.length < 8) {
+    setButtonCheck(false);
+    setAccountNumberMsg2(true);
+    setLoading(false);
+    // setToastMessage("Password limit should be Greater than 8 Digits");
+
+  }
+  else{
+    setAccountNumberMsg2(false);
+    setLoading(false);
+  }
+}
   
   if(sortCode!=""){
     if (reg.test(sortCode) === false) {
       // setToastMessage("Email is Not Correct");
-      alert("Invalid Sort Code");
-      setSortCode("");
-      // setButtonCheck(false);
-      // setAccountNumberMsg1(true);
-      // setLoading(false);
+      setButtonCheck(false);
+      setSortCodeMsg1(true);
+      setLoading(false);
       return false;
     }
-    if(sortCode.length < 3) {
-      // setButtonCheck(false);
-      // setSortCodeMsg2(true);
-      alert("Invalid Sort Code");
-      setSortCode("");
-      // setLoading(false);
+    else{
+      setSortCodeMsg1(false);
+      setLoading(false);
+    }
+    if(sortCode.length < 6) {
+      setButtonCheck(false);
+      setSortCodeMsg2(true);
+      setLoading(false);
       // setToastMessage("Password limit should be Greater than 8 Digits");
 
+    }
+    else{
+      setSortCodeMsg2(false);
+      setLoading(false);
     }
   }
   
 
   
-   
+  console.log("From If update")
 
-  if(bankName!=""&&accountNumber!=""&&accountTitle!=""&&sortCode!=""&&bankNameMsg==false&&accountTitleMsg==false&&accountNumberMsg==false&&accountNumberMsg1==false&&accountNumberMsg2==false&&sortCodeMsg==false&&sortCodeMsg1==false&&sortCodeMsg2==false){
+  if((bankName!=""||accountNumber!=""||accountTitle!=""||sortCode!="")&&(bankNameMsg==false&&accountTitleMsg==false&&accountNumberMsg==false&&accountNumberMsg1==false&&accountNumberMsg2==false&&sortCodeMsg==false&&sortCodeMsg1==false&&sortCodeMsg2==false)){
 
  
-  
+    console.log("From If update")
     // console.log("Bank Idddddd: ",bankDetail[0]["id"])
     const res = fetch(URL + "/delivery_person/update_bank_details/"+bankDetail[0]["id"], {
       method: "PUT",
@@ -312,9 +275,9 @@ if(accountTitle!=""){
       })
       .catch((error) => console.log("Something went wrong", error));
   }
-  // else{
-  //   alert("Nothing to Change")
-  // }
+  else{
+    alert("Nothing to Change")
+  }
   
 }
 
@@ -370,7 +333,7 @@ if(accountTitle!=""){
         setLoading(false);
       }
 
-      if(accountNumber.length < 16) {
+      if(accountNumber.length < 8) {
         setButtonCheck(false);
         setAccountNumberMsg2(true);
         setLoading(false);
@@ -395,7 +358,7 @@ if(accountTitle!=""){
         setSortCodeMsg1(false);
         setLoading(false);
       }
-      if(sortCode.length < 3) {
+      if(sortCode.length < 6) {
         setButtonCheck(false);
         setSortCodeMsg2(true);
         setLoading(false);
@@ -539,7 +502,7 @@ if(accountTitle!=""){
                 // autoCapitalize="words"
                 placeholderTextColor={Colors.productGrey}
                 keyboardType="numeric"
-                maxLength={16}
+                maxLength={8}
                 value={accountNumber}
                 onChangeText={(value) => {
                 //   setEmailMsg(false);
@@ -583,7 +546,7 @@ if(accountTitle!=""){
                 placeholderTextColor={Colors.productGrey}
                 // keyboardType="email-address"
                 keyboardType="numeric"
-                maxLength={3}
+                maxLength={6}
                 value={sortCode}
                 onChangeText={(value) => {
                 //   setEmailMsg(false);

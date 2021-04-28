@@ -392,7 +392,7 @@ const Signup = ({navigation}) => {
 
         }
         else if(password.length < 8) {
-          setToastMessage("Password limit should be Greater than 8 Digits");
+          setToastMessage("Password limit should be Greater than 7 Digits");
 
         }
         else{

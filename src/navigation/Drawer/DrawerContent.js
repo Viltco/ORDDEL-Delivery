@@ -33,6 +33,47 @@ const DrawerContent = (props) => {
 
     const RiderName=useSelector(state=>state.ApiData.RiderName);
     const [changeColor,setChangeColor]=useState(Colors.textBlack);
+
+
+    var getToken = async () => {
+      console.log("Hi Shaheer Welcome to Hell");
+  
+      try {
+        let check = await AsyncStorage.getItem("remember");
+        let datal = JSON.parse(check);
+        console.log("remember11111:",datal)
+  //               if(checkRemember){
+  //                 AsyncStorage.removeItem("loginCheck");
+  //               }
+  //               else{
+  //                 AsyncStorage.clear();
+  // //  AsyncStorage.removeItem("userData");
+  // //               AsyncStorage.removeItem("passData");
+  // //               AsyncStorage.removeItem("loginCheck");
+  //               }
+       
+        if(datal){
+        // setLoading(true)
+        AsyncStorage.removeItem("loginCheck");
+        }
+        else{
+          console.log("from Else jajajajaj")
+  //  AsyncStorage.removeItem("userData");
+  //               AsyncStorage.removeItem("passData");
+  //               AsyncStorage.removeItem("loginCheck");
+  let userEmail = await AsyncStorage.getItem("userData");
+  console.log("email From logout",userEmail)
+                AsyncStorage.clear();
+                let userEmail1 = await AsyncStorage.getItem("userData");
+                console.log("email From logout",userEmail1)
+        }
+        
+        
+       
+      } catch (error) {
+        console.log("Something went wrong", error);
+      }
+    };
      // const route = props
     //   const [companyInfo,     setCompanyInfo] = useState([route.initialParams['params']['Company_Data'][0][0]])
     //   const [personInfo,       setPersonInfo] = useState([route.initialParams['params']['Company_Data'][1]]);
@@ -152,8 +193,8 @@ const DrawerContent = (props) => {
         
         <TouchableOpacity 
         onPress={()=>{
-            AsyncStorage.clear();
-            dispatch(ApiDataAction.Clear(1)),
+            dispatch(ApiDataAction.Clear(1));
+            getToken();
             props.navigation.navigate("Login");
         }} 
         style={{flexDirection:'row',marginBottom:10}}

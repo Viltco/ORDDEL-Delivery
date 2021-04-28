@@ -1,8 +1,9 @@
 import React , {useEffect , useState , useCallback}from 'react';
 import { Container, Header, Content, Input, Item , Form , Label , Button , Text,Spinner } from 'native-base';
-import { StyleSheet , View , ImageBackground , Image,Linking,KeyboardAvoidingView,TextInput,TouchableOpacity} from 'react-native'
+import { StyleSheet , View , ImageBackground , Image,Linking,KeyboardAvoidingView,TextInput,TouchableOpacity,ScrollView,Alert,BackHandler} from 'react-native'
 //import styles from './Login.style'
 import { useSelector, useDispatch } from 'react-redux';
+import { useIsFocused } from "@react-navigation/native";
 import * as ApiDataActions from '../store/actions/ApiData';
 import AsyncStorage from '@react-native-community/async-storage'
 import Firebase from '@react-native-firebase/app'
@@ -10,11 +11,13 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import base64 from "react-native-base64";
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
 import URL from '../api/ApiURL'
+import { useRoute, useFocusEffect } from "@react-navigation/native";
 import * as Animatable from 'react-native-animatable';
 import PushNotification from "react-native-push-notification";
 import Colors from '../ColorCodes/Colors';
-import Logos from '../components/Logos'
-const Login = ({navigation}) => {
+import Logos from '../components/Logos';
+import CheckBox from '@react-native-community/checkbox';
+const Login = ({navigation,route}) => {
 
   const dispatch = useDispatch();
   const RiderId = useSelector((state) => state.ApiData.RiderId);
@@ -33,7 +36,31 @@ const Login = ({navigation}) => {
   const [passMsg, setPassMsg]=useState(false)
   const [toastMessage,setToastMessage]=useState("");
   const [loading,setLoading]=useState("");
+const [rememberMe, setRememberMe] = useState(true);
+const isFocused = useIsFocused();
   
+useFocusEffect(
+  React.useCallback(() => {
+    const backAction = () => {
+      Alert.alert("Hold on!", "Are you sure you want to go back?", [
+        {
+          text: "Cancel",
+          onPress: () => null,
+          style: "cancel"
+        },
+        { text: "YES", onPress: () => BackHandler.exitApp() }
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, [route])
+);
 
   // const saveData = async () => {
   //   try {
@@ -267,6 +294,12 @@ const sendTokken=()=>{
 
       await AsyncStorage.setItem("passData", JSON.stringify(p));
       await AsyncStorage.setItem("loginCheck", JSON.stringify(true));
+      if(rememberMe){
+        await AsyncStorage.setItem("remember", JSON.stringify(true));
+      }
+      else{
+        await AsyncStorage.setItem("remember", JSON.stringify(false));
+      }
     } catch (error) {
       console.log("Something went wrong", error);
     }
@@ -277,14 +310,26 @@ const sendTokken=()=>{
       let userEmail = await AsyncStorage.getItem("userData");
 
       let userPass = await AsyncStorage.getItem("passData");
+      let userRemember = await AsyncStorage.getItem("remember");
 
       let datae = JSON.parse(userEmail);
-
-      setEmail(datae);
-      console.log(email)
-
       let datap = JSON.parse(userPass);
+      let dataR=JSON.parse(userRemember);
+      console.log("Async data: ",datae);
+      console.log("Async data: ",datap);
+      console.log("Async data: ",userRemember);
+      if(dataR==true){
+        console.log("from Iff og Login ******")
+      setEmail(datae);
+      console.log("emailllllllllllll",email)
+
+      
       setPassword(datap);
+      }
+      else{
+        setEmail("")
+        setPassword("");
+      }
 
       //console.log(datae , datap);
       // if(datae != null && datap != null){
@@ -296,11 +341,13 @@ const sendTokken=()=>{
     }
   };
 
-  
+  useEffect(() => {
+    getToken();
+  }, [isFocused]);
 
 
   useEffect(() => {
-    getToken();
+    
 
     Firebase.initializeApp
       PushNotification.configure({
@@ -346,59 +393,7 @@ const sendTokken=()=>{
          */
         requestPermissions: true,
       });
-    //   Firebase.initializeApp
-    //   PushNotification.configure({
-    //     // (optional) Called when Token is generated (iOS and Android)
-    //     onRegister: function (token) {
-    //       setTokken(token.token)
-    //       console.log(tokken)
-    //       console.log("TOKEN:", token);
-    //     },
-    //     // (required) Called when a remote is received or opened, or local notification is opened
-    //     onNotification: function (notification) {
-    //       console.log("NOTIFICATION:", notification);
-    //       // process the notification
-    //       // (required) Called when a remote is received or opened, or local notification is opened
-    //       notification.finish(PushNotificationIOS.FetchResult.NoData);
-    //     },
-    //     // (optional) Called when Registered Action is pressed and invokeApp is false, if true onNotification will be called (Android)
-    //     onAction: function (notification) {
-    //       console.log("ACTION:", notification.action);
-    //       console.log("NOTIFICATION:", notification);
-    //       // process the action
-    //     },
-    //     // (optional) Called when the user fails to register for remote notifications. Typically occurs when APNS is having issues, or the device is a simulator. (iOS)
-    //     onRegistrationError: function(err) {
-    //       console.error(err.message, err);
-    //     },
-    //     // IOS ONLY (optional): default: all - Permissions to register.
-    //     permissions: {
-    //       alert: true,
-    //       badge: true,
-    //       sound: true,
-    //     },
-    //     // Should the initial notification be popped automatically
-    //     // default: true
-    //     popInitialNotification: true,
-    //     /**
-    //      * (optional) default: true
-    //      * - Specified if permissions (ios) and token (android and ios) will requested or not,
-    //      * - if not, you must call PushNotificationsHandler.requestPermissions() later
-    //      * - if you are not using remote notification or do not have Firebase installed, use this:
-    //      *     requestPermissions: Platform.OS === 'ios'
-    //      */
-    //     requestPermissions: true,
-    //   });
-    //     // try {
-    //     //   const Login =  AsyncStorage.getItem('@login')
-    //     //   const Password = AsyncStorage.getItem('@password')
-    //     //   if (Login !== null) {
-    //     //      this.props.navigation.navigate("Dashboard")
-    //     //   }
-    //     // } catch (e) {
-    //     //   alert('Failed to fetch the data from storage')
-    //     // }
-    //  getToken()
+ 
   }, []); 
 
 
@@ -442,8 +437,11 @@ const sendTokken=()=>{
       </View>
 
       <View style={styles.footer}>
+      <KeyboardAvoidingView style={{}}
+        behavior={Platform.OS == "ios" ? "padding" : null} >
+        <ScrollView keyboardShouldPersistTaps="always" showsVerticalScrollIndicator={false} >
         {/* <View style={styles.g_container}> */}
-          <KeyboardAvoidingView>
+          {/* <KeyboardAvoidingView> */}
             <View>
               <TextInput
                 style={styles.n_inputArea}
@@ -502,12 +500,33 @@ const sendTokken=()=>{
                 />
               </View>
             </View>
+
+            <View style={{flexDirection:'row',alignSelf:'center'}}>   
+            <CheckBox
+          value={rememberMe}
+          onValueChange={setRememberMe}
+          boxType="square"
+          onAnimationType="fade"
+          onTintColor={Colors.themeColor}
+          onCheckColor={Colors.themeColor}
+          tintColors={{ true: Colors.themeColor, false: 'black' }}
+         
+          style={{marginTop:Platform.OS=="android"?null:5, transform: [{ scaleX: Platform.OS=="android"? 0.8:0.7 }, { scaleY: Platform.OS=="android"? 0.8:0.7 }] }}
+        />
+                <View style={{alignSelf:"center",marginBottom:Platform.OS=="android"?null:4}}>
+                  <Text style={{fontSize:Platform.OS=="android"?12:14, marginRight:0,color:Colors.productGrey }}>Remember me</Text> 
+                 
+
+                </View>
+
+               
+        </View>
             {/* {passMsg == true ? (
               <Animatable.View animation="fadeInLeft" duration={500}>
                 <Text style={{ color: "#DC143C" }}>Please Enter Password</Text>
               </Animatable.View>
             ) : null} */}
-          </KeyboardAvoidingView>
+          {/* </KeyboardAvoidingView> */}
 
           <View style={{ flexDirection: "row", marginTop: 30,alignSelf:'center' }}>
             <Text style={{ color: Colors.textGreyColor, fontSize: 12 }}>
@@ -575,6 +594,8 @@ const sendTokken=()=>{
             <Text style={{ color: Colors.darkRedColor,fontWeight:'700' }}>Signup here</Text>
           </TouchableOpacity>
         </View>
+        </ScrollView>
+          </KeyboardAvoidingView>
       </View>
     </View>
     
@@ -643,7 +664,7 @@ const styles = StyleSheet.create({
   footer: {
     flex: 4,
     backgroundColor: "#ffffff",
-    justifyContent: "center",
+    // justifyContent: "center",
     // borderTopLeftRadius: 30,
     // borderTopRightRadius: 30,
     //paddingVertical: 10,

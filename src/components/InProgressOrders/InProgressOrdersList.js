@@ -142,6 +142,7 @@ const InProgressOrdersList = ({ navigation, route }) => {
          <View style={{marginTop:10}}>
         <FlatList
           data={data.reverse()}
+          inverted
           style={{alignSelf:'center'}}
           showsVerticalScrollIndicator={false}
           // keyExtractor={item => item.index_id.toString()}

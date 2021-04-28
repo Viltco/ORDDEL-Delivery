@@ -47,66 +47,7 @@ import EditBuisnessDetail from "../components/BuisnessDetails/EditBuisnessDetail
 import NewBuisnessDetail from "../components/BuisnessDetails/NewBuisnessDetail";
 import MyAlert from '../components/MyAlert';
 import BankDetails from '../BankDetails/BankDetails';
-//const Stack = createStackNavigator();
-// function MyStack() {
-//   const Drawer = createDrawerNavigator();
 
-
-//     function MyDrawer({route,navigation}) {
-
-//     //const {Company_Data} = route.params
-    
-
-  
-     
-//    return (
-//     //  <>
-//     // <SafeAreaView style={styles.topSafeArea} />
-//     // <SafeAreaView style={styles.bottomSafeArea}>
-//     // <StatusBar barStyle="default" backgroundColor="#0f70b7" />
-//     <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}  drawerStyle={{width: 300}}>
-    
-//     <Drawer.Screen name="Dashboard" initialParams={{ params: route.params }} component={Dashboard}/>
-    
-          
-//           <Drawer.Screen name="Shippment Addresses" component={ShippmentAddresses} />
-//           <Drawer.Screen name="Bank Details" component={BankDetail} />
-//           <Drawer.Screen name="Buisness Details" component={BuisnessDetail} />
-        
-      
-//        {/* <Drawer.Screen name="Logout" component={Logout} />   */}
-     
-//        {/* <Drawer.Screen name="Profile" component={Profile} />   */}
-//      </Drawer.Navigator>
-     
-//     //  </SafeAreaView>
-//     //   </>
-//    );
-//  }
-
-
-
-//     return (
-//         <NavigationContainer>
-//          <Stack.Navigator>
-//          <Stack.Screen name="FirstView" component={FirstView} options={{headerShown: false}}/>
-//         <Stack.Screen name="Login" component={Login} options={{headerShown: false}}/>
-//         <Stack.Screen name="Signup" component={Signup} options={{headerShown: false}}/>
-//         <Stack.Screen name="Dashboard" component={Dashboard} options={{headerShown: false}}/>
-//         <Stack.Screen name="VerificationCode" component={VerificationCode} 
-//         options={{headerShown: false}}/>  
-//         <Stack.Screen name="LandingScreen" component={LandingScreen} options={{headerShown: false}}/>
-//         <Stack.Screen name="CreateNewOrder" component={CreateNewOrder} 
-//         options={{headerShown: false}}/>
-
-
-//         <Stack.Screen name="MyDrawer" component={MyDrawer} options={{headerShown: false}}/>
-//          </Stack.Navigator>
-//         </NavigationContainer>
-//     )
-// }
-
-// export default MyStack
 const Stack = createStackNavigator();
 
 
@@ -188,6 +129,7 @@ function MyStack() {
    options={{headerShown: false}}/>  
    <Stack.Screen name="EmailVerification" component={EmailVerification} options={{headerShown: false}}/>
    <Stack.Screen name="LandingScreen" component={LandingScreen} options={{headerShown: false}}/>
+
    <Stack.Screen name="TopTabNavigator" component={TopTabNavigator} options={{
      headerShown: true,
      title:"IN PROGRESS ORDERS",
@@ -202,6 +144,7 @@ function MyStack() {
     headerRight: ()=><Image source={require('../assets/colorLogo.png')} style={{width:Platform.OS=='ios'? 40:50,height:Platform.OS=='ios'? 40:50}} />
  
    }}/>
+
    <Stack.Screen name="Packages" component={Packages} options={{
      headerShown: true,
      title:"PACKAGES",
@@ -289,7 +232,7 @@ function MyStack() {
    }}/>
    <Stack.Screen name="BankDetails" component={BankDetails} options={{
      headerShown: true,
-     title:"BANK DETAIL",
+     title:"BANK DETAILS",
      headerTitleStyle:{
        color:"white",
        alignSelf:'center'

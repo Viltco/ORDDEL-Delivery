@@ -40,7 +40,8 @@ const FirstView = ({ navigation }) => {
       let check = await AsyncStorage.getItem("loginCheck");
       let datal = JSON.parse(check);
       // setCheckLogin(datal);
-
+      let remember = await AsyncStorage.getItem("remember");
+      let dataR = JSON.parse(remember);
       let userEmail = await AsyncStorage.getItem("userData");
 
       let userPass = await AsyncStorage.getItem("passData");
@@ -51,7 +52,7 @@ const FirstView = ({ navigation }) => {
       // console.log(email)
 
       let datap = JSON.parse(userPass);
-      if(datal){
+      if(datal&&dataR){
       setLoading(true);
 
         fetch(URL+'/delivery_person/delivery_person_login/', {

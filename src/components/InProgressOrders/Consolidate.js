@@ -123,7 +123,7 @@ const Consolidate = ({ navigation, route }) => {
 
   const OnSubmit=()=>{
     console.log("Count",count);
-    if(count==length){
+    if(count==length||count>length){
         const res = fetch(URL+'/order/insert_purchase_details/', {
             method: 'PUT',
             headers: {
