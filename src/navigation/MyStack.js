@@ -47,6 +47,7 @@ import EditBuisnessDetail from "../components/BuisnessDetails/EditBuisnessDetail
 import NewBuisnessDetail from "../components/BuisnessDetails/NewBuisnessDetail";
 import MyAlert from '../components/MyAlert';
 import BankDetails from '../BankDetails/BankDetails';
+import PurchasedPayment from '../components/PurchasedPayment';
 
 const Stack = createStackNavigator();
 
@@ -230,6 +231,22 @@ function MyStack() {
     headerRight: ()=><Image source={require('../assets/colorLogo.png')} style={{width:Platform.OS=='ios'? 40:50,height:Platform.OS=='ios'? 40:50}} />
  
    }}/>
+    <Stack.Screen name="PurchasedPayment" component={PurchasedPayment} options={{
+     headerShown: true,
+     title:"PURCHASE PAYMENTS",
+     headerTitleStyle:{
+       color:"white",
+       alignSelf:'center'
+     },
+     headerStyle:{
+      backgroundColor:Colors.themeColor,
+    },
+    headerTintColor: '#ffffff',
+    headerRight: ()=><Image source={require('../assets/colorLogo.png')} style={{width:Platform.OS=='ios'? 40:50,height:Platform.OS=='ios'? 40:50}} />
+ 
+   }}/>
+
+
    <Stack.Screen name="BankDetails" component={BankDetails} options={{
      headerShown: true,
      title:"BANK DETAILS",
@@ -454,7 +471,7 @@ function MyStack() {
           component={BuisnessDetail}
           options={{
             headerShown: true,
-            title: "BUSINESS DETAIL",
+            title: "BUSINESS DETAILS",
             headerTitleStyle: {
               color: "white",
               alignSelf: "center",

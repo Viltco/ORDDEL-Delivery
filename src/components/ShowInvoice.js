@@ -66,7 +66,7 @@ function ShowInvoice({navigation,route}) {
    const [totalAmount,setTotalAmount]=useState("");
    const [clientImage,setClientImage]=useState("");
    console.log("OOOOOOOIIIIIIDDDD",OID);
-    var downloadInvoice = "http://ec2-3-129-128-169.us-east-2.compute.amazonaws.com:8000/payment/generate_invoice_pdf/"+OID+"/?download=true"
+    var downloadInvoice = URL+"/payment/generate_invoice_pdf/"+OID+"/?download=true"
 
        const toggleBottomNavigationView = () => {
       //Toggling the visibility state of the bottom sheet
@@ -153,7 +153,7 @@ function ShowInvoice({navigation,route}) {
         }
       }
       config(options)
-      .fetch('GET',"http://ec2-3-129-128-169.us-east-2.compute.amazonaws.com:8000/payment/generate_invoice_pdf/"+OID+"/?download=true")
+      .fetch('GET',URL+"/payment/generate_invoice_pdf/"+OID+"/?download=true")
       .then((res) => {
         //console.log("Success");
         })
@@ -168,7 +168,7 @@ function ShowInvoice({navigation,route}) {
 
 
 const sendInvoice=()=>{
-    fetch('http://ec2-3-129-128-169.us-east-2.compute.amazonaws.com:8000/payment/create_list_invoice/', {
+    fetch(URL+'/payment/create_list_invoice/', {
         method: 'POST',
         headers: {
           Accept: 'application/json',

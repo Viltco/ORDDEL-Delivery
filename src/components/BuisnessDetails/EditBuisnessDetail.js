@@ -81,6 +81,13 @@ const EditBuisnessDetail = ({ navigation, route }) => {
   const [BusinessNatureMsg, setBusinessNatureMsg] = useState(false);
   const [BusinessTypeMsg, setBusinessTypeMsg] = useState(false);
   const [addressMsg, setAddressMsg] = useState(false);
+
+  var reg1=/^[a-zA-Z ]*$/;
+  const [BusinessNameMsg1, setBusinessNameMsg1] = useState(false);
+  const [BusinessNatureMsg1, setBusinessNatureMsg1] = useState(false);
+  const [BusinessTypeMsg1, setBusinessTypeMsg1] = useState(false);
+
+
   const [loading, setLoading] = useState(false);
 
   const [tokken, setTokken] = useState("");
@@ -89,6 +96,65 @@ const EditBuisnessDetail = ({ navigation, route }) => {
     // console.log("nature", nature);
     // console.log("type", type);
   }, [isFocused, ID]);
+
+
+
+  // const checkName=()=>{
+  //   if(BusinessName!=""){
+  //     if (reg1.test(BusinessName) === false) {
+  //       // setToastMessage("Email is Not Correct");
+  //       // alert("Invalid Business Name");
+  //       setBusinessNameMsg1(true);
+  //       setBusinessName("");
+  //       // setButtonCheck(false);
+  //       // setAccountNumberMsg1(true);
+  //       // setLoading(false);
+  //       return false;
+  //     }
+  //     else{
+  //       setBusinessNameMsg1(false);
+  //     }
+  //   }
+  // }
+
+  const checkNature=()=>{
+    if(BusinessNature!=""){
+      if (reg1.test(BusinessNature) === false) {
+        // setToastMessage("Email is Not Correct");
+        // alert("Invalid Business Nature");
+        setBusinessNatureMsg1(true);
+        setBusinessNature("");
+        // setButtonCheck(false);
+        // setAccountNumberMsg1(true);
+        // setLoading(false);
+        return false;
+      }
+      else{
+        setBusinessNatureMsg1(false);
+      }
+      
+    }
+  }
+
+  const checkType=()=>{
+    if(BusinessType!=""){
+      if (reg1.test(BusinessType) === false) {
+        // setToastMessage("Email is Not Correct");
+        // alert("Invalid Business Type");
+        setBusinessTypeMsg1(true);
+        setBusinessType("");
+        // setButtonCheck(false);
+        // setAccountNumberMsg1(true);
+        // setLoading(false);
+        return false;
+      }
+      else{
+        setBusinessTypeMsg1(false);
+      }
+    }
+  }
+
+
 
   const updateBuisnessDetail = () => {
     // if (BusinessName == "") {
@@ -100,6 +166,55 @@ const EditBuisnessDetail = ({ navigation, route }) => {
     // } else if (address == "") {
     //   setAddress(BAdress);
     // } else {
+      if(BusinessType!=""){
+        if (reg1.test(BusinessType) === false) {
+          // setToastMessage("Email is Not Correct");
+          // alert("Invalid Business Type");
+          setBusinessTypeMsg1(true);
+          setBusinessType("");
+          // setButtonCheck(false);
+          // setAccountNumberMsg1(true);
+          // setLoading(false);
+          return false;
+        }
+        else{
+          setBusinessTypeMsg1(false);
+        }
+      }
+      if(BusinessNature!=""){
+        if (reg1.test(BusinessNature) === false) {
+          // setToastMessage("Email is Not Correct");
+          // alert("Invalid Business Nature");
+          setBusinessNatureMsg1(true);
+          setBusinessNature("");
+          // setButtonCheck(false);
+          // setAccountNumberMsg1(true);
+          // setLoading(false);
+          return false;
+        }
+        else{
+          setBusinessNatureMsg1(false);
+        }
+        
+      }
+  
+      // if(BusinessName!=""){
+      //   if (reg1.test(BusinessName) === false) {
+      //     // setToastMessage("Email is Not Correct");
+      //     // alert("Invalid Business Name");
+      //     setBusinessNameMsg1(true);
+      //     setBusinessName("");
+      //     // setButtonCheck(false);
+      //     // setAccountNumberMsg1(true);
+      //     // setLoading(false);
+      //     return false;
+      //   }
+      //   else{
+      //     setBusinessNameMsg1(false);
+      //   }
+      // }
+
+
       if(BusinessName==""&&BusinessNature==""&&BusinessType==""&&address==""){
         alert("Nothing to Change");
       }
@@ -232,7 +347,7 @@ const EditBuisnessDetail = ({ navigation, route }) => {
 
   return (
     <>
-    <ScrollView keyboardShouldPersistTaps={true} style={{backgroundColor:'white'}}>
+    <ScrollView keyboardShouldPersistTaps="always" style={{backgroundColor:'white'}}>
     <View style={styles.container}>
       {/* <View style={styles.spinnerv}> */}
       {/* {
@@ -309,14 +424,23 @@ const EditBuisnessDetail = ({ navigation, route }) => {
                 required={true}
                 onChangeText={(value) => {
                   setBusinessNameMsg(false);
+                  setBusinessNameMsg1(false);
                   setBusinessName(value);
                 }}
+                // onEndEditing={checkName}
                 initialValue=""
               />
               {BusinessNameMsg && (
                 <Animatable.View animation="fadeInLeft" duration={500}>
                   <Text style={{ color: "#DC143C", marginLeft: 20 }}>
                     Please Enter Business Name
+                  </Text>
+                </Animatable.View>
+              )}
+              {BusinessNameMsg1 && (
+                <Animatable.View animation="fadeInLeft" duration={500}>
+                  <Text style={{ color: "#DC143C", marginLeft: 20 }}>
+                    Invalid Business Name
                   </Text>
                 </Animatable.View>
               )}
@@ -331,14 +455,24 @@ const EditBuisnessDetail = ({ navigation, route }) => {
                 required={true}
                 onChangeText={(value) => {
                   setBusinessNatureMsg(false);
+                  setBusinessNatureMsg1(false);
                   setBusinessNature(value);
                 }}
+                onEndEditing={checkNature}
                 initialValue=""
               />
               {BusinessNatureMsg && (
                 <Animatable.View animation="fadeInLeft" duration={500}>
                   <Text style={{ color: "#DC143C", marginLeft: 20 }}>
                     Please Enter Busines Nature
+                  </Text>
+                </Animatable.View>
+              )}
+
+              {BusinessNatureMsg1 && (
+                <Animatable.View animation="fadeInLeft" duration={500}>
+                  <Text style={{ color: "#DC143C", marginLeft: 20 }}>
+                   Invalid Busines Nature
                   </Text>
                 </Animatable.View>
               )}
@@ -352,14 +486,24 @@ const EditBuisnessDetail = ({ navigation, route }) => {
                 required={true}
                 onChangeText={(value) => {
                   setBusinessTypeMsg(false);
+                  setBusinessTypeMsg1(false);
                   setBusinessType(value);
                 }}
+                onEndEditing={checkType}
                 initialValue=""
               />
               {BusinessTypeMsg && (
                 <Animatable.View animation="fadeInLeft" duration={500}>
                   <Text style={{ color: "#DC143C", marginLeft: 20 }}>
                     Please Enter Business Type
+                  </Text>
+                </Animatable.View>
+              )}
+
+{BusinessTypeMsg1 && (
+                <Animatable.View animation="fadeInLeft" duration={500}>
+                  <Text style={{ color: "#DC143C", marginLeft: 20 }}>
+                    Invalid Business Type
                   </Text>
                 </Animatable.View>
               )}

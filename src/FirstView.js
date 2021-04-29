@@ -129,7 +129,7 @@ const FirstView = ({ navigation }) => {
   useEffect(() => {
     getToken();
 
-    fetch(URL + "/version_control/?apk_version=1.2")
+    fetch(URL + "/version_control/?apk_version=1.3")
     // fetch(URL+'/client_app/clients_list/33/')
     .then( async (response) => {
         let data = await response.json();

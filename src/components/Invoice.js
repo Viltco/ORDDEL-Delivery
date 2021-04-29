@@ -61,7 +61,7 @@ function Invoice({navigation,route}) {
     const dispatch = useDispatch();
     const [isLoading,setIsLoading]=useState(false);
     const { OID,orderBoxId,image } = route.params;
-    var downloadInvoice = "http://ec2-3-129-128-169.us-east-2.compute.amazonaws.com:8000/payment/generate_invoice_pdf/"+OID+"/?download=true"
+    var downloadInvoice = URL+"/payment/generate_invoice_pdf/"+OID+"/?download=true"
     const RiderImage = useSelector((state) => state.ApiData.RiderImage);
     const RiderName = useSelector((state) => state.ApiData.RiderName);
 //    const packages=Packages;
@@ -149,7 +149,7 @@ function Invoice({navigation,route}) {
         }
       }
       config(options)
-      .fetch('GET',"http://ec2-3-129-128-169.us-east-2.compute.amazonaws.com:8000/payment/generate_invoice_pdf/"+OID+"/?download=true")
+      .fetch('GET',URL+"/payment/generate_invoice_pdf/"+OID+"/?download=true")
       .then((res) => {
         //console.log("Success");
         })
@@ -173,7 +173,7 @@ function Invoice({navigation,route}) {
     }
 
 const sendInvoice=()=>{
-    fetch('http://ec2-3-129-128-169.us-east-2.compute.amazonaws.com:8000/payment/create_list_invoice/', {
+    fetch(URL+'/payment/create_list_invoice/', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -262,7 +262,7 @@ const sendInvoice=()=>{
     console.log("From Invoice Orderid",orderId)
 
         if(orderId!=""){
-            fetch('http://ec2-3-129-128-169.us-east-2.compute.amazonaws.com:8000/payment/get_invoice_number/'+orderId+'/')
+            fetch(URL+'/payment/get_invoice_number/'+orderId+'/')
             // fetch(URL+'/client_app/clients_list/33/')
             .then((response) => response.json())
             .then((responseJson) => {

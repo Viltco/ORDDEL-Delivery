@@ -347,6 +347,18 @@ var check=true;
     {/* </View> */}
    
    </View>
+   <View style={{marginBottom:"2%"}}>
+   <TouchableOpacity
+    onPress = { ()=>navigation.navigate("PurchasedPayment")}
+        style = {{justifyContent:'center',backgroundColor:Colors.themeColor,padding:20,borderRadius:12,width:'50%'}}>
+          <View style={{alignSelf:'center',flexDirection:'column'}}>
+      <Image source={require('../../assets/purchased.png')} style={{width:Platform.OS=='ios'? 40:40,height:Platform.OS=='ios'? 40:40,alignSelf:'center'}}  />
+
+          {/* <MaterialCommunityIcons name="check-box-multiple-outline" color = 'white' style={{alignSelf:'center'}}  size={Platform.OS=='android'?40:50} /> */}
+          <Text style={{color:'white',fontWeight:'bold',width:150,textAlign:'center',fontSize:16,marginTop:5}}>Purchase Payments</Text>
+          </View>
+    </TouchableOpacity>
+   </View>
    </View>
 
     {/* <View style={{flexDirection:'row',marginTop:'2%',paddingHorizontal:25,marginBottom:'2%'}}>

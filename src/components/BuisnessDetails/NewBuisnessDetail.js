@@ -64,11 +64,105 @@ const NewBuisnessDetail = ({ navigation }) => {
   const [BusinessNameMsg, setBusinessNameMsg] = useState(false);
   const [BusinessNatureMsg, setBusinessNatureMsg] = useState(false);
   const [BusinessTypeMsg, setBusinessTypeMsg] = useState(false);
+
+
+  const [BusinessNameMsg1, setBusinessNameMsg1] = useState(false);
+  const [BusinessNatureMsg1, setBusinessNatureMsg1] = useState(false);
+  const [BusinessTypeMsg1, setBusinessTypeMsg1] = useState(false);
+
+
+
   const [addressMsg, setAddressMsg] = useState(false);
   const [loading, setLoading] = useState(false);
   const [buttonCheck,setButtonCheck]=useState(false);
-
+  var reg = /^\d+$/;
+  var reg1=/^[a-zA-Z ]*$/;
   const [tokken, setTokken] = useState("");
+
+
+
+  // const checkName=()=>{
+  //   if(BusinessName!=""){
+  //     if (reg1.test(BusinessName) === false) {
+  //       // setToastMessage("Email is Not Correct");
+  //       // alert("Invalid Business Name");
+  //       setBusinessNameMsg1(true);
+  //       setBusinessName("");
+  //       // setButtonCheck(false);
+  //       // setAccountNumberMsg1(true);
+  //       // setLoading(false);
+  //       return false;
+  //     }
+  //     else{
+  //       setBusinessNameMsg1(false);
+  //     }
+  //   }
+  // }
+
+  const checkNature=()=>{
+    if(BusinessNature!=""){
+      if (reg1.test(BusinessNature) === false) {
+        // setToastMessage("Email is Not Correct");
+        // alert("Invalid Business Nature");
+        setBusinessNatureMsg1(true);
+        setBusinessNature("");
+        // setButtonCheck(false);
+        // setAccountNumberMsg1(true);
+        // setLoading(false);
+        return false;
+      }
+      else{
+        setBusinessNatureMsg1(false);
+      }
+      
+    }
+  }
+
+  const checkType=()=>{
+    if(BusinessType!=""){
+      if (reg1.test(BusinessType) === false) {
+        // setToastMessage("Email is Not Correct");
+        // alert("Invalid Business Type");
+        setBusinessTypeMsg1(true);
+        setBusinessType("");
+        // setButtonCheck(false);
+        // setAccountNumberMsg1(true);
+        // setLoading(false);
+        return false;
+      }
+      else{
+        setBusinessTypeMsg1(false);
+      }
+    }
+  }
+
+  // const checkAddress=()=>{
+  //   if(sortCode!=""){
+  //     if (reg.test(sortCode) === false) {
+  //       // setToastMessage("Email is Not Correct");
+  //       alert("Invalid Sort Code");
+  //       setSortCode("");
+  //       // setButtonCheck(false);
+  //       // setAccountNumberMsg1(true);
+  //       // setLoading(false);
+  //       return false;
+  //     }
+  //     if(sortCode.length < 6) {
+  //       // setButtonCheck(false);
+  //       // setSortCodeMsg2(true);
+  //       alert("Invalid Sort Code");
+  //       setSortCode("");
+  //       // setLoading(false);
+  //       // setToastMessage("Password limit should be Greater than 8 Digits");
+  
+  //     }
+  //   }
+  // }
+
+
+
+
+
 
   const postDetail = () => {
     console.log("hello mr. jojo")
@@ -106,6 +200,54 @@ const NewBuisnessDetail = ({ navigation }) => {
       setAddressMsg(false);
       setLoading(false);
     }
+
+    if(BusinessType!=""){
+      if (reg1.test(BusinessType) === false) {
+        // setToastMessage("Email is Not Correct");
+        // alert("Invalid Business Type");
+        setBusinessTypeMsg1(true);
+        setBusinessType("");
+        // setButtonCheck(false);
+        // setAccountNumberMsg1(true);
+        // setLoading(false);
+        return false;
+      }
+      else{
+        setBusinessTypeMsg1(false);
+      }
+    }
+    if(BusinessNature!=""){
+      if (reg1.test(BusinessNature) === false) {
+        // setToastMessage("Email is Not Correct");
+        // alert("Invalid Business Nature");
+        setBusinessNatureMsg1(true);
+        setBusinessNature("");
+        // setButtonCheck(false);
+        // setAccountNumberMsg1(true);
+        // setLoading(false);
+        return false;
+      }
+      else{
+        setBusinessNatureMsg1(false);
+      }
+      
+    }
+
+    // if(BusinessName!=""){
+    //   if (reg1.test(BusinessName) === false) {
+    //     // setToastMessage("Email is Not Correct");
+    //     // alert("Invalid Business Name");
+    //     setBusinessNameMsg1(true);
+    //     setBusinessName("");
+    //     // setButtonCheck(false);
+    //     // setAccountNumberMsg1(true);
+    //     // setLoading(false);
+    //     return false;
+    //   }
+    //   else{
+    //     setBusinessNameMsg1(false);
+    //   }
+    // }
 
     if(BusinessName==""&&BusinessNature==""&&BusinessType==""&&address==""){
       // alert("Nothing to Change");
@@ -243,7 +385,7 @@ const NewBuisnessDetail = ({ navigation }) => {
 
   return (
     <>
-    <ScrollView keyboardShouldPersistTaps={true} style={{backgroundColor:'white'}}>
+    <ScrollView keyboardShouldPersistTaps="always" style={{backgroundColor:'white'}}>
     <View style={styles.container}>
       
       {/* <DropdownAlert ref={ref => dropDownAlertRef = ref} updateStatusBar={false} tapToCloseEnabled={true} errorColor={Colors.themeColor} successColor={Colors.themeColor} containerStyle={{width:"80%"}} /> */}
@@ -322,14 +464,23 @@ const NewBuisnessDetail = ({ navigation }) => {
                 required={true}
                 onChangeText={(value) => {
                   setBusinessNameMsg(false);
+                  setBusinessNameMsg1(false);
                   setBusinessName(value);
                 }}
+                // onEndEditing={checkName}
                 initialValue=""
               />
               {BusinessNameMsg && (
                 <Animatable.View animation="fadeInLeft" duration={500}>
                   <Text style={{ color: "#DC143C", marginLeft: 20 }}>
                     Please Enter Business Name
+                  </Text>
+                </Animatable.View>
+              )}
+              {BusinessNameMsg1 && (
+                <Animatable.View animation="fadeInLeft" duration={500}>
+                  <Text style={{ color: "#DC143C", marginLeft: 20 }}>
+                    Invalid Business Name
                   </Text>
                 </Animatable.View>
               )}
@@ -344,8 +495,10 @@ const NewBuisnessDetail = ({ navigation }) => {
                 required={true}
                 onChangeText={(value) => {
                   setBusinessNatureMsg(false);
+                  setBusinessNatureMsg1(false);
                   setBusinessNature(value);
                 }}
+                onEndEditing={checkNature}
                 initialValue=""
               />
               {BusinessNatureMsg && (
@@ -355,6 +508,14 @@ const NewBuisnessDetail = ({ navigation }) => {
                   </Text>
                 </Animatable.View>
               )}
+              {BusinessNatureMsg1 && (
+                <Animatable.View animation="fadeInLeft" duration={500}>
+                  <Text style={{ color: "#DC143C", marginLeft: 20 }}>
+                   Invalid Busines Nature
+                  </Text>
+                </Animatable.View>
+              )}
+
               <TextInput
                 style={styles.inputArea}
                 placeholder="Business Type"
@@ -366,13 +527,23 @@ const NewBuisnessDetail = ({ navigation }) => {
                 onChangeText={(value) => {
                   setBusinessTypeMsg(false);
                   setBusinessType(value);
+                  setBusinessTypeMsg1(false);
                 }}
+                onEndEditing={checkType}
                 initialValue=""
               />
               {BusinessTypeMsg && (
                 <Animatable.View animation="fadeInLeft" duration={500}>
                   <Text style={{ color: "#DC143C", marginLeft: 20 }}>
                     Please Enter Business Type
+                  </Text>
+                </Animatable.View>
+              )}
+
+              {BusinessTypeMsg1 && (
+                <Animatable.View animation="fadeInLeft" duration={500}>
+                  <Text style={{ color: "#DC143C", marginLeft: 20 }}>
+                    Invalid Business Type
                   </Text>
                 </Animatable.View>
               )}

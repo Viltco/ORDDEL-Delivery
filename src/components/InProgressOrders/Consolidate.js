@@ -100,7 +100,7 @@ const Consolidate = ({ navigation, route }) => {
     else{
       setDate(currentDate);
       
-    setFormattedDate(currentDate.getDate()+"-"+(currentDate.getMonth() + 1)+ "-" +currentDate.getFullYear());
+      setFormattedDate(("0" + currentDate.getDate()).slice(-2)+"-"+("0" + (currentDate.getMonth() + 1)).slice(-2)+ "-" +currentDate.getFullYear());
     console.log("date",formattedDate)
     }
     
@@ -247,8 +247,8 @@ const Consolidate = ({ navigation, route }) => {
     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 }, [])
   useEffect(() => {
-    datee = new Date().getDate(); //Current Date
-    monthh = new Date().getMonth() + 1; //Current Month
+    datee = ("0" + new Date().getDate()).slice(-2); //Current Date
+    monthh = ("0" + (new Date().getMonth() + 1)).slice(-2); //Current Month
     yearr = new Date().getFullYear(); //Current Year
     var hours = new Date().getHours(); //Current Hours
     var min = new Date().getMinutes(); //Current Minutes
@@ -607,7 +607,7 @@ onChange={onChange}
             <TextInput
             style={styles.name_inputArea}
             placeholder="Supplier Name"
-            autoCapitalize="none"
+            autoCapitalize="words"
             placeholderTextColor="black"
             value={supplier}
             required={true}
