@@ -62,7 +62,9 @@ const [invoiceNumber,setInvoiceNumber]=useState("");
   var datee;
   var monthh;
   var yearr;
-  
+  const [renderCheck,setRenderCheck]=useState(false);
+  const [supplierName,setSupplierName]=useState("");
+  const [amount,setAmount]=useState("");
   
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
@@ -109,6 +111,61 @@ const [isLoading, setIsLoading] = useState(false);
   
 
 
+  const onPaid=(Amount,Supplier)=>{
+
+    if (reg.test(invoiceNumber) === false) {
+        alert("Invalid Invoice Number");
+        setInvoiceNumber("");
+          return false;
+      }
+      else{
+        console.log("onPaid")
+        fetch(URL+'/payment/submit_purchase_payment/', {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+            },
+        
+           body : JSON.stringify({
+        
+            "delivery_person": RiderId,
+        "supplier": Supplier,
+        "amount": Amount,
+        "invoice_number": invoiceNumber,
+        "date": formattedDate==""?currentDate:formattedDate
+          
+          
+          })
+            
+        
+            
+          }) .then(async (response) => {
+            setLoading(true);
+      
+            let data = await response.json();
+            console.log("on Paid Submit", data);
+            console.log("Bank Detail", response.status);
+            if (response.status == 200) {
+                setRenderCheck(true);
+            }
+           
+        
+            
+            
+            // setResponse(json)
+          }).catch((error)=>console.log(error))
+      }
+
+
+
+      
+  }
+
+
+
+
+
 
 
 //   useEffect(() => {
@@ -140,6 +197,7 @@ const [isLoading, setIsLoading] = useState(false);
           console.log("Supplier",response.status)
           if(response.status==200){
             console.log("supplierrrrrrrr:",data);
+            setRenderCheck(false);
             if(data=="")
             {
                 setLoading(true);
@@ -158,7 +216,7 @@ const [isLoading, setIsLoading] = useState(false);
           }
           
       })
-      .catch((error) => console.error("From Consolidate",error))
+      .catch((error) => console.error("From Supplier",error))
     }
     else{
         console.log("hiiewieui---------------",formattedDate)
@@ -171,6 +229,7 @@ const [isLoading, setIsLoading] = useState(false);
          // console.log("status code",response.status)
          console.log("Supplier",data)
           if(response.status==200){
+            setRenderCheck(false);
             // console.log("Consolidate:",data);
             if(data=="")
             {
@@ -205,7 +264,7 @@ const [isLoading, setIsLoading] = useState(false);
     
 
     //console.log(data)
-  }, [changeIcon,isFocused,formattedDate]);
+  }, [changeIcon,isFocused,formattedDate,renderCheck]);
   
   return (
     <View style={{ flex:1,backgroundColor:"white",height:"100%",width:"100%"}}> 
@@ -278,19 +337,23 @@ onChange={onChange}
          <View style={{marginTop:10}}>
               <FlatList
           data={data}
-          inverted
-          style={{alignSelf:'center'}}
+          keyboardShouldPersistTaps="always"
+        //   inverted
+          style={{alignSelf:'center',}}
           showsVerticalScrollIndicator={false}
           // keyExtractor={item => item.index_id.toString()}
           keyExtractor={({ id }, index) => id}
           renderItem={({ item }) => (
+
+
 <View style = {{width:"95%",height:100,backgroundColor:'white',alignSelf:"center",borderRadius:10,flexDirection:'row',
           shadowColor: "#000",
           shadowOffset: { width: 0, height: 2 },
           shadowOpacity: 0.2,
           shadowRadius: 3.84,
           elevation: 4,
-          marginBottom:"5%"
+          marginBottom:"2%",
+          paddingTop:"2%"
           }}>
              <View style = {{width:'60%',justifyContent:'center',paddingLeft:23}}>
 
@@ -309,10 +372,11 @@ onChange={onChange}
                   </Text>
                   <TextInput
             style={styles.name_inputArea}
+            editable={item.invoice_number==null?true:false}
             placeholder="Invoice Number"
             autoCapitalize="none"
-            placeholderTextColor={Colors.productGrey}
-            value={invoiceNumber}
+            placeholderTextColor="black"
+            value={item.invoice_number}
             required={true}
             onChangeText={(value) => {
                 setInvoiceNumber(value);
@@ -336,8 +400,19 @@ onChange={onChange}
 
                       </Text>
                       <TouchableOpacity
-              style={styles.paidButton}
+              style={{padding:2,
+                width: 70,
+                // padding:10,
+                marginTop:5,
+              backgroundColor: item.supplier_payment_status=="paid"?Colors.textGreyColor:Colors.themeColor,
+              
+              borderRadius: 5,
+        }}
               activeOpacity={0.7}
+              disabled={item.supplier_payment_status=="paid"?true:false}
+              onPress={()=>{
+                  onPaid(item.amount,item.supplier);
+              }}
             //   onPress={OnSubmit}
               >
                 <Text style={styles.paidText}>{item.supplier_payment_status.toUpperCase()}</Text>
@@ -654,13 +729,13 @@ borderRadius: 25,
       },
 
     paidButton: {
-    padding:2,
-    width: 70,
-    // padding:10,
-    marginTop:5,
-  backgroundColor: Colors.themeColor,
-  
-  borderRadius: 5,
+        padding:2,
+        width: 70,
+        // padding:10,
+        marginTop:5,
+      backgroundColor: Colors.themeColor,
+      
+      borderRadius: 5,
 
     },
 

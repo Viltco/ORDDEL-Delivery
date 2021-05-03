@@ -15,6 +15,11 @@ function BankDetails({navigation}) {
     const [isLoading,setIsLoading]=useState(false);
     const [buttonCheck,setButtonCheck]=useState(false);
 
+var seeku=false;
+
+    const [acc,setAcc]=useState(false);
+    const [sort,setSort]=useState(false);
+
 
     const [accountNumberMsg,setAccountNumberMsg]=useState(false);
     const [sortCodeMsg,setSortCodeMsg]=useState(false);
@@ -61,6 +66,14 @@ function BankDetails({navigation}) {
       }
       
     }, []);
+
+
+ 
+
+
+
+
+
 
     const checkName=()=>{
       if(bankName!=""){
@@ -143,141 +156,183 @@ function BankDetails({navigation}) {
 const update=()=>{
 
 
-if(bankName!=""){
-  if (reg1.test(bankName) === false) {
-    // setToastMessage("Email is Not Correct");
-    alert("Invalid Bank Name");
-    setBankName("");
-    // setButtonCheck(false);
-    // setAccountNumberMsg1(true);
-    // setLoading(false);
-    return false;
-  }
-}
-if(accountTitle!=""){
-  if (reg1.test(accountTitle) === false) {
-    // setToastMessage("Email is Not Correct");
-    alert("Invalid Account Title");
-    setAccountTitle("");
-    // setButtonCheck(false);
-    // setAccountNumberMsg1(true);
-    // setLoading(false);
-    return false;
-  }
-}
+// if(bankName!=""){
+//   if (reg1.test(bankName) === false) {
+//     // setToastMessage("Email is Not Correct");
+//     alert("Invalid Bank Name");
+//     setBankName("");
+//     // setButtonCheck(false);
+//     // setAccountNumberMsg1(true);
+//     // setLoading(false);
+//     return false;
+//   }
+// }
+// if(accountTitle!=""){
+//   if (reg1.test(accountTitle) === false) {
+//     // setToastMessage("Email is Not Correct");
+//     alert("Invalid Account Title");
+//     setAccountTitle("");
+//     // setButtonCheck(false);
+//     // setAccountNumberMsg1(true);
+//     // setLoading(false);
+//     return false;
+//   }
+// }
   
+if(bankName==""&&accountNumber==""&&accountTitle==""&&sortCode==""){
+  alert("Nothing to Change");
+}
+else{
 
-
-if(accountNumber!=""){
-  if (reg.test(accountNumber) === false) {
+  if (accountNumber!=""&&reg.test(accountNumber) === false) {
     // setToastMessage("Email is Not Correct");
     setButtonCheck(false);
-    setAccountNumberMsg1(true);
+    alert("Invalid Account Number");
+    setAcc(true);
+    // setAccountNumberMsg1(true);
     setLoading(false);
     return false;
   }
   else{
-    setAccountNumberMsg1(false);
-    setLoading(false);
-  }
-
-  if(accountNumber.length < 8) {
-    setButtonCheck(false);
-    setAccountNumberMsg2(true);
-    setLoading(false);
-    // setToastMessage("Password limit should be Greater than 8 Digits");
-
-  }
-  else{
-    setAccountNumberMsg2(false);
-    setLoading(false);
-  }
-}
-  
-  if(sortCode!=""){
-    if (reg.test(sortCode) === false) {
-      // setToastMessage("Email is Not Correct");
+    if(accountNumber!=""&&accountNumber.length < 8) {
       setButtonCheck(false);
-      setSortCodeMsg1(true);
-      setLoading(false);
-      return false;
-    }
-    else{
-      setSortCodeMsg1(false);
-      setLoading(false);
-    }
-    if(sortCode.length < 6) {
-      setButtonCheck(false);
-      setSortCodeMsg2(true);
+      alert("Invalid Account Number");
+      setAcc(true);
+      // setAccountNumberMsg2(true);
       setLoading(false);
       // setToastMessage("Password limit should be Greater than 8 Digits");
-
+  
     }
     else{
-      setSortCodeMsg2(false);
-      setLoading(false);
+      
+        if (sortCode!=""&&reg.test(sortCode) === false) {
+          // setToastMessage("Email is Not Correct");
+          setButtonCheck(false);
+          alert("Invalid Sort Code");
+          setSort(true);
+          // setSortCodeMsg1(true);
+          setLoading(false);
+          return false;
+        }
+      
+      else {
+        if(sortCode!=""&&sortCode.length < 6) {
+          setButtonCheck(false);
+          alert("Invalid Sort Code");
+          setSort(true);
+          // setSortCodeMsg2(true);
+          setLoading(false);
+          // setToastMessage("Password limit should be Greater than 8 Digits");
+      
+        }
+        else{
+          const res = fetch(URL + "/delivery_person/update_bank_details/"+bankDetail[0]["id"], {
+            method: "PUT",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              bank_name: bankName==""?bankDetail.bank_name:bankName,
+              account_title: accountTitle==""?bankDetail.account_title:accountTitle,
+              credit_card_no: accountNumber==""?bankDetail.credit_card_no:accountNumber,
+              sort_code: sortCode==""?bankDetail.sort_code:sortCode,
+              delivery_person: RiderId
+              
+            }),
+          })
+            .then(async (response) => {
+              setLoading(true);
+        
+              let data = await response.json();
+              console.log("Bank Detail", data);
+              console.log("Bank Detail", response.status);
+              if (response.status == 200) {
+                //navigation.navigate("VerificationCode" , {Email : email , Phone_No : phoneNumber})
+                setLoading(false);
+        
+                setBankName("");
+                setAccountNumber("");
+                setAccountTitle("");
+                setSortCode("");
+                setButtonCheck(false);
+                // dropDownAlertRef.alertWithType('success', '', 'Bussiness Details are added successfully.');
+                // Toast.show("Bussiness Details are added successfully", Toast.LONG);
+                alert("Bank Details are Updated successfully")
+                navigation.navigate("Dashboard");
+              } else {
+                setLoading(false);
+                setButtonCheck(false);
+                alert(data.message);
+                // Toast.show(data.message, Toast.LONG);
+        
+                //setLoading(false);
+              }
+              //send_Verification_Code()
+              // navigation.navigate("VerificationCode" , {Email : email , Phone_No : phoneNumber})
+            })
+            .catch((error) => console.log("Something went wrong", error));
+        }
+      }
     }
+    // setAccountNumberMsg1(false);
+    // setLoading(false);
   }
-  
 
   
-  console.log("From If update")
+}
+// else if(sortCode!=""){
+//   if (reg.test(sortCode) === false) {
+//     // setToastMessage("Email is Not Correct");
+//     setButtonCheck(false);
+//     alert("Invalid Sort Code");
+//     setSort(true);
+//     // setSortCodeMsg1(true);
+//     setLoading(false);
+//     return false;
+//   }
+//   else{
+//     setSortCodeMsg1(false);
+//     setLoading(false);
+//   }
+//   if(sortCode.length < 6) {
+//     setButtonCheck(false);
+//     alert("Invalid Sort Code");
+//     setSort(true);
+//     // setSortCodeMsg2(true);
+//     setLoading(false);
+//     // setToastMessage("Password limit should be Greater than 8 Digits");
 
-  if((bankName!=""||accountNumber!=""||accountTitle!=""||sortCode!="")&&(bankNameMsg==false&&accountTitleMsg==false&&accountNumberMsg==false&&accountNumberMsg1==false&&accountNumberMsg2==false&&sortCodeMsg==false&&sortCodeMsg1==false&&sortCodeMsg2==false)){
+//   }
+//   else{
+    
+//     setSortCodeMsg2(false);
+//     setLoading(false);
+//   }
+// }
+// else{
+//   console.log("From If update")
+
+//   // if((bankName!=""||accountNumber!=""||accountTitle!=""||sortCode!="")&&(bankNameMsg==false&&accountTitleMsg==false&&accountNumberMsg==false&&accountNumberMsg1==false&&accountNumberMsg2==false&&sortCodeMsg==false&&sortCodeMsg1==false&&sortCodeMsg2==false)){
 
  
-    console.log("From If update")
-    // console.log("Bank Idddddd: ",bankDetail[0]["id"])
-    const res = fetch(URL + "/delivery_person/update_bank_details/"+bankDetail[0]["id"], {
-      method: "PUT",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        bank_name: bankName==""?bankDetail.bank_name:bankName,
-        account_title: accountTitle==""?bankDetail.account_title:accountTitle,
-        credit_card_no: accountNumber==""?bankDetail.credit_card_no:accountNumber,
-        sort_code: sortCode==""?bankDetail.sort_code:sortCode,
-        delivery_person: RiderId
-        
-      }),
-    })
-      .then(async (response) => {
-        setLoading(true);
+//     console.log("From If update")
+//     // console.log("Bank Idddddd: ",bankDetail[0]["id"])
+
+   
+    
+// }
+
+   
   
-        let data = await response.json();
-        console.log("Bank Detail", data);
-        console.log("Bank Detail", response.status);
-        if (response.status == 200) {
-          //navigation.navigate("VerificationCode" , {Email : email , Phone_No : phoneNumber})
-          setLoading(false);
   
-          setBankName("");
-          setAccountNumber("");
-          setAccountTitle("");
-          setSortCode("");
-          setButtonCheck(false);
-          // dropDownAlertRef.alertWithType('success', '', 'Bussiness Details are added successfully.');
-          // Toast.show("Bussiness Details are added successfully", Toast.LONG);
-          alert("Bank Details are Updated successfully")
-          navigation.navigate("Dashboard");
-        } else {
-          setLoading(false);
-          setButtonCheck(false);
-          alert(data.message);
-          // Toast.show(data.message, Toast.LONG);
+
   
-          //setLoading(false);
-        }
-        //send_Verification_Code()
-        // navigation.navigate("VerificationCode" , {Email : email , Phone_No : phoneNumber})
-      })
-      .catch((error) => console.log("Something went wrong", error));
-  }
-  else{
-    alert("Nothing to Change")
-  }
+  
+  // }
+  // else{
+  //   alert("Nothing to Change")
+  // }
   
 }
 
@@ -290,34 +345,42 @@ if(accountNumber!=""){
     if (bankName == ""||bankName==" ") {
       setBankNameMsg(true);
       setLoading(false);
+      seeku=true;
       setButtonCheck(false);
     } else {
       setBankNameMsg(false);
       setLoading(false);
+      seeku=false;
     }
     if (accountTitle == ""||accountTitle==" ") {
       setAccountTitleMsg(true);
       setLoading(false);
+      seeku=true;
       setButtonCheck(false);
     } else {
       setAccountTitleMsg(false);
       setLoading(false);
+      seeku=false;
     }
     if (accountNumber == ""||accountNumber==" ") {
       setButtonCheck(false);
       setAccountNumberMsg(true);
+      seeku=true;
       setLoading(false);
     } else {
       setAccountNumberMsg(false);
       setLoading(false);
+      seeku=false;
     }
     if (sortCode == ""||sortCode==" ") {
       setButtonCheck(false);
       setSortCodeMsg(true);
+      seeku=true;
       setLoading(false);
     } else {
       setSortCodeMsg(false);
       setLoading(false);
+      seeku=false;
     }
 
     if(accountNumber!=""){
@@ -325,31 +388,26 @@ if(accountNumber!=""){
         // setToastMessage("Email is Not Correct");
         setButtonCheck(false);
         setAccountNumberMsg1(true);
+        seeku=true;
         setLoading(false);
         return false;
       }
       else{
         setAccountNumberMsg1(false);
         setLoading(false);
+        seeku=false;
+        
       }
+      
 
-      if(accountNumber.length < 8) {
-        setButtonCheck(false);
-        setAccountNumberMsg2(true);
-        setLoading(false);
-        // setToastMessage("Password limit should be Greater than 8 Digits");
-  
-      }
-      else{
-        setAccountNumberMsg2(false);
-        setLoading(false);
-      }
+      
     }
     
     if(sortCode!=""){
       if (reg.test(sortCode) === false) {
         // setToastMessage("Email is Not Correct");
         setButtonCheck(false);
+        seeku=true;
         setSortCodeMsg1(true);
         setLoading(false);
         return false;
@@ -357,77 +415,104 @@ if(accountNumber!=""){
       else{
         setSortCodeMsg1(false);
         setLoading(false);
+        seeku=false;
       }
+      
+    }
+
+
+    if(accountNumber.length < 8) {
+      setButtonCheck(false);
+      // alert("Invalid Account Number");
+      // setAcc(true);
+      console.log("from Account Length if ------------------------")
+      seeku=true;
+      setAccountNumberMsg2(true);
+      console.log("from Account Length if ------------------------",accountNumberMsg2)
+      setLoading(false);
+      // setToastMessage("Password limit should be Greater than 8 Digits");
+  
+    }
+    else{
+      setAccountNumberMsg2(false);
+      seeku=false;
+      setLoading(false);
       if(sortCode.length < 6) {
         setButtonCheck(false);
         setSortCodeMsg2(true);
+        seeku=true;
         setLoading(false);
         // setToastMessage("Password limit should be Greater than 8 Digits");
   
       }
       else{
         setSortCodeMsg2(false);
+        seeku=false;
         setLoading(false);
+        if(bankName!=""&&accountNumber!=""&&accountTitle!=""&&sortCode!=""&&bankNameMsg==false&&accountTitleMsg==false&&accountNumberMsg==false&&accountNumberMsg1==false&&accountNumberMsg2==false&&sortCodeMsg==false&&sortCodeMsg1==false&&sortCodeMsg2==false&&seeku==false){
+
+   
+          const res = fetch(URL + "/delivery_person/create_bank_details/", {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              bank_name: bankName,
+              account_title: accountTitle,
+              credit_card_no: accountNumber,
+              sort_code: sortCode,
+              delivery_person: RiderId
+              
+            }),
+          })
+            .then(async (response) => {
+              setLoading(true);
+    
+              let data = await response.json();
+              console.log("Bank Detail", data);
+              console.log("Bank Detail", response.status);
+              if (response.status == 201) {
+                //navigation.navigate("VerificationCode" , {Email : email , Phone_No : phoneNumber})
+                setLoading(false);
+    
+                setBankName("");
+                setAccountNumber("");
+                setAccountTitle("");
+                setSortCode("");
+                setButtonCheck(false);
+                // dropDownAlertRef.alertWithType('success', '', 'Bussiness Details are added successfully.');
+                // Toast.show("Bussiness Details are added successfully", Toast.LONG);
+                alert("Bank Details are added successfully")
+                navigation.navigate("Dashboard");
+              } else {
+                setLoading(false);
+                setButtonCheck(false);
+                alert(data.message);
+                // Toast.show(data.message, Toast.LONG);
+    
+                //setLoading(false);
+              }
+              //send_Verification_Code()
+              // navigation.navigate("VerificationCode" , {Email : email , Phone_No : phoneNumber})
+            })
+            .catch((error) => console.log("Something went wrong", error));
+          setLoading(false);
+    
+          //console.log("res",res)
+          }
+        
       }
+      
+      
     }
     
-
+    
     
      
 
-    if(bankName!=""&&accountNumber!=""&&accountTitle!=""&&sortCode!=""&&bankNameMsg==false&&accountTitleMsg==false&&accountNumberMsg==false&&accountNumberMsg1==false&&accountNumberMsg2==false&&sortCodeMsg==false&&sortCodeMsg1==false&&sortCodeMsg2==false){
-
-   
-      const res = fetch(URL + "/delivery_person/create_bank_details/", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          bank_name: bankName,
-          account_title: accountTitle,
-          credit_card_no: accountNumber,
-          sort_code: sortCode,
-          delivery_person: RiderId
-          
-        }),
-      })
-        .then(async (response) => {
-          setLoading(true);
-
-          let data = await response.json();
-          console.log("Bank Detail", data);
-          console.log("Bank Detail", response.status);
-          if (response.status == 201) {
-            //navigation.navigate("VerificationCode" , {Email : email , Phone_No : phoneNumber})
-            setLoading(false);
-
-            setBankName("");
-            setAccountNumber("");
-            setAccountTitle("");
-            setSortCode("");
-            setButtonCheck(false);
-            // dropDownAlertRef.alertWithType('success', '', 'Bussiness Details are added successfully.');
-            // Toast.show("Bussiness Details are added successfully", Toast.LONG);
-            alert("Bank Details are added successfully")
-            navigation.navigate("Dashboard");
-          } else {
-            setLoading(false);
-            setButtonCheck(false);
-            alert(data.message);
-            // Toast.show(data.message, Toast.LONG);
-
-            //setLoading(false);
-          }
-          //send_Verification_Code()
-          // navigation.navigate("VerificationCode" , {Email : email , Phone_No : phoneNumber})
-        })
-        .catch((error) => console.log("Something went wrong", error));
-      setLoading(false);
-
-      //console.log("res",res)
-      }
+    
   }
   
 

@@ -566,7 +566,7 @@ useFocusEffect(
                 <Text
                   style={{
                     color: Colors.themeColor,
-                    width: "40%",
+                    width: "42%",
                     textAlign: "left",
                     // marginLeft: "2%",
                     fontWeight:'bold'

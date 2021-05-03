@@ -63,6 +63,7 @@ function PurchasedOrderStatus({navigation,route}) {
    const [visible, setVisible] = useState(false);
    const [clientId,setClientId]=useState("");
    const [clientImage,setClientImage]=useState("");
+   const [businessData,setBusinessData]=useState("");
 //    const [note,setNote]=useState("")
 const RiderId = useSelector((state) => state.ApiData.RiderId);
 
@@ -104,7 +105,13 @@ const RiderId = useSelector((state) => state.ApiData.RiderId);
             
           }
           else {
-            purchase();
+            if(businessData==""){
+              alert("Please Add Business Details.")
+              navigation.navigate("NewBuisnessDetail");
+            }
+            else{
+              purchase();
+            }
           }
 
     // setIsLoading(false);
@@ -152,6 +159,26 @@ const RiderId = useSelector((state) => state.ApiData.RiderId);
         //   console.log("hi---------------")
         // console.log(PoNumber,"-----");
         // console.log(OrderId,"------")
+
+        if(RiderId!=""){
+          fetch(URL + "/delivery_person/list_business/delivery_person/" + RiderId + "/")
+          // fetch(URL+'/client_app/clients_list/33/')
+          .then((response) => response.json())
+          .then((responseJson) => {
+            console.log("Buisness Detail:", responseJson);
+            // console.log("Buisness Detail:",responseJson.client_businesses[0]['name']);
+            // if (json["response"] == "Record does not exist or not found") {
+            //   setLoading(true);
+            // } else {
+              setBusinessData(responseJson.delivery_person_businesses);
+            
+            //   //console.log(json);
+            // }
+          })
+          .catch((error) => console.error(error));
+        }
+
+
         setIsLoading(true)
         fetch(URL+'/order/list_order/'+OrderBoxId+'/')
         // fetch(URL+'/client_app/clients_list/33/')

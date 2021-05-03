@@ -150,7 +150,7 @@ if(qtty!=""){
         <View style={{width:'20%',alignItems:'center'}}>
 
     <TextInput
-    style={{alignSelf:'center',color:Colors.productGrey,paddingBottom:0}}
+    style={{alignSelf:'center',color:Colors.productGrey,paddingBottom:0,textAlign:"right"}}
     placeholder={props.quantity.toString()}
     autoCapitalize="none"
     keyboardType="numeric"
