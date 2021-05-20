@@ -11,7 +11,8 @@ import {
     TextInput,
     BackHandler,
     Platform,
-    PermissionsAndroid
+    PermissionsAndroid,
+    Linking
   } from "react-native";
   
   
@@ -190,7 +191,9 @@ const checkPermission = async () => {
 // const downloadImage = () => {
 
 //   //fetch('GET',URL+'/payment/generate_invoice_pdf/'+id+'/?download=true')
-//   fetch('GET',URL+"/payment/generate_delivery_note_pdf/"+id+"/?download=true")
+//   //await Linking.openURL( "ec2-13-59-209-70.us-east-2.compute.amazonaws.com:8000/payment/generate_invoice_pdf/"+id+"/?download=true");
+
+//   await Linking.openURL('GET',URL+"/payment/generate_delivery_note_pdf/"+id+"/?download=true")
 //   .then((res) => {
 //     // if(res.status==200)
 //     // {
@@ -205,50 +208,50 @@ const checkPermission = async () => {
 // }
 
 
-const downloadImage = () => {
-  // Main function to download the image
+// const downloadImage = () => {
+//   // Main function to download the image
  
-  // To add the time suffix in filename
-  let date = new Date();
-  // Image URL which we want to download
-  let image_URL = downloadInvoice;    
-  // Getting the extention of the file
-  let ext = getExtention(image_URL);
-  // ext = '.' + ext[0];
-  // Get config and fs from RNFetchBlob
-  // config: To pass the downloading related options
-  // fs: Directory path where we want our image to download
-  const { config, fs } = RNFetchBlob
-let DownloadDir = fs.dirs.DownloadDir     // this is the Downloads directory.
-let options = {
-  fileCache: true,
-  autorename : false,
-  //  appendExt : extension, //Adds Extension only during the download, optional
-   addAndroidDownloads : {
-    useDownloadManager : true,      //uses the device's native download manager.
-    notification : true,
-    mediaScannable : true,
-    // autorename : false,
-    //  mime: 'text/plain',
-    title : "Invoice_"+data.client,    // Title of download notification.
-    //path:  DownloadDir+'_'+invoiceData.client+'.pdf', // this is the path where your download file will be in
-    path:  DownloadDir+'_'+data.client+'.'+ext,
-    description : 'Downloading file.'
-  }
-}
-config(options)
-.fetch('GET',URL+"/payment/generate_invoice_pdf/"+OID+"/?download=true")
-.then((res) => {
-  //console.log("Success");
-  })
-.catch((err) => {console.log('error')})    // To execute when download  cancelled and other errors
-}
+//   // To add the time suffix in filename
+//   let date = new Date();
+//   // Image URL which we want to download
+//   let image_URL = downloadInvoice;    
+//   // Getting the extention of the file
+//   let ext = getExtention(image_URL);
+//   // ext = '.' + ext[0];
+//   // Get config and fs from RNFetchBlob
+//   // config: To pass the downloading related options
+//   // fs: Directory path where we want our image to download
+//   const { config, fs } = RNFetchBlob
+// let DownloadDir = fs.dirs.DownloadDir     // this is the Downloads directory.
+// let options = {
+//   fileCache: true,
+//   autorename : false,
+//   //  appendExt : extension, //Adds Extension only during the download, optional
+//    addAndroidDownloads : {
+//     useDownloadManager : true,      //uses the device's native download manager.
+//     notification : true,
+//     mediaScannable : true,
+//     // autorename : false,
+//     //  mime: 'text/plain',
+//     title : "Invoice_"+data.client,    // Title of download notification.
+//     //path:  DownloadDir+'_'+invoiceData.client+'.pdf', // this is the path where your download file will be in
+//     path:  DownloadDir+'_'+data.client+'.'+ext,
+//     description : 'Downloading file.'
+//   }
+// }
+// config(options)
+// .fetch('GET',URL+"/payment/generate_invoice_pdf/"+OID+"/?download=true")
+// .then((res) => {
+//   //console.log("Success");
+//   })
+// .catch((err) => {console.log('error')})    // To execute when download  cancelled and other errors
+// }
 
-const getExtention = filename => {
-// To get the file extension
-return /[.]/.exec(filename) ?
-         /[^.]+$/.exec(filename) : filename;
-};
+// const getExtention = filename => {
+// // To get the file extension
+// return /[.]/.exec(filename) ?
+//          /[^.]+$/.exec(filename) : filename;
+// };
 
 // const getExtention = filename => {
 //   // To get the file extension
@@ -285,7 +288,9 @@ const Delivery_Note_Download=()=>{
     //  console.log("Its work");
     //  setDeliveryNote("");
     //  checkPermission();
-    checkPermission();
+            Linking.openURL(URL+"/payment/generate_delivery_note_pdf/"+id+"/?download=true")
+
+    // checkPermission();
     //  changeStatus();
     //   setCount(0);
     //  navigation.navigate("Dashboard")
@@ -576,7 +581,7 @@ useFocusEffect(
                 quantity={itemData.item.quantity}
                 total_amount={itemData.item.total_amount}
                 name={itemData.item.product_name}
-                unit={itemData.item.product_unit}
+                unit={itemData.item.product_unit}//fv     
                 price={itemData.item.avg_price}
                 totalQty={SubQuantity}
                 responseData={dataDetails}
@@ -670,7 +675,16 @@ useFocusEffect(
 
        
         <View style={{alignSelf:'center',marginTop:20}}>
-            <TouchableOpacity onPress={Delivery_Note_Download} style={styles.button}>
+            <TouchableOpacity
+            
+            onPress={Delivery_Note_Download}
+            // onPress = {()=>{
+            // Linking.openURL(URL+"/payment/generate_delivery_note_pdf/"+id+"/?download=true")
+            // // alert(id)
+
+            // }}
+            
+            style={styles.button}>
             <Text style={styles.buttonText}>PRINT DELIVERY NOTE</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={invoice} style={styles.button}>

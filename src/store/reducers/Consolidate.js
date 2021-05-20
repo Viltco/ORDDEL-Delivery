@@ -25,7 +25,8 @@ export default (state = initialState, action) => {
           const checked=action.checked;
           const portrage_price = action.portagePrice
           const profit_margin_choice=checked
-          
+          const date = action.date;
+          console.log(date,'date.........');
           var TotalPrice;
           var unit_sales_price;
         console.log("Qty:,",Qty)
@@ -59,7 +60,7 @@ export default (state = initialState, action) => {
       // //   );
         
       // } else {
-        updatedOrNewCartItem = new ConsolidatedItem(riderId,supplier,unit_purchase_price,profit_margin,unit_sales_price,profit_margin_choice,portrage_price);
+        updatedOrNewCartItem = new ConsolidatedItem(riderId,supplier,unit_purchase_price,profit_margin,unit_sales_price,profit_margin_choice,portrage_price,date);
         console.log("yummy",updatedOrNewCartItem);
         //state.totalAmount="";
       // }

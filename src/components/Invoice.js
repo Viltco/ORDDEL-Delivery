@@ -119,56 +119,56 @@ function Invoice({navigation,route}) {
       };
 
 
-    const downloadImage = () => {
-        // Main function to download the image
+    // const downloadImage = () => {
+    //     // Main function to download the image
        
-        // To add the time suffix in filename
-        let date = new Date();
-        // Image URL which we want to download
-        let image_URL = downloadInvoice;    
-        // Getting the extention of the file
-        let ext = getExtention(image_URL);
-        // ext = '.' + ext[0];
-        // Get config and fs from RNFetchBlob
-        // config: To pass the downloading related options
-        // fs: Directory path where we want our image to download
-        const { config, fs } = RNFetchBlob
-      let DownloadDir = fs.dirs.DownloadDir     // this is the Downloads directory.
-      let options = {
-        fileCache: true,
-        autorename : false,
-        //  appendExt : extension, //Adds Extension only during the download, optional
-         addAndroidDownloads : {
-          useDownloadManager : true,      //uses the device's native download manager.
-          notification : true,
-          mediaScannable : true,
-          // autorename : false,
-          //  mime: 'text/plain',
-          title : "Invoice_"+invoiceData.client,    // Title of download notification.
-          //path:  DownloadDir+'_'+invoiceData.client+'.pdf', // this is the path where your download file will be in
-          path:  DownloadDir+'_'+invoiceData.client+'.'+ext,
-          description : 'Downloading file.'
-        }
-      }
-      config(options)
-      .fetch('GET',URL+"/payment/generate_invoice_pdf/"+OID+"/?download=true")
-      .then((res) => {
-        //console.log("Success");
-        })
-      .catch((err) => {console.log('error')})    // To execute when download  cancelled and other errors
-    }
+    //     // To add the time suffix in filename
+    //     let date = new Date();
+    //     // Image URL which we want to download
+    //     let image_URL = downloadInvoice;    
+    //     // Getting the extention of the file
+    //     let ext = getExtention(image_URL);
+    //     // ext = '.' + ext[0];
+    //     // Get config and fs from RNFetchBlob
+    //     // config: To pass the downloading related options
+    //     // fs: Directory path where we want our image to download
+    //     const { config, fs } = RNFetchBlob
+    //   let DownloadDir = fs.dirs.DownloadDir     // this is the Downloads directory.
+    //   let options = {
+    //     fileCache: true,
+    //     autorename : false,
+    //     //  appendExt : extension, //Adds Extension only during the download, optional
+    //      addAndroidDownloads : {
+    //       useDownloadManager : true,      //uses the device's native download manager.
+    //       notification : true,
+    //       mediaScannable : true,
+    //       // autorename : false,
+    //       //  mime: 'text/plain',
+    //       title : "Invoice_"+invoiceData.client,    // Title of download notification.
+    //       //path:  DownloadDir+'_'+invoiceData.client+'.pdf', // this is the path where your download file will be in
+    //       path:  DownloadDir+'_'+invoiceData.client+'.'+ext,
+    //       description : 'Downloading file.'
+    //     }
+    //   }
+    //   config(options)
+    //   .fetch('GET',URL+"/payment/generate_invoice_pdf/"+OID+"/?download=true")
+    //   .then((res) => {
+    //     //console.log("Success");
+    //     })
+    //   .catch((err) => {console.log('error')})    // To execute when download  cancelled and other errors
+    // }
   
-    const getExtention = filename => {
-      // To get the file extension
-      return /[.]/.exec(filename) ?
-               /[^.]+$/.exec(filename) : filename;
-    };
-
     // const getExtention = filename => {
     //   // To get the file extension
-    //   return /[.]/.exec('.pdf') ?
-    //            /[^.]+$/.exec('.pdf') : 'pdf';
+    //   return /[.]/.exec(filename) ?
+    //            /[^.]+$/.exec(filename) : filename;
     // };
+
+    // // const getExtention = filename => {
+    // //   // To get the file extension
+    // //   return /[.]/.exec('.pdf') ?
+    // //            /[^.]+$/.exec('.pdf') : 'pdf';
+    // // };
 
 
     const setting=()=>{
@@ -196,20 +196,22 @@ const sendInvoice=()=>{
          
       }).then( async (response) => {
        let data = await response.json();
+      //  alert(data)
        console.log("put",data)
        console.log("put",response.status)
-       if(response.status==201){
+      //  alert(response.status)
+       //if(response.status==201){
         //  dispatch(DeliveryNoteAction.AllClear(1)),
-        checkPermission();
+        //checkPermission();
     // Linking.openURL(downloadInvoice);
-
+    Linking.openURL(URL+"/payment/generate_invoice_pdf/"+id+"/?download=true")
          console.log("Its work")
         //  alert("Invoice Send successfully");
          navigation.navigate("Dashboard");
          
         //   setCount(0);
         //  navigation.navigate("Dashboard")
-       }
+      // }
     
        //send_Verification_Code()
        // navigation.navigate("VerificationCode" , {Email : email , Phone_No : phoneNumber})
@@ -217,6 +219,8 @@ const sendInvoice=()=>{
       .catch ((error)=>
         console.log("Something went wrong", error)
       )
+    //Linking.openURL(URL+"/payment/generate_invoice_pdf/"+id+"/?download=true")
+
 }
     // const newTotalQty=useSelector(state=>state.DeliveryNote.totalQtty);
 

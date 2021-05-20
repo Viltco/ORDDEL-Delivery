@@ -13,7 +13,7 @@ const initialState = {
         
 
       case CLEAR_COUNTER:
-          console.log('clear counter');
+          //console.log('clear counter');
         //const empty=action.count;
           state.counter=0;
         return state;
@@ -21,11 +21,11 @@ const initialState = {
 
         case ALL_COUNTER:
           //const data =action.count
-          console.log('add counter reducer.....');
+          //console.log('add counter reducer.....');
 
           state.counter=state.counter+1;
           //alert(state.counter);
-          console.log(state.counter,'add reducer...');
+          //console.log(state.counter,'add reducer...');
         return state;
 
 

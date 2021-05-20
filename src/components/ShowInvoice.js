@@ -192,6 +192,7 @@ const sendInvoice=()=>{
         //  dispatch(DeliveryNoteAction.AllClear(1)),
          console.log("Its work")
          alert("Your Detail was Submitted")
+         Linking.openURL(URL+"/payment/generate_invoice_pdf/"+id+"/?download=true")
          navigation.navigate("Dashboard");
          
         //   setCount(0);
@@ -493,7 +494,10 @@ const getClientImage=(id)=>{
         </Content>
         
          <View style={{alignSelf:'center'}}>
-            <TouchableOpacity onPress={checkPermission} style={styles.button}>
+            <TouchableOpacity 
+            //onPress={checkPermission} 
+            onpress={()=>{Linking.openURL(URL+"/payment/generate_invoice_pdf/"+OID+"/?download=true")}}
+            style={styles.button}>
             <Text style={styles.buttonText}>PRINT INVOICE</Text>
             </TouchableOpacity>
         </View> 

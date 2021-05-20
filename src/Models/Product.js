@@ -6,6 +6,7 @@ class ProductItem {
       this.name = name;
       this.unit = unit;
       this.price=price;
+      
     }
   }
   
