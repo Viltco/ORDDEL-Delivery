@@ -756,6 +756,7 @@ unit_purchase_price, supplier_invoice_number, supplier_payment_status, profit_ma
         nestedScrollEnabled
         //data={[{ key: 'a', name:'haseeb' }, { key: 'b',name:'haseebi' }]}
         //data={showOrder}
+        inverted
         data={supplier}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => 
@@ -787,8 +788,13 @@ unit_purchase_price, supplier_invoice_number, supplier_payment_status, profit_ma
                   </View>
 
 
-                <View style={{marginTop:"20%"}}>
-                  <TextInput
+                <View style={{marginTop:"20%",alignItems:'center'}}>
+                  
+                  <Text style={{  height: 40, 
+  width:"80%",
+   backgroundColor: '#F2F1F3',textAlign:'center',alignItems:'center',borderRadius:5,paddingTop:7}}>{invoiceNumber}</Text>
+                  {/* <TextInput
+
             style={styles.name_inputArea}
             //editable={invoiceNumber==null?true:false}
             placeholder="Invoice Number"
@@ -801,7 +807,7 @@ unit_purchase_price, supplier_invoice_number, supplier_payment_status, profit_ma
             //     setInvoiceNumber(value);
             // }}
             initialValue=""
-          />
+          /> */}
                 </View>
 
 
@@ -882,8 +888,8 @@ inputArea:{
 },
 name_inputArea:{
 //   marginVertical:0,
-  textAlign:"center",
-  alignSelf:"center",
+  // textAlign:"center",
+  // alignSelf:"center",
   height: 40, 
   width:"80%",
    backgroundColor: '#F2F1F3',

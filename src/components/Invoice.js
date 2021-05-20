@@ -204,7 +204,7 @@ const sendInvoice=()=>{
         //  dispatch(DeliveryNoteAction.AllClear(1)),
         //checkPermission();
     // Linking.openURL(downloadInvoice);
-    Linking.openURL(URL+"/payment/generate_invoice_pdf/"+id+"/?download=true")
+    Linking.openURL(URL+"/payment/generate_invoice_pdf/"+OID+"/?download=true")
          console.log("Its work")
         //  alert("Invoice Send successfully");
          navigation.navigate("Dashboard");

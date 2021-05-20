@@ -66,13 +66,8 @@ const Consolidate = ({ navigation, route }) => {
   var datee;
   var monthh;
   var yearr;
-
-  var checkDate="";
-
-
-
   const jogar=useSelector(state=>state.Consolidate.items);
-  //const jogar1=useSelector(state=>state.Consolidate.items);
+  const jogar1=useSelector(state=>state.Consolidate.items);
   console.log(jogar,'1234......')
   //const counter= useSelector(state=> state.ConsolidateAction.counter)
   console.log(jogar["unit_sales_price"],"======")
@@ -89,7 +84,6 @@ const Consolidate = ({ navigation, route }) => {
         unit_sales_price: state.Consolidate.items[key].unit_sales_price,
         profit_margin_choice: state.Consolidate.items[key].profit_margin_choice,
         portrage_price:state.Consolidate.items[key].portrage_price,
-        date:state.Consolidate.items[key].date,
         
       });
     }
@@ -207,12 +201,7 @@ const Consolidate = ({ navigation, route }) => {
   const [selectedQty,setSelectedQty]=useState("");
   const [selectedUnit,setSelectedUnit]=useState("");
   const [selectedProductId,setSelectedProductId]=useState("");
-  const [selectedDate,setSelectedDate]=useState("");
   const [checked, setChecked] = useState('percentage');
-
-  const [cardColor,setCardColor]=useState("");
-
-  var obj
   var reg = /^\d+(\.\d{1,2})?$/;
   var reg1 = /^\d+$/;
   const bgColor=[
@@ -358,7 +347,7 @@ const Consolidate = ({ navigation, route }) => {
     }
     }
     
-     
+    
      // .finally(() => setIsLoading(false));
     
 
@@ -471,37 +460,22 @@ onChange={onChange}
         style = {{marginTop:5,marginBottom:5 
           }}
             onPress={()=>{
-                // console.log("idddd",jogar[item.product_id])
-                // console.log( formattedDate, 'formattedDate.........' );
-                checkDate=formattedDate==""?currentDate:formattedDate;
-                // console.log("@@@@@.....                          ",jogar[item.product_id][item.date]);
-                console.log("@@@@@.....                          ",selectedDate);
-                // alert(jogar[item.date]);
-                 obj = cartItems.find(o => o.date === checkDate);
-                // alert(obj)
-                // alert(obj.date);
-                obj!=undefined?obj.date==checkDate?setCardColor(Colors.textGreyColor):setCardColor("white"):null;
-                if (jogar[item.product_id]&&obj!=undefined?obj.date==checkDate:null ) {
-                  
-                // dropDownAlertRef.alertWithType('error', '', item.product_name+" is already filled");
+                console.log("idddd",jogar[item.product_id])
+                if (jogar[item.product_id]) {
+      // dropDownAlertRef.alertWithType('error', '', item.product_name+" is already filled");
                     alert(item.product_name+" is already filled")
                     //disabled={true}
                 }
                 else{
                     setSelectedProductId(item.product_id),
                 setSelectedProductName(item.product_name),
-                setSelectedDate(item.date);
                 setSelectedQty(item.qty),setSelectedUnit(item.unit),setModalVisible(!modalVisible)}}
                 
                 }
                 
 
             >
-                  <View style = {{width:"95%",height:60,
-                  backgroundColor: 'white',
-                  alignSelf:"center",
-                  borderRadius:10,
-                  flexDirection:'row',
+                  <View style = {{width:"95%",height:60,backgroundColor:jogar[item.product_id]?'#c2c2c2':'white',alignSelf:"center",borderRadius:10,flexDirection:'row',
           shadowColor: "#000",
           shadowOffset: { width: 0, height: 2 },
           shadowOpacity: 0.25,
@@ -726,9 +700,8 @@ onChange={onChange}
                   else{
                     setModalVisible(!modalVisible)
                     //setUnitSalePrice(((unitPurchasedPrice*item.qty)+(unitPurchasedPrice*item.qty/100*profitMargin))),
-                    dispatch(ConsolidateAction.AddConsolidateData(RiderId,selectedProductId,supplier,unitPurchasedPrice,profitMargin,selectedQty,unitPurchasedPrice*selectedQty,checked,portagePrice,selectedDate)),
+                    dispatch(ConsolidateAction.AddConsolidateData(RiderId,selectedProductId,supplier,unitPurchasedPrice,profitMargin,selectedQty,unitPurchasedPrice*selectedQty,checked,portagePrice)),
                     alert(selectedProductName+" Record is saved"),
-                    alert(selectedDate,'selectedDate........')
 
                 // Toast.show(selectedProductName+" Record is saved", Toast.LONG);
 

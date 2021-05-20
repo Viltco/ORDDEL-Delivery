@@ -11,6 +11,7 @@ import {
     TextInput,
     PermissionsAndroid,
     Platform,
+    Linking
   } from "react-native";
   
   
@@ -496,7 +497,7 @@ const getClientImage=(id)=>{
          <View style={{alignSelf:'center'}}>
             <TouchableOpacity 
             //onPress={checkPermission} 
-            onpress={()=>{Linking.openURL(URL+"/payment/generate_invoice_pdf/"+OID+"/?download=true")}}
+            onPress={()=>{Linking.openURL(URL+"/payment/generate_invoice_pdf/"+OID+"/?download=true")}}
             style={styles.button}>
             <Text style={styles.buttonText}>PRINT INVOICE</Text>
             </TouchableOpacity>

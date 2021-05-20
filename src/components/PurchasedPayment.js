@@ -76,6 +76,8 @@ const [invoiceNumber,setInvoiceNumber]=useState("");
   //const [formattedDate,setFormattedDate]=useState("");
   var datee;
   var monthh;
+
+
   var yearr;
   const [renderCheck,setRenderCheck]=useState(false);
   //const [supplierName,setSupplierName]=useState("");
@@ -115,6 +117,8 @@ const [invoiceNumber,setInvoiceNumber]=useState("");
 // const [supplierName,setSupplierName]=useState("");
 
 const [supplierId,setSupplierId]=useState("");
+
+const [portrage_price,setPortrage_price]=useState("");
   
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
@@ -187,61 +191,73 @@ const [isLoading, setIsLoading] = useState(false);
   const onPaid=()=>{
 
     console.log(showOrder,'again showorder............');
-    if (reg.test(invoiceNumber) === false) {
-        alert("Invalid Invoice Number");
-        setInvoiceNumber("");
-          return false;
-      }
-      else{
-        console.log("UnPaid")
-        console.log("UnPaid")
-        console.log("id",RiderId);
-        console.log("supplier",supplierId);
-        console.log("ammount",invoiceNumber);
-        console.log("datetime",supplierDate)
-        fetch(URL+'/payment/submit_purchase_payment/', {
-            method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json'
-            },
-        
-           body : JSON.stringify({
-        
-            "delivery_person": RiderId,
-        "supplier": supplierId,
-        "amount": amount,
-        "invoice_number": invoiceNumber,
-        "purchase_datetime": supplierDate
+    // alert(invoiceNumber)
+    if(invoiceNumber != null){
+    // if (reg.test(invoiceNumber) === false) {
+    //     alert("Invalid Invoice Number");
+    //     setInvoiceNumber("");
+    //       return false;
+    //   }
+      //else{
+        if(invoiceNumber==""){
+          alert("Enter Invoice Number")
+        }
+        else{
+          console.log("UnPaid")
+          console.log("UnPaid")
+          console.log("id",RiderId);
+          console.log("supplier",supplierId);
+          console.log("ammount",invoiceNumber);
+          console.log("datetime",supplierDate)
+          fetch(URL+'/payment/submit_purchase_payment/', {
+              method: 'POST',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+              },
           
-          })
+             body : JSON.stringify({
+          
+              "delivery_person": RiderId,
+          "supplier": supplierId,
+          "amount": amount,
+          "invoice_number": invoiceNumber,
+          "purchase_datetime": supplierDate
+          
             
+            })
+              
+          
+              
+            }) .then(async (response) => {
+              setLoading(true);
         
-            
-          }) .then(async (response) => {
-            setLoading(true);
-      
-            let data = await response.json();
-            console.log("on Paid Submit", data);
-            console.log("Bank Detail", response.status);
-            if (response.status == 200) {
-                setRenderCheck(true);
+              let data = await response.json();
+              console.log("on Paid Submit", data);
+              console.log("Bank Detail", response.status);
+              if (response.status == 200) {
+                  setRenderCheck(true);
+                  setLoading(false)
+                  setModalVisible(!modalVisible)
+                  
+              }
+              else
+              {
                 setLoading(false)
                 setModalVisible(!modalVisible)
-                
-            }
-            else
-            {
-              setLoading(false)
-              setModalVisible(!modalVisible)
-            }
-           
+              }
+             
+          
+              
+              
+              // setResponse(json)
+            }).catch((error)=>console.log(error))
+        }
         
-            
-            
-            // setResponse(json)
-          }).catch((error)=>console.log(error))
-      }
+      //}
+    }else{
+      alert("Invoice Number is Empty")
+    }
 
 
 
@@ -278,12 +294,14 @@ const [isLoading, setIsLoading] = useState(false);
       .then( async (response) => {
           setIsLoading(true)
           let data = await response.json();
+
+          // console.log("---------------------------------",data[0])
          
            // console.log("status code",response.status)
-            console.log("Consolidate",data)
+            console.log("Consolidateeeeee                                           ",data)
             if(response.status==200){
               console.log("Unpaid:",data);
-              if(data.data=="No orders found against the given ID or provided date")
+              if(data=="")
               {
                   setLoading(true);
                   setIsLoading(false)
@@ -321,10 +339,10 @@ const [isLoading, setIsLoading] = useState(false);
           let data = await response.json();
          
            // console.log("status code",response.status)
-           console.log("Unpaid",data)
+           console.log("Unpaid..........     ",data)
             if(response.status==200){
-              console.log("Consolidate:",data);
-              if(data.data=="No orders found against the given ID or provided date")
+              console.log("Consolidateeeeeeee:",data);
+              if(data=="")
               {
                   setLoading(true);
                   setIsLoading(false)
@@ -481,6 +499,8 @@ onChange={onChange}
                 setSupplierName(item.supplier_name);
                 setAmount(item.amount);
                 setSupplierId(item.supplier);
+                setPortrage_price(item.unit_portrage_price_total);
+                
               }}
               //onPress={()=>{ console.log(item.order_products,'dataaaaaaaa'); }}
             >
@@ -494,7 +514,7 @@ onChange={onChange}
               } */}
 
 {/* // card main veiw */}
-<View style = {{width:"95%",height:100,backgroundColor:'white',alignSelf:"center",borderRadius:10,flexDirection:'row',
+<View style = {{width:"95%",height:75,backgroundColor:'white',alignSelf:"center",borderRadius:10,flexDirection:'row',
           shadowColor: "#000",
           shadowOffset: { width: 0, height: 2 },
           shadowOpacity: 0.2,
@@ -766,17 +786,20 @@ unit_purchase_price, supplier_invoice_number, supplier_payment_status, profit_ma
         nestedScrollEnabled
         //data={[{ key: 'a', name:'haseeb' }, { key: 'b',name:'haseebi' }]}
         //data={showOrder}
+        inverted={true}
         data={supplier}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => 
         <PreviewCart
         //id={item.id }
         quantity={item.purchased_quantity_total==0?item.quantity_total:item.purchased_quantity_total}
+        //quantity={item.purchased_quantity_total}
         //amount={itemData.amount}
         name={item.product_name}
         //unit={item.order_products.unit}
-        portrage_price={item.portrage_price}
-        price={item.unit_purchase_price}
+        portrage_price={item.unit_portrage_price_total}
+        price={item.unit_purchase_price_total}
+
         />
         //<Text>{item.id} {item.product_name}</Text>
       }
@@ -786,14 +809,14 @@ unit_purchase_price, supplier_invoice_number, supplier_payment_status, profit_ma
 
 
               </View>
-              <View style={{ flexDirection: "row", marginTop:20 }}>
+              <View style={{ justifyContent:'center' ,alignItems:'center', flexDirection: "row", marginTop:30 }}>
                     <Text
-                      style={{ color: Colors.themeColor,fontWeight:'bold',width:"25%",marginLeft:"6%",textAlign:"left"}}
+                      style={{ color: Colors.themeColor,fontWeight:'bold',width:"15%",marginLeft:"15%",textAlign:"left"}}
                     >
                       Total:
                     </Text>
-                    <Text style={{color:Colors.themeColor,width:Platform.OS=="android"?"20%":"20%",marginRight:"23%" ,fontWeight:'bold',fontSize:14,textAlign:"right"}}>£ {parseFloat(454).toFixed(2)}</Text>
-                    <Text style={{color:Colors.themeColor,width:Platform.OS=="android"?"20%":"20%",fontWeight:'bold',fontSize:14,textAlign:"right"}}>£ {parseFloat(amount).toFixed(2)}</Text>
+                    <Text style={{color:Colors.themeColor,width:Platform.OS=="android"?"20%":"20%",marginRight:"23%" ,fontWeight:'bold',fontSize:14,textAlign:"right"}}>£ {parseFloat(amount).toFixed(2)}</Text>
+                    {/* <Text style={{color:Colors.themeColor,width:Platform.OS=="android"?"20%":"20%",fontWeight:'bold',fontSize:14,textAlign:"right"}}>£ {parseFloat(amount).toFixed(2)}</Text> */}
                   </View>
 
 
@@ -801,12 +824,14 @@ unit_purchase_price, supplier_invoice_number, supplier_payment_status, profit_ma
                   <TextInput
             style={styles.name_inputArea}
             //editable={invoiceNumber==null?true:false}
+            
             placeholder="Invoice Number"
             autoCapitalize="none"
             placeholderTextColor={invoiceNumber==null?"grey":"black"}
             value={invoiceNumber}
-            required={true}
+            // required={true}
             onChangeText={(value) => {
+                
                 setInvoiceNumber(value);
             }}
             initialValue=""
@@ -826,7 +851,7 @@ unit_purchase_price, supplier_invoice_number, supplier_payment_status, profit_ma
               {loading ? (
                 <Spinner color={"white"} size={20} />
               ) : (
-              <Text style={styles.signupButtonText1}>UNPAID</Text>)}
+              <Text style={styles.signupButtonText1}>PAY</Text>)}
             </Pressable>:null}
             
                       <Pressable

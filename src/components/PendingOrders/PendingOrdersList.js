@@ -151,7 +151,7 @@ const PendingOrdersList = ({ navigation, route }) => {
         <View style={{marginTop:10}}>
         <FlatList
           data={data}
-          inverted
+        
           style={{alignSelf:'center'}}
           showsVerticalScrollIndicator={false}
           // keyExtractor={item => item.index_id.toString()}
