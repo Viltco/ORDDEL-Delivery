@@ -384,7 +384,7 @@ const [isLoading, setIsLoading] = useState(false);
     
 
     //console.log(data)
-  }, [changeIcon,isFocused,formattedDate,renderCheck]);
+  }, [changeIcon,isFocused,formattedDate,renderCheck, length,modalVisible]);
 
 
 const modifyDate=(item)=>{
@@ -815,7 +815,8 @@ unit_purchase_price, supplier_invoice_number, supplier_payment_status, profit_ma
                     >
                       Total:
                     </Text>
-                    <Text style={{color:Colors.themeColor,width:Platform.OS=="android"?"20%":"20%",marginRight:"23%" ,fontWeight:'bold',fontSize:14,textAlign:"right"}}>£ {parseFloat(amount).toFixed(2)}</Text>
+                    <Text style={{color:Colors.themeColor,marginRight:"23%" ,fontWeight:'bold',fontSize:14,textAlign:"right"}}>£ {parseFloat(amount).toFixed(2)}</Text>
+                    {/* width:Platform.OS=="android"?"20%":"20%" */}
                     {/* <Text style={{color:Colors.themeColor,width:Platform.OS=="android"?"20%":"20%",fontWeight:'bold',fontSize:14,textAlign:"right"}}>£ {parseFloat(amount).toFixed(2)}</Text> */}
                   </View>
 

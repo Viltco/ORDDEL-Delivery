@@ -766,8 +766,10 @@ unit_purchase_price, supplier_invoice_number, supplier_payment_status, profit_ma
         //amount={itemData.amount}
         name={item.product_name}
         //unit={item.order_products.unit}
-        portrage_price={item.portrage_price}
-        price={item.unit_purchase_price}
+        // portrage_price={item.portrage_price}
+        // price={item.unit_purchase_price}
+        portrage_price={item.unit_portrage_price_total}
+        price={item.unit_purchase_price_total}
         />
         //<Text>{item.id} {item.product_name}</Text>
       }
@@ -777,14 +779,14 @@ unit_purchase_price, supplier_invoice_number, supplier_payment_status, profit_ma
 
 
               </View>
-              <View style={{ flexDirection: "row", marginTop:20 }}>
+              <View style={{ justifyContent:'center' ,alignItems:'center', flexDirection: "row", marginTop:30 }}>
                     <Text
                       style={{ color: Colors.themeColor,fontWeight:'bold',width:"25%",marginLeft:"6%",textAlign:"left"}}
                     >
                       Total:
                     </Text>
-                    <Text style={{color:Colors.themeColor,width:Platform.OS=="android"?"20%":"20%",marginRight:"23%" ,fontWeight:'bold',fontSize:14,textAlign:"right"}}>£ {parseFloat(454).toFixed(2)}</Text>
-                    <Text style={{color:Colors.themeColor,width:Platform.OS=="android"?"20%":"20%",fontWeight:'bold',fontSize:14,textAlign:"right"}}>£ {parseFloat(amount).toFixed(2)}</Text>
+                    {/* <Text style={{color:Colors.themeColor,width:Platform.OS=="android"?"20%":"20%",marginRight:"23%" ,fontWeight:'bold',fontSize:14,textAlign:"right"}}>£ {parseFloat(454).toFixed(2)}</Text> */}
+                    <Text style={{color:Colors.themeColor,marginRight:"23%" ,fontWeight:'bold',fontSize:14,textAlign:"right"}}>£ {parseFloat(amount).toFixed(2)}</Text>
                   </View>
 
 
