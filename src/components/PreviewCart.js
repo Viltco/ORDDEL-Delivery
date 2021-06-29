@@ -5,53 +5,110 @@ import {
   StyleSheet,
   TouchableOpacity,
   Platform,
-  TextInput
+  TextInput,
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Colors from "../ColorCodes/Colors";
 //import Colors from "../ColorCodes/Colors";
 
-
 const PreviewCart = (props) => {
   const MyIcon1 = <FontAwesome name="minus" size={15} color="#EE0202" solid />;
   const MyIcon2 = <FontAwesome name="plus" size={15} color="#EE0202" solid />;
 
- 
-
   return (
-    <View style={{flexDirection:'row',borderBottomWidth:0.5,borderBottomColor:'grey',marginTop:20,alignItems:'space-around',width:'95%',marginTop:5,marginBottom:1,paddingRight:10}}>
-
-        {/* <View style = {{width:'15%',alignItems:'center'}}>
+    <View
+      style={{
+        flexDirection: "row",
+        borderBottomWidth: 0.5,
+        borderBottomColor: "grey",
+        marginTop: 20,
+        alignItems: "space-around",
+        width: "95%",
+        marginTop: 5,
+        marginBottom: 1,
+        paddingRight: 10,
+        marginLeft: 20,
+      }}
+    >
+      {/* <View style = {{width:'15%',alignItems:'center'}}>
         <Text style={{color:Colors.productGrey,textAlign:'center'}}>{props.id}</Text>
         </View> */}
 
-        <View style = {{width:'35%'}}>
-            <Text style={{marginLeft:15,color:Colors.productGrey,fontWeight:'bold'}}>{props.name}</Text>
-        </View>
-        {/* <View style = {{width:'18%',alignItems:'center'}}>
+      <View
+        style={{
+          width: "30%",
+          justifyContent: "center",
+          // alignItems: "center",
+        }}
+      >
+        <Text
+          style={{
+            // marginLeft: 15,
+            color: Colors.productGrey,
+            fontWeight: "bold",
+          }}
+        >
+          {props.name}
+        </Text>
+      </View>
+      {/* <View style = {{width:'18%',alignItems:'center'}}>
         
         <Text style={{color:Colors.productGrey,textAlign:'center'}}>{props.amount}</Text>
         </View> */}
-        
-        <View style = {{width:'20%'}}>
-        
-            {props.portrage_price==0?<Text style={{color:Colors.productGrey,textAlign:"right",}}>£ 0</Text>:<Text style={{color:Colors.productGrey,textAlign:"right",}}>£ {parseFloat(props.portrage_price).toFixed(2)}</Text>}
-        </View>
 
-        <View style = {{width:'15%', marginLeft:10}}>
-        
-        <Text style={{color:Colors.productGrey,textAlign:'right',marginLeft:5}}>{props.quantity}</Text>
-    </View>
+      {/* <View style={{ width: "20%" }}>
+        {props.portrage_price == 0 ? (
+          <Text style={{ color: Colors.productGrey, textAlign: "right" }}>
+            £ 0
+          </Text>
+        ) : (
+          <Text style={{ color: Colors.productGrey, textAlign: "right" }}>
+            £ {parseFloat(props.portrage_price).toFixed(2)}
+          </Text>
+        )}
+      </View> */}
 
+      <View
+        style={{
+          width: "30%",
+          // marginLeft: 10,
+          justifyContent: "center",
+          alignItems: "center",
+          // borderWidth: 1,
+          // borderColor: "black",
+        }}
+      >
+        <Text
+          style={{
+            color: Colors.productGrey,
+            textAlign: "right",
+            marginLeft: 5,
+          }}
+        >
+          {props.quantity}
+        </Text>
+      </View>
 
-        <View style = {{width:'20%',marginLeft:25}}>
-        
-            {/* <Text style={{color:Colors.productGrey,textAlign:"right",}}>£ {props.portrage_price}</Text> */}
-            {props.price==0?<Text style={{color:Colors.productGrey,textAlign:"right",}}>£ 0</Text>:<Text style={{color:Colors.productGrey,textAlign:"right",}}>£ {parseFloat(props.price).toFixed(2)}</Text>}
-       
-        </View>
-        
+      <View
+        style={{
+          width: "40%",
+          // marginLeft: 25,
+          justifyContent: "center",
+          alignItems: "flex-end",
+        }}
+      >
+        {/* <Text style={{color:Colors.productGrey,textAlign:"right",}}>£ {props.portrage_price}</Text> */}
+        {props.price == 0 ? (
+          <Text style={{ color: Colors.productGrey, textAlign: "right" }}>
+            £ 0
+          </Text>
+        ) : (
+          <Text style={{ color: Colors.productGrey, textAlign: "right" }}>
+            £ {parseFloat(props.price).toFixed(2)}
+          </Text>
+        )}
+      </View>
     </View>
   );
 };

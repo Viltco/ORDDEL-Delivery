@@ -8,9 +8,8 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   StyleSheet,
-  LogBox
+  LogBox,
 } from "react-native";
-
 
 import {
   Container,
@@ -28,81 +27,82 @@ import {
   Right,
   View,
 } from "native-base";
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import AntDesign from "react-native-vector-icons/AntDesign";
 import { useIsFocused } from "@react-navigation/native";
 //import ViewShot from "react-native-view-shot";
-import Colors from '../../ColorCodes/Colors';
+import Colors from "../../ColorCodes/Colors";
 
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ionicons from "react-native-vector-icons/Ionicons";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import URL from "../../api/ApiURL";
-import { useSelector, useDispatch } from 'react-redux';
-import * as ApiAction from '../../store/actions/ApiData';
+import { useSelector, useDispatch } from "react-redux";
+import * as ApiAction from "../../store/actions/ApiData";
 
 const InProgressOrdersList = ({ navigation, route }) => {
-    const isFocused = useIsFocused();
-  const RiderId=useSelector(state=>state.ApiData.RiderId);
-//   const { Shipper_ID } = route.params;
+  const isFocused = useIsFocused();
+  const RiderId = useSelector((state) => state.ApiData.RiderId);
+  //   const { Shipper_ID } = route.params;
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [list, setList] = useState("");
   const [loading, setLoading] = useState(false);
+  const [date, setDate] = useState("");
   useEffect(() => {
-    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+    LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
     LogBox.ignoreLogs(['Each child in a list should have a unique "key" prop']);
-    LogBox.ignoreLogs(['Failed child context type']);
-    LogBox.ignoreLogs(['Failed prop type']);
-    
-    
-}, [])
+    LogBox.ignoreLogs(["Failed child context type"]);
+    LogBox.ignoreLogs(["Failed prop type"]);
+  }, []);
   useEffect(() => {
     //   console.log("hi---------------")
-    setIsLoading(true)
-    if(RiderId!=0){
-      fetch(URL+"/order/list_assigned_orders/?delivery_person_id="+RiderId+"&choice=in_progress")
-      // fetch(URL+'/client_app/clients_list/33/')
-      .then( async (response) => {
+    setIsLoading(true);
+    if (RiderId != 0) {
+      fetch(
+        URL +
+          "/order/list_assigned_orders/?delivery_person_id=" +
+          RiderId +
+          "&choice=in_progress"
+      )
+        // fetch(URL+'/client_app/clients_list/33/')
+        .then(async (response) => {
           let data = await response.json();
-            console.log("status code",response.status)
-            console.log("status code",data)
-            if(response.status==200){
-              if(data.response=="")
-              {
-                  setLoading(true);
-                  setIsLoading(false);
-              }
-              else{
-                  console.log("InProgress:",data.response);
-                  setLoading(false)
-                  setData(data.response);
-                  setIsLoading(false)
-              }
-             
-              
+          console.log("status code", response.status);
+          console.log("status code", data);
+          if (response.status == 200) {
+            if (data.response == "") {
+              setLoading(true);
+              setIsLoading(false);
+            } else {
+              console.log("InProgress:", data.response);
+              setLoading(false);
+              console.log(data.response, "--------------hey data");
+              setData(data.response);
+              // setDate(data?.order_created_datetime?.split("T")[0]);
+
+              setIsLoading(false);
             }
-            
-            // console.log("Buisness Detail:",responseJson.client_businesses[0]['name']);
+          }
+
+          // console.log("Buisness Detail:",responseJson.client_businesses[0]['name']);
           // if (json["response"] == "Record does not exist or not found") {
           //   setLoading(true);
           // } else {
-            
+
           //   //console.log(json);
           // }
         })
-        .catch((error) => console.error(error))
+        .catch((error) => console.error(error));
     }
-    
-     // .finally(() => setIsLoading(false));
+
+    // .finally(() => setIsLoading(false));
 
     //console.log(data)
   }, [isFocused]);
-  
+
   return (
-    <View style={{ flex:1,backgroundColor:"white"}}>
-        
-    
+    <View style={{ flex: 1, backgroundColor: "white" }}>
       {/* {loading && (
         <View
           style={{
@@ -117,104 +117,165 @@ const InProgressOrdersList = ({ navigation, route }) => {
           </Text>
         </View>
       )} */}
-      
-      
+
       {isLoading ? (
         <Spinner color={Colors.themeColor} />
       ) : (
         // console.log("data",data),
-        
 
         <Content>
-        <View>
-            {loading?<View
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: "20%",
-          }}
-        >
-          <FontAwesome name="exclamation-circle" color={Colors.themeColor} size={150} />
-          <Text style={{ color: Colors.themeColor, fontWeight: "bold",marginTop:20, fontSize: 25 }}>
-            NO RECORD
-          </Text>
-        </View>:
-         <View style={{marginTop:10}}>
-        <FlatList
-          data={data.reverse()}
-          inverted
-          style={{alignSelf:'center'}}
-          showsVerticalScrollIndicator={false}
-          // keyExtractor={item => item.index_id.toString()}
-          keyExtractor={({ id }, index) => id}
-          renderItem={({ item }) => (
-
-            <TouchableOpacity
-            style={{marginTop:5,marginBottom:5}}
-            onPress={()=>{
-                console.log("Id",item.id)
-                // navigation.navigate({
-                //     routeName: ('OrderStatus'),
-                //     params: {
-                //         OrderBox:item.order_box
-                      
-                //     }
-                //   });
-                navigation.navigate("OrderStatus",{OrderBox:item.order_box,OrderId:item.id,Packages:item.no_of_items,Quantity:item.total_quantity});
-            }}
-              // onPress = {() => navigation.navigate("PendingDetails" , {Due_Date : item.due_date , Invoice_Total : item.grand_total,Carrier_Name : item.carrier_company ,Load_Type : item.load_type,Origin_City : item.Origin_city,Destination_City : item.Destination_city,Delivery_Option : item.Delivery_Option,Cargo_Amount : item.Cargo_amount,Cargo_Type : item.Cargo_Type,Cargo_Product_Type : item.Cargo_Product_type,Cargo_Product_List : item.Cargo_Product_List,Booking_Status : item.booking_status})}
-            //   onPress={() =>
-            //     navigation.navigate("PaymentHistoryDetail")
-            //   }
-            >
-
-
-          <View style = {{width:"95%",height:60,backgroundColor:'white',alignSelf:"center",borderRadius:10,flexDirection:'row',
-          shadowColor: "#000",
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.25,
-          shadowRadius: 3.84,
-          elevation: 5,
-          }}>
-             <View style = {{width:'60%',justifyContent:'center',paddingLeft:23}}>
-
-             <Text
-                    style={{
-                      fontSize: 15,
-                      fontWeight: "bold",
-                      color:Colors.darkRedColor
-                    //   marginTop: "4%",
-                    }}
-                  >
-                      
-                    {item.client_name}
-                      
-                  </Text>
-             </View>
-             <View style = {{width:'40%',justifyContent:'center',alignItems:'flex-end',paddingRight:23}}>
-             <View style = {{justifyContent:'center',alignItems:'flex-start'}}>
-
-             <Text style={{fontSize:12,color:Colors.productGrey,fontWeight:"bold"}}>
-
-                 {item.no_of_items} items
-
-
+          <View>
+            {loading ? (
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginTop: "20%",
+                }}
+              >
+                <FontAwesome
+                  name="exclamation-circle"
+                  color={Colors.themeColor}
+                  size={150}
+                />
+                <Text
+                  style={{
+                    color: Colors.themeColor,
+                    fontWeight: "bold",
+                    marginTop: 20,
+                    fontSize: 25,
+                  }}
+                >
+                  NO RECORD
                 </Text>
-             <Text style={{fontSize:12,color:Colors.productGrey,fontWeight:"bold"}}>
-
-                      {item.total_quantity} Packages
-
-
-                      </Text>
               </View>
-                     
-             </View>
+            ) : (
+              <View style={{ marginTop: 10 }}>
+                <FlatList
+                  data={data}
+                  inverted
+                  style={{ alignSelf: "center" }}
+                  showsVerticalScrollIndicator={false}
+                  // keyExtractor={item => item.index_id.toString()}
+                  keyExtractor={({ id }, index) => id}
+                  renderItem={({ item }) => (
+                    <TouchableOpacity
+                      style={{ marginTop: 5, marginBottom: 5 }}
+                      onPress={() => {
+                        console.log("Id", item.id);
+                        // navigation.navigate({
+                        //     routeName: ('OrderStatus'),
+                        //     params: {
+                        //         OrderBox:item.order_box
 
+                        //     }
+                        //   });
+                        navigation.navigate("OrderStatus", {
+                          OrderBox: item.order_box,
+                          OrderId: item.id,
+                          Packages: item.no_of_items,
+                          Quantity: item.total_quantity,
+                        });
+                      }}
+                      // onPress = {() => navigation.navigate("PendingDetails" , {Due_Date : item.due_date , Invoice_Total : item.grand_total,Carrier_Name : item.carrier_company ,Load_Type : item.load_type,Origin_City : item.Origin_city,Destination_City : item.Destination_city,Delivery_Option : item.Delivery_Option,Cargo_Amount : item.Cargo_amount,Cargo_Type : item.Cargo_Type,Cargo_Product_Type : item.Cargo_Product_type,Cargo_Product_List : item.Cargo_Product_List,Booking_Status : item.booking_status})}
+                      //   onPress={() =>
+                      //     navigation.navigate("PaymentHistoryDetail")
+                      //   }
+                    >
+                      <View
+                        style={{
+                          width: "95%",
+                          height: 60,
+                          backgroundColor: "white",
+                          alignSelf: "center",
+                          borderRadius: 10,
+                          flexDirection: "row",
+                          shadowColor: "#000",
+                          shadowOffset: { width: 0, height: 2 },
+                          shadowOpacity: 0.25,
+                          shadowRadius: 3.84,
+                          elevation: 5,
+                        }}
+                      >
+                        <View
+                          style={{
+                            width: "60%",
+                            justifyContent: "center",
+                            paddingLeft: 23,
+                          }}
+                        >
+                          <Text
+                            style={{
+                              fontSize: 15,
+                              fontWeight: "bold",
+                              color: Colors.darkRedColor,
+                              //   marginTop: "4%",
+                            }}
+                          >
+                            {item.client_name}
+                          </Text>
+                          <Text
+                            style={{
+                              fontSize: 15,
+                              fontWeight: "bold",
+                              color: Colors.productGrey,
+                              //   marginTop: "4%",
+                            }}
+                          >
+                            {item.order_delivery_datetime.split(" ")[0]}
+                            {/* {`${
+                              item?.order_created_datetime
+                                ?.split("T")[0]
+                                ?.split("-")[2]
+                            }-${
+                              item?.order_created_datetime
+                                ?.split("T")[0]
+                                ?.split("-")[1]
+                            }-${
+                              item?.order_created_datetime
+                                ?.split("T")[0]
+                                ?.split("-")[0]
+                            }`} */}
+                          </Text>
+                        </View>
+                        <View
+                          style={{
+                            width: "40%",
+                            justifyContent: "center",
+                            alignItems: "flex-end",
+                            paddingRight: 23,
+                          }}
+                        >
+                          <View
+                            style={{
+                              justifyContent: "center",
+                              alignItems: "flex-start",
+                            }}
+                          >
+                            <Text
+                              style={{
+                                fontSize: 12,
+                                color: Colors.productGrey,
+                                fontWeight: "bold",
+                              }}
+                            >
+                              {item.no_of_items} items
+                            </Text>
+                            <Text
+                              style={{
+                                fontSize: 12,
+                                color: Colors.productGrey,
+                                fontWeight: "bold",
+                              }}
+                            >
+                              {item.total_quantity} Packages
+                            </Text>
+                          </View>
+                        </View>
+                      </View>
 
-           </View>
- 
-                {/* {console.log("Business_name",item.business_details[0]['name'])} */}
-              {/* <View
+                      {/* {console.log("Business_name",item.business_details[0]['name'])} */}
+                      {/* <View
                 style={{
                 //   borderRadius: 10,
                 //   backgroundColor: "white",
@@ -233,7 +294,7 @@ const InProgressOrdersList = ({ navigation, route }) => {
                 }}
               >
                   {/* <View style={{flexDirection: "column"}}> */}
-                {/* <View style={{flexDirection:'row'}}>
+                      {/* <View style={{flexDirection:'row'}}>
                 <View
                   style={{
                     padding: 10,
@@ -246,8 +307,8 @@ const InProgressOrdersList = ({ navigation, route }) => {
 
                   }}
                 > */}
-                    
-                  {/* <Text
+
+                      {/* <Text
                     style={{
                       fontSize: 20,
                       fontWeight: "bold",
@@ -258,8 +319,8 @@ const InProgressOrdersList = ({ navigation, route }) => {
                       
                     {item.client_name}
                   </Text> */}
-                  
-                  {/* <View
+
+                      {/* <View
                     style={{
                       // width: 200,
                        flexDirection: "row",
@@ -274,9 +335,9 @@ const InProgressOrdersList = ({ navigation, route }) => {
                     </Text>
                    
                   </View> */}
-                 
-                    {/* </View> */}
-                  {/* <View
+
+                      {/* </View> */}
+                      {/* <View
                     style={{
                       width: "80%",
                       flexDirection: "row",
@@ -287,21 +348,18 @@ const InProgressOrdersList = ({ navigation, route }) => {
                   >
                     
                   </View> */}
-                 
-                  
-                  
-                   
-                {/* </View> */}
-                {/* <View style={{alignSelf:'center'}}> */}
+
+                      {/* </View> */}
+                      {/* <View style={{alignSelf:'center'}}> */}
                       {/* <Text style={{marginBottom:3,fontSize:14,alignSelf:'flex-end',marginRight:10,fontWeight:'bold'}}>{item.no_of_items} items</Text> */}
-                    {/* <Text style={{ fontSize:12,alignSelf:'flex-end', color: "white",backgroundColor:Colors.darkRedColor,borderRadius:10,padding:5,}}>
+                      {/* <Text style={{ fontSize:12,alignSelf:'flex-end', color: "white",backgroundColor:Colors.darkRedColor,borderRadius:10,padding:5,}}>
                         {item.status}
                     </Text> */}
-                    {/* </View> */}
-              {/* </View> */}
-              {/* </View> */} 
+                      {/* </View> */}
+                      {/* </View> */}
+                      {/* </View> */}
 
-              {/* <Card>
+                      {/* <Card>
             <CardItem>
               <Left>
               <Text style = {{color:'#0f70b7',fontSize:19,fontWeight:'bold'}}>{item.carrier_company}</Text>
@@ -353,79 +411,66 @@ const InProgressOrdersList = ({ navigation, route }) => {
               </Right>
             </CardItem> */}
 
-               {/* </Card>   */}
-            </TouchableOpacity>
-    
-           
-           
-          )}
-        />
-        </View>}
-        </View>
-        
-        </Content> 
-       
+                      {/* </Card>   */}
+                    </TouchableOpacity>
+                  )}
+                />
+              </View>
+            )}
+          </View>
+        </Content>
       )}
     </View>
   );
 };
 
-
 const styles = StyleSheet.create({
-
-signupButtonText:{
-  fontSize: 20,
-color: '#ffffff',
-fontWeight: 'bold',
-textAlign: 'center',
-},
+  signupButtonText: {
+    fontSize: 20,
+    color: "#ffffff",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
 
   signupText: {
     fontSize: 14,
-fontWeight: 'bold',
-// color:'rgba(255,255,255, 0.7)',
-color: 'black',
-    },
+    fontWeight: "bold",
+    // color:'rgba(255,255,255, 0.7)',
+    color: "black",
+  },
 
   signupButton: {
     height: 40,
-  width: 300,
-backgroundColor: '#EE0202',
-justifyContent:"center",
-borderRadius: 25,
-// marginVertical: 20,
+    width: 300,
+    backgroundColor: "#EE0202",
+    justifyContent: "center",
+    borderRadius: 25,
+    // marginVertical: 20,
   },
-  
 
-
-  signupContianer:{
+  signupContianer: {
     flexGrow: 1,
-justifyContent: 'center',
-alignItems: 'center',
-flexDirection: 'row',
-
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
   },
   uploadButton: {
     height: 40,
-  width: 300,
-  borderWidth:2,
-  flexDirection:'row',
-  borderColor:Colors.themeColor,
-backgroundColor: 'white',
-alignSelf:'center',
-borderRadius: 25,
+    width: 300,
+    borderWidth: 2,
+    flexDirection: "row",
+    borderColor: Colors.themeColor,
+    backgroundColor: "white",
+    alignSelf: "center",
+    borderRadius: 25,
   },
-  uploadButtonText:{
+  uploadButtonText: {
     fontSize: 20,
-    marginTop:5,
-  color: Colors.themeColor,
-  fontWeight: 'bold',
-  justifyContent:'center',
-  marginLeft:"20%"
-
+    marginTop: 5,
+    color: Colors.themeColor,
+    fontWeight: "bold",
+    justifyContent: "center",
+    marginLeft: "20%",
   },
-
-  
 });
 export default InProgressOrdersList;
-

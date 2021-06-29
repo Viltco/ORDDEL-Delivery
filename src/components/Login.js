@@ -13,6 +13,8 @@ import PushNotificationIOS from "@react-native-community/push-notification-ios";
 import URL from '../api/ApiURL'
 import { useRoute, useFocusEffect } from "@react-navigation/native";
 import * as Animatable from 'react-native-animatable';
+// import messaging from '@react-native-firebase/messaging';
+import NotifService from '../../NotifService';
 import PushNotification from "react-native-push-notification";
 import Colors from '../ColorCodes/Colors';
 import Logos from '../components/Logos';
@@ -348,7 +350,8 @@ const sendTokken=()=>{
 
   useEffect(() => {
     
-
+    console.log("TOKEN: 1");
+      
     Firebase.initializeApp
       PushNotification.configure({
         // (optional) Called when Token is generated (iOS and Android)

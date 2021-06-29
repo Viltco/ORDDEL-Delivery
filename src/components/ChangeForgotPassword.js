@@ -23,10 +23,10 @@ import { useSelector, useDispatch } from "react-redux";
 const ChangeForgotPassword = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [confirmPass, setConfirmPass] = useState("");
-  const [securePass , setSecurePass] = useState(true);
-  const [secureConfirmPass , setSecureConfirmPass] = useState(true);
+  const [securePass, setSecurePass] = useState(true);
+  const [secureConfirmPass, setSecureConfirmPass] = useState(true);
   const RiderEmail = useSelector((state) => state.ApiData.RiderEmail);
-  const [isLoading,setIsLoading]=useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const change_Password = () => {
     console.log(RiderEmail, password);
@@ -34,11 +34,9 @@ const ChangeForgotPassword = ({ navigation }) => {
     if (password != "" && confirmPass != "") {
       if (password == confirmPass) {
         if (password.length < 8) {
-          alert("Password limit should be Greater than 8 Digits");
-        setIsLoading(false);
-
-        } 
-        else{
+          alert("Password limit should be greater than 8 digits");
+          setIsLoading(false);
+        } else {
           // setToastMessage("");
           fetch(URL + "/change_password_phone/", {
             method: "POST",
@@ -46,7 +44,7 @@ const ChangeForgotPassword = ({ navigation }) => {
               Accept: "application/json",
               "Content-Type": "application/json",
             },
-  
+
             body: JSON.stringify({
               username: RiderEmail,
               password: password,
@@ -55,7 +53,7 @@ const ChangeForgotPassword = ({ navigation }) => {
             .then(async (response) => {
               let data = await response.json();
               console.log("signup", data);
-  
+
               console.log("signup", response);
               if (response.status == 200) {
                 alert(data.message);
@@ -66,27 +64,25 @@ const ChangeForgotPassword = ({ navigation }) => {
               } else {
                 alert(data.message);
                 setIsLoading(false);
-  
-  
+
                 //  alert(data.message);
               }
               //send_Verification_Code()
               // navigation.navigate("Ver
-  
+
               //setResponse(json);
             })
             .catch((error) => console.log(error));
         }
-        
       } else {
         setIsLoading(false);
 
-        alert("Password And Confirm Password Not Match");
+        alert("Password and confirm password not match");
       }
     } else {
       setIsLoading(false);
 
-      alert("All Fields Are Required");
+      alert("All fields are required");
     }
   };
 
@@ -259,7 +255,7 @@ const ChangeForgotPassword = ({ navigation }) => {
       </View> */}
       <View style={{ ...styles.inputArea, marginTop: 40 }}>
         <TextInput
-          style={{width:"95%"}}
+          style={{ width: "95%" }}
           placeholder="Enter New Password"
           autoCapitalize="none"
           required={true}
@@ -271,24 +267,25 @@ const ChangeForgotPassword = ({ navigation }) => {
           onChangeText={(value) => setPassword(value)}
           initialValue=""
         />
-        <View style={{alignSelf:"center",}}>
-            <Icon active name={securePass?'eye':"eye-off"} color= {Colors.textGreyColor} size={25} 
-                 onPress = {() => {
-               
-                  if(securePass == true){
-                 setSecurePass(false)
-                  }
-                  else{
-                    setSecurePass(true)
-                  }
-                }
-                }
-                 />
-              </View>
+        <View style={{ alignSelf: "center" }}>
+          <Icon
+            active
+            name={securePass ? "eye" : "eye-off"}
+            color={Colors.textGreyColor}
+            size={25}
+            onPress={() => {
+              if (securePass == true) {
+                setSecurePass(false);
+              } else {
+                setSecurePass(true);
+              }
+            }}
+          />
+        </View>
       </View>
       <View style={styles.inputArea}>
         <TextInput
-          style={{width:"95%"}}
+          style={{ width: "95%" }}
           placeholder="Confirm Password"
           autoCapitalize="none"
           required={true}
@@ -300,36 +297,38 @@ const ChangeForgotPassword = ({ navigation }) => {
           onChangeText={(value) => setConfirmPass(value)}
           initialValue=""
         />
-        <View style={{alignSelf:"center",}}>
-            <Icon active name={secureConfirmPass?'eye':"eye-off"} color= {Colors.textGreyColor} size={25} 
-                 onPress = {() => {
-               
-                  if(secureConfirmPass == true){
-                    setSecureConfirmPass(false)
-                  }
-                  else{
-                    setSecureConfirmPass(true)
-                  }
-                }
-                }
-                 />
-              </View>
+        <View style={{ alignSelf: "center" }}>
+          <Icon
+            active
+            name={secureConfirmPass ? "eye" : "eye-off"}
+            color={Colors.textGreyColor}
+            size={25}
+            onPress={() => {
+              if (secureConfirmPass == true) {
+                setSecureConfirmPass(false);
+              } else {
+                setSecureConfirmPass(true);
+              }
+            }}
+          />
+        </View>
       </View>
 
       <TouchableOpacity onPress={change_Password} style={styles.button}>
-      {isLoading ? (
-              <Spinner color={"white"} />
-            ) : (
-        <Text
-          style={{
-            color: "white",
-            fontWeight: "bold",
-            textAlign: "center",
-            fontSize: 16,
-          }}
-        >
-          SUBMIT
-        </Text>)}
+        {isLoading ? (
+          <Spinner color={"white"} />
+        ) : (
+          <Text
+            style={{
+              color: "white",
+              fontWeight: "bold",
+              textAlign: "center",
+              fontSize: 16,
+            }}
+          >
+            SUBMIT
+          </Text>
+        )}
       </TouchableOpacity>
     </View>
   );

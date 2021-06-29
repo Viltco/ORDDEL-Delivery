@@ -25,7 +25,6 @@ import {
 } from "react-native";
 //import styles from './Signup.style'
 
-
 // import PushNotificationIOS from "@react-native-community/push-notification-ios";
 // import PushNotification from "react-native-push-notification";
 //import PhoneInput from "react-native-phone-number-input";
@@ -65,21 +64,16 @@ const NewBuisnessDetail = ({ navigation }) => {
   const [BusinessNatureMsg, setBusinessNatureMsg] = useState(false);
   const [BusinessTypeMsg, setBusinessTypeMsg] = useState(false);
 
-
   const [BusinessNameMsg1, setBusinessNameMsg1] = useState(false);
   const [BusinessNatureMsg1, setBusinessNatureMsg1] = useState(false);
   const [BusinessTypeMsg1, setBusinessTypeMsg1] = useState(false);
 
-
-
   const [addressMsg, setAddressMsg] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [buttonCheck,setButtonCheck]=useState(false);
+  const [buttonCheck, setButtonCheck] = useState(false);
   var reg = /^\d+$/;
-  var reg1=/^[a-zA-Z ]*$/;
+  var reg1 = /^[a-zA-Z ]*$/;
   const [tokken, setTokken] = useState("");
-
-
 
   // const checkName=()=>{
   //   if(BusinessName!=""){
@@ -99,8 +93,8 @@ const NewBuisnessDetail = ({ navigation }) => {
   //   }
   // }
 
-  const checkNature=()=>{
-    if(BusinessNature!=""){
+  const checkNature = () => {
+    if (BusinessNature != "") {
       if (reg1.test(BusinessNature) === false) {
         // setToastMessage("Email is Not Correct");
         // alert("Invalid Business Nature");
@@ -110,16 +104,14 @@ const NewBuisnessDetail = ({ navigation }) => {
         // setAccountNumberMsg1(true);
         // setLoading(false);
         return false;
-      }
-      else{
+      } else {
         setBusinessNatureMsg1(false);
       }
-      
     }
-  }
+  };
 
-  const checkType=()=>{
-    if(BusinessType!=""){
+  const checkType = () => {
+    if (BusinessType != "") {
       if (reg1.test(BusinessType) === false) {
         // setToastMessage("Email is Not Correct");
         // alert("Invalid Business Type");
@@ -129,12 +121,11 @@ const NewBuisnessDetail = ({ navigation }) => {
         // setAccountNumberMsg1(true);
         // setLoading(false);
         return false;
-      }
-      else{
+      } else {
         setBusinessTypeMsg1(false);
       }
     }
-  }
+  };
 
   // const checkAddress=()=>{
   //   if(sortCode!=""){
@@ -154,21 +145,16 @@ const NewBuisnessDetail = ({ navigation }) => {
   //       setSortCode("");
   //       // setLoading(false);
   //       // setToastMessage("Password limit should be Greater than 8 Digits");
-  
+
   //     }
   //   }
   // }
 
-
-
-
-
-
   const postDetail = () => {
-    console.log("hello mr. jojo")
+    console.log("hello mr. jojo");
     setLoading(true);
     setButtonCheck(true);
-    if (BusinessName == ""||BusinessName==" ") {
+    if (BusinessName == "" || BusinessName == " ") {
       setBusinessNameMsg(true);
       setLoading(false);
       setButtonCheck(false);
@@ -176,7 +162,7 @@ const NewBuisnessDetail = ({ navigation }) => {
       setBusinessNameMsg(false);
       setLoading(false);
     }
-    if (BusinessNature == ""||BusinessNature==" ") {
+    if (BusinessNature == "" || BusinessNature == " ") {
       setBusinessNatureMsg(true);
       setLoading(false);
       setButtonCheck(false);
@@ -184,7 +170,7 @@ const NewBuisnessDetail = ({ navigation }) => {
       setBusinessNatureMsg(false);
       setLoading(false);
     }
-    if (BusinessType == ""||BusinessType==" ") {
+    if (BusinessType == "" || BusinessType == " ") {
       setButtonCheck(false);
       setBusinessTypeMsg(true);
       setLoading(false);
@@ -192,7 +178,7 @@ const NewBuisnessDetail = ({ navigation }) => {
       setBusinessTypeMsg(false);
       setLoading(false);
     }
-    if (address == ""||address==" ") {
+    if (address == "" || address == " ") {
       setButtonCheck(false);
       setAddressMsg(true);
       setLoading(false);
@@ -201,7 +187,7 @@ const NewBuisnessDetail = ({ navigation }) => {
       setLoading(false);
     }
 
-    if(BusinessType!=""){
+    if (BusinessType != "") {
       if (reg1.test(BusinessType) === false) {
         // setToastMessage("Email is Not Correct");
         // alert("Invalid Business Type");
@@ -211,12 +197,11 @@ const NewBuisnessDetail = ({ navigation }) => {
         // setAccountNumberMsg1(true);
         // setLoading(false);
         return false;
-      }
-      else{
+      } else {
         setBusinessTypeMsg1(false);
       }
     }
-    if(BusinessNature!=""){
+    if (BusinessNature != "") {
       if (reg1.test(BusinessNature) === false) {
         // setToastMessage("Email is Not Correct");
         // alert("Invalid Business Nature");
@@ -226,11 +211,9 @@ const NewBuisnessDetail = ({ navigation }) => {
         // setAccountNumberMsg1(true);
         // setLoading(false);
         return false;
-      }
-      else{
+      } else {
         setBusinessNatureMsg1(false);
       }
-      
     }
 
     // if(BusinessName!=""){
@@ -249,17 +232,23 @@ const NewBuisnessDetail = ({ navigation }) => {
     //   }
     // }
 
-    if(BusinessName==""&&BusinessNature==""&&BusinessType==""&&address==""){
+    if (
+      BusinessName == "" &&
+      BusinessNature == "" &&
+      BusinessType == "" &&
+      address == ""
+    ) {
       // alert("Nothing to Change");
       setLoading(false);
-    }
-    else if(BusinessName==" "||BusinessNature==" "||BusinessType==" "||address==" "){
+    } else if (
+      BusinessName == " " ||
+      BusinessNature == " " ||
+      BusinessType == " " ||
+      address == " "
+    ) {
       // alert("Nothing to Change");
       setLoading(false);
-    }
-    else{
-
-   
+    } else {
       const res = fetch(URL + "/delivery_person/insert_business/", {
         method: "POST",
         headers: {
@@ -272,8 +261,7 @@ const NewBuisnessDetail = ({ navigation }) => {
           business_type: BusinessType,
           business_logo: "",
           username: RiderEmail,
-          business_address:address
-          
+          business_address: address,
         }),
       })
         .then(async (response) => {
@@ -293,7 +281,7 @@ const NewBuisnessDetail = ({ navigation }) => {
             setButtonCheck(false);
             // dropDownAlertRef.alertWithType('success', '', 'Bussiness Details are added successfully.');
             // Toast.show("Bussiness Details are added successfully", Toast.LONG);
-            alert("Bussiness Details are added successfully")
+            alert("Bussiness details are added successfully");
             // navigation.navigate("Dashboard");
           } else {
             setLoading(false);
@@ -310,7 +298,7 @@ const NewBuisnessDetail = ({ navigation }) => {
       setLoading(false);
 
       //console.log("res",res)
-      }
+    }
   };
 
   //Verification Code
@@ -385,73 +373,78 @@ const NewBuisnessDetail = ({ navigation }) => {
 
   return (
     <>
-    <ScrollView keyboardShouldPersistTaps="always" style={{backgroundColor:'white'}}>
-    <View style={styles.container}>
-      
-      {/* <DropdownAlert ref={ref => dropDownAlertRef = ref} updateStatusBar={false} tapToCloseEnabled={true} errorColor={Colors.themeColor} successColor={Colors.themeColor} containerStyle={{width:"80%"}} /> */}
+     <KeyboardAvoidingView style={{ flex: 1 }}
+  behavior={Platform.OS == "ios" ? "padding" : null} >
+      <ScrollView
+        keyboardShouldPersistTaps="always"
+        style={{ backgroundColor: "white" }}
+      >
+        <View style={styles.container}>
+          {/* <DropdownAlert ref={ref => dropDownAlertRef = ref} updateStatusBar={false} tapToCloseEnabled={true} errorColor={Colors.themeColor} successColor={Colors.themeColor} containerStyle={{width:"80%"}} /> */}
 
-      {/* <View style={styles.spinnerv}> */}
-      {/* {
+          {/* <View style={styles.spinnerv}> */}
+          {/* {
   state?
   <ActivityIndicator size={100} /> :
   <Text> loading... </Text>
 } */}
-      {/* </View> */}
+          {/* </View> */}
 
-      <View style={styles.header}>
-        <ImageBackground
-          source={require("../../assets/Splash.jpg")}
-          style={{ width: "100%", height: "100%" }}
-        >
-          <Content>
-            <View style={{ alignItems: "center", marginTop: 20 }}>
-              <Thumbnail
-                scaleX={2}
-                scaleY={2}
-                style={{ margin: 35 }}
-                source={
-                  RiderImage == null
-                    ? require("../../assets/profilelogo.png")
-                    : { uri: RiderImage }
-                }
-              />
-              <Text
-                style={{
-                  fontWeight: "bold",
-                  color: "black",
-                  fontSize: 16,
-                  color: Colors.yellowColor,
-                }}
-              >
-                Business Details Of{" "}
-              </Text>
-              <Text
-                style={{
-                  fontWeight: "bold",
-                  color: "black",
-                  fontSize: 22,
-                  color: "white",
-                }}
-              >
-                {RiderName}
-              </Text>
-            </View>
-            {/* <View style = {{alignItems:'center'}}>
+          <View style={styles.header}>
+            <ImageBackground
+              source={require("../../assets/Splash.jpg")}
+              style={{ width: "100%", height: "100%" }}
+            >
+              <Content>
+                <View style={{ alignItems: "center", marginTop: 20 }}>
+                  <Thumbnail
+                    scaleX={2}
+                    scaleY={2}
+                    style={{ margin: 35 }}
+                    source={
+                      RiderImage == null
+                        ? require("../../assets/profilelogo.png")
+                        : { uri: RiderImage }
+                    }
+                  />
+                  <Text
+                    style={{
+                      fontWeight: "bold",
+                      color: "black",
+                      fontSize: 16,
+                      color: Colors.yellowColor,
+                    }}
+                  >
+                    Business Details Of{" "}
+                  </Text>
+                  <Text
+                    style={{
+                      fontWeight: "bold",
+                      color: "black",
+                      fontSize: 22,
+                      color: "white",
+                    }}
+                  >
+                    {RiderName}
+                  </Text>
+                </View>
+                {/* <View style = {{alignItems:'center'}}>
           <Text style ={{fontWeight:'bold',color:'black',padding:5}}>Khan</Text>
           </View> */}
-          </Content>
-        </ImageBackground>
-      </View>
+              </Content>
+            </ImageBackground>
+          </View>
 
-      <View style={styles.footer}>
-        <View
-          style={{
-            width: "90%",
-            alignSelf: "center",
-          }}
-        >
-          {/* <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={50}> */}
-            {/* <ScrollView> */}
+
+          <View style={styles.footer}>
+            <View
+              style={{
+                width: "90%",
+                alignSelf: "center",
+              }}
+            >
+              {/* <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={50}> */}
+              {/* <ScrollView> */}
               {/* <FormSignup type="SignUp"/> */}
 
               <TextInput
@@ -511,7 +504,7 @@ const NewBuisnessDetail = ({ navigation }) => {
               {BusinessNatureMsg1 && (
                 <Animatable.View animation="fadeInLeft" duration={500}>
                   <Text style={{ color: "#DC143C", marginLeft: 20 }}>
-                   Invalid Busines Nature
+                    Invalid Busines Nature
                   </Text>
                 </Animatable.View>
               )}
@@ -595,7 +588,7 @@ const NewBuisnessDetail = ({ navigation }) => {
                     <Text style={styles.uploadButtonText}>UPLOAD LOGO</Text>
                   </TouchableOpacity> */}
                   <TouchableOpacity
-                  disabled={buttonCheck}
+                    disabled={buttonCheck}
                     style={{ ...styles.signupButton, marginTop: 10 }}
                     activeOpacity={0.7}
                     onPress={postDetail}
@@ -608,9 +601,10 @@ const NewBuisnessDetail = ({ navigation }) => {
                   </TouchableOpacity>
                 </View>
               )}
-            {/* </ScrollView> */}
-          {/* </KeyboardAvoidingView> */}
-          {/* {isLoading ? (
+
+              {/* </ScrollView> */}
+              {/* </KeyboardAvoidingView> */}
+              {/* {isLoading ? (
       <Spinner
       //visibility of Overlay Loading Spinner
       visible={isLoading}
@@ -626,26 +620,26 @@ const NewBuisnessDetail = ({ navigation }) => {
     //   {isLoading ? (
     //   <ActivityIndicator size="large" color={Colors.accentColor} style={styles.activityIndicator}/>
     //   ) : ( */}
-          {/* <TouchableOpacity style={styles.button}
+              {/* <TouchableOpacity style={styles.button}
         onPress={addCompanyInfo}
         >
         <Text style={styles.buttonText}>SIGN UP</Text>
       </TouchableOpacity> */}
-          {/* //)} */}
+              {/* //)} */}
+            </View>
+            
+          </View>
         </View>
-      </View>
-      
-    </View>
-    </ScrollView>
+      </ScrollView>
+      </KeyboardAvoidingView>
     </>
-   
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height:'100%',
+    height: "100%",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "white",
@@ -725,7 +719,6 @@ const styles = StyleSheet.create({
     flex: 2,
     width: "100%",
     // backgroundColor: "#ffffff",
-
   },
 
   footer: {

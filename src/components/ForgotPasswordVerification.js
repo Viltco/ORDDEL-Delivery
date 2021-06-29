@@ -19,6 +19,7 @@ import MyHeader from "../components/MyHeader";
 import { Col } from "native-base";
 import URL from "../api/ApiURL";
 import * as ApiDataAction from "../store/actions/ApiData";
+import Toast from "react-native-simple-toast";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -47,10 +48,14 @@ const ForgotPasswordVerification = ({ navigation }) => {
     })
       .then(async (response) => {
         let data = await response.json();
-        console.log("signup", data.data.phone);
+        if (data["message"] == "user not found") {
+          Toast.show(data["message"]);
+        }
+        console.log("signup", data["message"]);
         setNewEmail(data.data.email);
         setPassword(data.data.phone);
-        console.log("signup", response.status);
+        // console.log("signup", response["message"]);
+
         if (response.status == 200) {
           dispatch(ApiDataAction.SetEmail(email));
 
@@ -59,7 +64,8 @@ const ForgotPasswordVerification = ({ navigation }) => {
             phone: data.data.phone,
           });
         } else {
-          alert(data.message);
+          // alert(data.message);
+          Toast.show(response.status);
 
           //  alert(data.message);
         }

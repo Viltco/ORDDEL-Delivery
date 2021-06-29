@@ -226,7 +226,8 @@ const ForgotPassword = ({ navigation, route }) => {
             <Text
               style={{
                 color: Colors.productGrey,
-                fontSize: 18,
+                fontSize: 14,
+
                 fontWeight: "bold",
               }}
             >
@@ -257,7 +258,7 @@ const ForgotPassword = ({ navigation, route }) => {
           onPress={send_Email}
           style={{
             width: "80%",
-            height: "15%",
+            height: "30%",
             alignSelf: "center",
             borderRadius: 10,
             marginTop: 20,
@@ -265,6 +266,8 @@ const ForgotPassword = ({ navigation, route }) => {
             flexDirection: "row",
             backgroundColor: "#E2E2E2",
             justifyContent: "center",
+            // borderColor:'black',
+            //   borderWidth:1
           }}
         >
           <View
@@ -286,19 +289,22 @@ const ForgotPassword = ({ navigation, route }) => {
           </View>
           <View
             style={{
-              width: "70%",
+              // width: "70%",
               height: "100%",
               paddingLeft: 20,
 
               justifyContent: "center",
+              // borderColor:'black',
+              // borderWidth:1
             }}
           >
             <Text style={{ color: Colors.textGreyColor }}>Via Email</Text>
             <Text
               style={{
                 color: Colors.productGrey,
-                fontSize: 18,
-                width: "100%",
+                fontSize: 14,
+                // width: "100%",
+            
                 fontWeight: "bold",
                 marginBottom:15
               }}

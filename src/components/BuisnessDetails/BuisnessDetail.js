@@ -57,6 +57,7 @@ import {
   StyleSheet,
   LogBox,
   BackHandler,
+  KeyboardAvoidingView
 } from "react-native";
 
 import {

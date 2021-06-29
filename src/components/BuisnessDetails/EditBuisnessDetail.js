@@ -25,9 +25,7 @@ import {
 } from "react-native";
 //import styles from './Signup.style'
 
-
 import { useIsFocused } from "@react-navigation/native";
-
 
 // import PushNotificationIOS from "@react-native-community/push-notification-ios";
 // import PushNotification from "react-native-push-notification";
@@ -82,11 +80,10 @@ const EditBuisnessDetail = ({ navigation, route }) => {
   const [BusinessTypeMsg, setBusinessTypeMsg] = useState(false);
   const [addressMsg, setAddressMsg] = useState(false);
 
-  var reg1=/^[a-zA-Z ]*$/;
+  var reg1 = /^[a-zA-Z ]*$/;
   const [BusinessNameMsg1, setBusinessNameMsg1] = useState(false);
   const [BusinessNatureMsg1, setBusinessNatureMsg1] = useState(false);
   const [BusinessTypeMsg1, setBusinessTypeMsg1] = useState(false);
-
 
   const [loading, setLoading] = useState(false);
 
@@ -96,8 +93,6 @@ const EditBuisnessDetail = ({ navigation, route }) => {
     // console.log("nature", nature);
     // console.log("type", type);
   }, [isFocused, ID]);
-
-
 
   // const checkName=()=>{
   //   if(BusinessName!=""){
@@ -117,8 +112,8 @@ const EditBuisnessDetail = ({ navigation, route }) => {
   //   }
   // }
 
-  const checkNature=()=>{
-    if(BusinessNature!=""){
+  const checkNature = () => {
+    if (BusinessNature != "") {
       if (reg1.test(BusinessNature) === false) {
         // setToastMessage("Email is Not Correct");
         // alert("Invalid Business Nature");
@@ -128,16 +123,14 @@ const EditBuisnessDetail = ({ navigation, route }) => {
         // setAccountNumberMsg1(true);
         // setLoading(false);
         return false;
-      }
-      else{
+      } else {
         setBusinessNatureMsg1(false);
       }
-      
     }
-  }
+  };
 
-  const checkType=()=>{
-    if(BusinessType!=""){
+  const checkType = () => {
+    if (BusinessType != "") {
       if (reg1.test(BusinessType) === false) {
         // setToastMessage("Email is Not Correct");
         // alert("Invalid Business Type");
@@ -147,14 +140,11 @@ const EditBuisnessDetail = ({ navigation, route }) => {
         // setAccountNumberMsg1(true);
         // setLoading(false);
         return false;
-      }
-      else{
+      } else {
         setBusinessTypeMsg1(false);
       }
     }
-  }
-
-
+  };
 
   const updateBuisnessDetail = () => {
     // if (BusinessName == "") {
@@ -166,63 +156,67 @@ const EditBuisnessDetail = ({ navigation, route }) => {
     // } else if (address == "") {
     //   setAddress(BAdress);
     // } else {
-      if(BusinessType!=""){
-        if (reg1.test(BusinessType) === false) {
-          // setToastMessage("Email is Not Correct");
-          // alert("Invalid Business Type");
-          setBusinessTypeMsg1(true);
-          setBusinessType("");
-          // setButtonCheck(false);
-          // setAccountNumberMsg1(true);
-          // setLoading(false);
-          return false;
-        }
-        else{
-          setBusinessTypeMsg1(false);
-        }
+    if (BusinessType != "") {
+      if (reg1.test(BusinessType) === false) {
+        // setToastMessage("Email is Not Correct");
+        // alert("Invalid Business Type");
+        setBusinessTypeMsg1(true);
+        setBusinessType("");
+        // setButtonCheck(false);
+        // setAccountNumberMsg1(true);
+        // setLoading(false);
+        return false;
+      } else {
+        setBusinessTypeMsg1(false);
       }
-      if(BusinessNature!=""){
-        if (reg1.test(BusinessNature) === false) {
-          // setToastMessage("Email is Not Correct");
-          // alert("Invalid Business Nature");
-          setBusinessNatureMsg1(true);
-          setBusinessNature("");
-          // setButtonCheck(false);
-          // setAccountNumberMsg1(true);
-          // setLoading(false);
-          return false;
-        }
-        else{
-          setBusinessNatureMsg1(false);
-        }
-        
+    }
+    if (BusinessNature != "") {
+      if (reg1.test(BusinessNature) === false) {
+        // setToastMessage("Email is Not Correct");
+        // alert("Invalid Business Nature");
+        setBusinessNatureMsg1(true);
+        setBusinessNature("");
+        // setButtonCheck(false);
+        // setAccountNumberMsg1(true);
+        // setLoading(false);
+        return false;
+      } else {
+        setBusinessNatureMsg1(false);
       }
-  
-      // if(BusinessName!=""){
-      //   if (reg1.test(BusinessName) === false) {
-      //     // setToastMessage("Email is Not Correct");
-      //     // alert("Invalid Business Name");
-      //     setBusinessNameMsg1(true);
-      //     setBusinessName("");
-      //     // setButtonCheck(false);
-      //     // setAccountNumberMsg1(true);
-      //     // setLoading(false);
-      //     return false;
-      //   }
-      //   else{
-      //     setBusinessNameMsg1(false);
-      //   }
-      // }
+    }
 
+    // if(BusinessName!=""){
+    //   if (reg1.test(BusinessName) === false) {
+    //     // setToastMessage("Email is Not Correct");
+    //     // alert("Invalid Business Name");
+    //     setBusinessNameMsg1(true);
+    //     setBusinessName("");
+    //     // setButtonCheck(false);
+    //     // setAccountNumberMsg1(true);
+    //     // setLoading(false);
+    //     return false;
+    //   }
+    //   else{
+    //     setBusinessNameMsg1(false);
+    //   }
+    // }
 
-      if(BusinessName==""&&BusinessNature==""&&BusinessType==""&&address==""){
-        alert("Nothing to Change");
-      }
-      else if(BusinessName==" "||BusinessNature==" "||BusinessType==" "||address==" "){
-        alert("Nothing to Change");
-      }
-      else{
-        setLoading(true);
+    if (
+      BusinessName == "" &&
+      BusinessNature == "" &&
+      BusinessType == "" &&
+      address == ""
+    ) {
+      alert("Nothing to change");
+    } else if (
+      BusinessName == " " ||
+      BusinessNature == " " ||
+      BusinessType == " " ||
+      address == " "
+    ) {
+      alert("Nothing to change");
+    } else {
+      setLoading(true);
 
       fetch(URL + "/delivery_person/update_business/", {
         method: "PUT",
@@ -232,11 +226,11 @@ const EditBuisnessDetail = ({ navigation, route }) => {
         },
         body: JSON.stringify({
           id: ID,
-          business_logo:"",
-          business_name: BusinessName==""?BName:BusinessName,
-          business_nature: BusinessNature==""?BNature:BusinessNature,
-          business_type: BusinessType==""?BType:BusinessType,
-          business_address: address==""?BAdress:address,
+          business_logo: "",
+          business_name: BusinessName == "" ? BName : BusinessName,
+          business_nature: BusinessNature == "" ? BNature : BusinessNature,
+          business_type: BusinessType == "" ? BType : BusinessType,
+          business_address: address == "" ? BAdress : address,
         }),
       })
         .then(async (response) => {
@@ -268,10 +262,8 @@ const EditBuisnessDetail = ({ navigation, route }) => {
           // code that can access both here
         })
         .catch((error) => console.log("Something went wrong", error));
-        
-      }
+    }
 
-      
     // }
   };
 
@@ -347,71 +339,78 @@ const EditBuisnessDetail = ({ navigation, route }) => {
 
   return (
     <>
-    <ScrollView keyboardShouldPersistTaps="always" style={{backgroundColor:'white'}}>
-    <View style={styles.container}>
-      {/* <View style={styles.spinnerv}> */}
-      {/* {
+      <KeyboardAvoidingView style={{ flex: 1 }}
+  behavior={Platform.OS == "ios" ? "padding" : null} >
+      <ScrollView
+        keyboardShouldPersistTaps="always"
+        style={{ backgroundColor: "white" }}
+      >
+        <View style={styles.container}>
+          {/* <View style={styles.spinnerv}> */}
+          {/* {
   state?
   <ActivityIndicator size={100} /> :
   <Text> loading... </Text>
 } */}
-      {/* </View> */}
+          {/* </View> */}
 
-      <View style={{ ...styles.header, paddingBottom: 10 }}>
-        <ImageBackground
-          source={require("../../assets/Splash.jpg")}
-          style={{ width: "100%", height: "100%" }}
-        >
-          <Content>
-            <View style={{ alignItems: "center", marginTop: 20 }}>
-              <Thumbnail
-                scaleX={2}
-                scaleY={2}
-                style={{ margin: 35 }}
-                source={
-                  RiderImage == null
-                    ? require("../../assets/profilelogo.png")
-                    : { uri: RiderImage }
-                }
-              />
-              <Text
-                style={{
-                  fontWeight: "bold",
-                  color: "black",
-                  fontSize: 16,
-                  color: Colors.yellowColor,
-                }}
-              >
-                Edit Business Details Of{" "}
-              </Text>
-              <Text
-                style={{
-                  fontWeight: "bold",
-                  color: "black",
-                  fontSize: 22,
-                  color: "white",
-                }}
-              >
-                {RiderName}
-              </Text>
-            </View>
-            {/* <View style = {{alignItems:'center'}}>
+          <View style={{ ...styles.header, paddingBottom: 10 }}>
+            <ImageBackground
+              source={require("../../assets/Splash.jpg")}
+              style={{ width: "100%", height: "100%" }}
+            >
+              <Content>
+                <View style={{ alignItems: "center", marginTop: 20 }}>
+                  <Thumbnail
+                    scaleX={2}
+                    scaleY={2}
+                    style={{ margin: 35 }}
+                    source={
+                      RiderImage == null
+                        ? require("../../assets/profilelogo.png")
+                        : { uri: RiderImage }
+                    }
+                  />
+                  <Text
+                    style={{
+                      fontWeight: "bold",
+                      color: "black",
+                      fontSize: 16,
+                      color: Colors.yellowColor,
+                    }}
+                  >
+                    Edit Business Details Of{" "}
+                  </Text>
+                  <Text
+                    style={{
+                      fontWeight: "bold",
+                      color: "black",
+                      fontSize: 22,
+                      color: "white",
+                    }}
+                  >
+                    {RiderName}
+                  </Text>
+                </View>
+                {/* <View style = {{alignItems:'center'}}>
           <Text style ={{fontWeight:'bold',color:'black',padding:5}}>Khan</Text>
           </View> */}
-          </Content>
-        </ImageBackground>
-      </View>
+              </Content>
+            </ImageBackground>
+          </View>
 
-      <View style={{ ...styles.footer }}>
-        <View
-          style={{
-            width: "90%",
-            alignSelf: "center",
-            marginTop: 20,
-          }}
-        >
-          {/* <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={50}> */}
-            {/* <ScrollView> */}
+     
+          <View style={{ ...styles.footer }}>
+        
+            <View
+              style={{
+                width: "90%",
+                alignSelf: "center",
+                marginTop: 20,
+              }}
+            >
+              {/* <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={50}> */}
+              {/* <ScrollView> */}
               {/* <FormSignup type="SignUp"/> */}
 
               <TextInput
@@ -472,7 +471,7 @@ const EditBuisnessDetail = ({ navigation, route }) => {
               {BusinessNatureMsg1 && (
                 <Animatable.View animation="fadeInLeft" duration={500}>
                   <Text style={{ color: "#DC143C", marginLeft: 20 }}>
-                   Invalid Busines Nature
+                    Invalid Busines Nature
                   </Text>
                 </Animatable.View>
               )}
@@ -500,7 +499,7 @@ const EditBuisnessDetail = ({ navigation, route }) => {
                 </Animatable.View>
               )}
 
-{BusinessTypeMsg1 && (
+              {BusinessTypeMsg1 && (
                 <Animatable.View animation="fadeInLeft" duration={500}>
                   <Text style={{ color: "#DC143C", marginLeft: 20 }}>
                     Invalid Business Type
@@ -567,9 +566,9 @@ const EditBuisnessDetail = ({ navigation, route }) => {
                   </TouchableOpacity>
                 </View>
               )}
-            {/* </ScrollView> */}
-          {/* </KeyboardAvoidingView> */}
-          {/* {isLoading ? (
+              {/* </ScrollView> */}
+              {/* </KeyboardAvoidingView> */}
+              {/* {isLoading ? (
       <Spinner
       //visibility of Overlay Loading Spinner
       visible={isLoading}
@@ -585,16 +584,22 @@ const EditBuisnessDetail = ({ navigation, route }) => {
     //   {isLoading ? (
     //   <ActivityIndicator size="large" color={Colors.accentColor} style={styles.activityIndicator}/>
     //   ) : ( */}
-          {/* <TouchableOpacity style={styles.button}
+              {/* <TouchableOpacity style={styles.button}
         onPress={addCompanyInfo}
         >
         <Text style={styles.buttonText}>SIGN UP</Text>
       </TouchableOpacity> */}
-          {/* //)} */}
+              {/* //)} */}
+            </View>
+          
+
+          </View>
+
         </View>
-      </View>
-    </View>
-    </ScrollView>
+      </ScrollView>
+      </KeyboardAvoidingView>
+
+      
     </>
   );
 };

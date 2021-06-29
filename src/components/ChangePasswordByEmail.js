@@ -24,9 +24,9 @@ const ChangePasswordByEmail = ({ navigation }) => {
   const [tokken, setTokken] = useState("");
   const [newPass, setNewPass] = useState("");
   const [confirmNewPass, setConfirmNewPass] = useState("");
-  const [isLoading,setIsLoading]=useState(false);
-  const [securePass , setSecurePass] = useState(true);
-  const [secureConfirmPass , setSecureConfirmPass] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [securePass, setSecurePass] = useState(true);
+  const [secureConfirmPass, setSecureConfirmPass] = useState(true);
   //const ClientEmail = useSelector((state) => state.ApiData.ClientEmail);
 
   const change_Password = () => {
@@ -52,7 +52,7 @@ const ChangePasswordByEmail = ({ navigation }) => {
             //console.log("signup", response);
             if (response.status == 200) {
               setIsLoading(false);
-              Toast.show("Password Successfully Updated", Toast.LONG);
+              Toast.show("Password successfully updated", Toast.LONG);
 
               // alert("Password Updated Successfully");
               // Toast.show(data.password, Toast.LONG);
@@ -61,19 +61,18 @@ const ChangePasswordByEmail = ({ navigation }) => {
               setTokken("");
               navigation.navigate("Login");
             } else {
-              
-                // if(data.status="notfound"){
+              // if(data.status="notfound"){
               setIsLoading(false);
 
-                  alert(data.status=="notfound"?"Incorrect Tokken":data.password);
-                // Toast.show(data.password, Toast.LONG);
+              alert(
+                data.status == "notfound" ? "Incorrect Tokken" : data.password
+              );
+              // Toast.show(data.password, Toast.LONG);
               setTokken("");
 
-                setNewPass("");
-                setConfirmNewPass("");
-               
+              setNewPass("");
+              setConfirmNewPass("");
             }
-           
           })
           .catch((error) => console.log(error));
       } else {
@@ -271,7 +270,7 @@ const ChangePasswordByEmail = ({ navigation }) => {
       </View>
       <View style={styles.inputArea}>
         <TextInput
-          style={{width:"95%"}}
+          style={{ width: "95%" }}
           placeholder="Enter New Password"
           autoCapitalize="none"
           required={true}
@@ -283,24 +282,25 @@ const ChangePasswordByEmail = ({ navigation }) => {
           onChangeText={(value) => setNewPass(value)}
           initialValue=""
         />
-        <View style={{alignSelf:"center",}}>
-            <Icon active name={securePass?'eye':"eye-off"} color= {Colors.textGreyColor} size={25} 
-                 onPress = {() => {
-               
-                  if(securePass == true){
-                 setSecurePass(false)
-                  }
-                  else{
-                    setSecurePass(true)
-                  }
-                }
-                }
-                 />
-              </View>
+        <View style={{ alignSelf: "center" }}>
+          <Icon
+            active
+            name={securePass ? "eye" : "eye-off"}
+            color={Colors.textGreyColor}
+            size={25}
+            onPress={() => {
+              if (securePass == true) {
+                setSecurePass(false);
+              } else {
+                setSecurePass(true);
+              }
+            }}
+          />
+        </View>
       </View>
       <View style={styles.inputArea}>
         <TextInput
-          style={{width:"95%"}}
+          style={{ width: "95%" }}
           placeholder="Confirm Password"
           autoCapitalize="none"
           required={true}
@@ -312,36 +312,38 @@ const ChangePasswordByEmail = ({ navigation }) => {
           onChangeText={(value) => setConfirmNewPass(value)}
           initialValue=""
         />
-        <View style={{alignSelf:"center",}}>
-            <Icon active name={secureConfirmPass?'eye':"eye-off"} color= {Colors.textGreyColor} size={25} 
-                 onPress = {() => {
-               
-                  if(secureConfirmPass == true){
-                    setSecureConfirmPass(false)
-                  }
-                  else{
-                    setSecureConfirmPass(true)
-                  }
-                }
-                }
-                 />
-              </View>
+        <View style={{ alignSelf: "center" }}>
+          <Icon
+            active
+            name={secureConfirmPass ? "eye" : "eye-off"}
+            color={Colors.textGreyColor}
+            size={25}
+            onPress={() => {
+              if (secureConfirmPass == true) {
+                setSecureConfirmPass(false);
+              } else {
+                setSecureConfirmPass(true);
+              }
+            }}
+          />
+        </View>
       </View>
 
       <TouchableOpacity onPress={change_Password} style={styles.button}>
-      {isLoading ? (
-              <Spinner color={"white"} />
-            ) : (
-        <Text
-          style={{
-            color: "white",
-            fontWeight: "bold",
-            textAlign: "center",
-            fontSize: 16,
-          }}
-        >
-          SUBMIT
-        </Text>)}
+        {isLoading ? (
+          <Spinner color={"white"} />
+        ) : (
+          <Text
+            style={{
+              color: "white",
+              fontWeight: "bold",
+              textAlign: "center",
+              fontSize: 16,
+            }}
+          >
+            SUBMIT
+          </Text>
+        )}
       </TouchableOpacity>
     </View>
   );
