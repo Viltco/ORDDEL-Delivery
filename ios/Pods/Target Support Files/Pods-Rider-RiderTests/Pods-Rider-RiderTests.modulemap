@@ -1,0 +1,6 @@
+module Pods_Rider_RiderTests {
+  umbrella header "Pods-Rider-RiderTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,6 @@
+framework module Pods_Rider_tvOS {
+  umbrella header "Pods-Rider-tvOS-umbrella.h"
+
+  export *
+  module * { export * }
+}
