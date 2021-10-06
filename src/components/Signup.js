@@ -24,6 +24,8 @@ import {
   Image,
   ActivityIndicator,
   FlatList,
+  Keyboard,
+  TouchableWithoutFeedback
 } from "react-native";
 //import styles from './Signup.style'
 import Icon from "react-native-vector-icons/Ionicons";
@@ -39,6 +41,14 @@ import { BottomSheet } from "react-native-btr";
 import CheckBox from "@react-native-community/checkbox";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 // import Firebase from '@react-native-firebase/app'
+
+
+const DismissKeyboard = ({ children }) => (
+  <TouchableWithoutFeedback
+  onPress={() => Keyboard.dismiss()}>
+   {children}
+  </TouchableWithoutFeedback>
+  );
 
 const Signup = ({ navigation }) => {
   const [checked, setChecked] = useState("percentage");
@@ -385,91 +395,7 @@ const Signup = ({ navigation }) => {
                 setIsLoading(true);
               }
 
-              // setToastMessage("");
-              // alert("Its work")
 
-              //     const res = fetch(URL+'/check_existing_email_phone/', {
-              //     method: 'POST',
-              //     headers: {
-              //       Accept: 'application/json',
-              //       'Content-Type': 'application/json'
-              //     },
-              //     body:JSON.stringify({
-              //       "email":email,
-              //       "phone_number":formattedValue,
-              //    })
-
-              //   }).then( async (response) => {
-              //    let data = await response.json();
-              //    console.log("signup",data)
-              //    console.log("signup",response.status)
-              //    if(response.status==400){
-              //     //  navigation.navigate("VerificationCode" , {Email : email , Phone_No : formattedValue,EmailVerify:"EmailVerification", first_name: firstName,
-              // //        last_name: lastName,
-              // //        email:email,
-              // //        phone_number:formattedValue,
-              // //        password: password,
-              // //        address: RiderAddress,
-              // //   })
-
-              //    }
-              //   else{
-              //     //  setToastMessage(data.message)
-              //     //  setIsLoading(false);
-              //     //  alert(data.message);
-              //    }
-
-              //  })
-              //   .catch ((error)=>
-              //     console.log("Something went wrong", error)
-              //   )
-              //   const res = fetch(URL+'/delivery_person/delivery_person_registration/', {
-              //     method: 'POST',
-              //     headers: {
-              //       Accept: 'application/json',
-              //       'Content-Type': 'application/json'
-              //     },
-              //     body:JSON.stringify({
-
-              //        "first_name": firstName,
-              //        "last_name": lastName,
-              //        "email":email,
-              //        "phone_number":formattedValue,
-              //        "password": password,
-              //        "package": 1,
-              //        "current_location": "",
-              //        "address": RiderAddress,
-              //        "buying_capacity": 50000,
-              //        "gender": "male",
-              //        "image": "",
-              //        "admin_approval_status":"pending"
-
-              //    })
-
-              //   }).then( async (response) => {
-              //    let data = await response.json();
-              //    console.log("signup",data)
-              //    console.log("signup",response.status)
-              //    if(response.status==200){
-              //      navigation.navigate("VerificationCode" , {Email : email , Phone_No : formattedValue,EmailVerify:"EmailVerification"})
-
-              //    }
-              //   else{
-              //      setToastMessage(data.message)
-              //      setIsLoading(false);
-              //     //  alert(data.message);
-              //    }
-              //    if(data=="Phone Number already registered!"){
-              //     setToastMessage(data)
-              //     setIsLoading(false);
-              //    }
-
-              //    //send_Verification_Code()
-              //    // navigation.navigate("VerificationCode" , {Email : email , Phone_No : phoneNumber,})
-              //  })
-              //   .catch ((error)=>
-              //     console.log("Something went wrong", error)
-              //   )
             } else {
               //alert("All fields are required")
               //setWrongEmail(false)
@@ -486,87 +412,13 @@ const Signup = ({ navigation }) => {
     setIsLoading(false);
   };
 
-  //Verification Code
 
-  //  useEffect(() => {
-
-  //   Firebase.initializeApp
-
-  //   PushNotification.configure({
-  //     // (optional) Called when Token is generated (iOS and Android)
-  //     onRegister: function (token) {
-  //       setTokken(token.token)
-
-  //       console.log("TOKEN:", token);
-  //     },
-
-  //     // (required) Called when a remote is received or opened, or local notification is opened
-  //     onNotification: function (notification) {
-  //       console.log("NOTIFICATION:", notification);
-
-  //       // process the notification
-
-  //       // (required) Called when a remote is received or opened, or local notification is opened
-  //       notification.finish(PushNotificationIOS.FetchResult.NoData);
-  //     },
-
-  //     // (optional) Called when Registered Action is pressed and invokeApp is false, if true onNotification will be called (Android)
-  //     onAction: function (notification) {
-  //       console.log("ACTION:", notification.action);
-  //       console.log("NOTIFICATION:", notification);
-
-  //       // process the action
-  //     },
-
-  //     // (optional) Called when the user fails to register for remote notifications. Typically occurs when APNS is having issues, or the device is a simulator. (iOS)
-  //     onRegistrationError: function(err) {
-  //       console.error(err.message, err);
-  //     },
-
-  //     // IOS ONLY (optional): default: all - Permissions to register.
-  //     permissions: {
-  //       alert: true,
-  //       badge: true,
-  //       sound: true,
-  //     },
-
-  //     // Should the initial notification be popped automatically
-  //     // default: true
-  //     popInitialNotification: true,
-
-  //     /**
-  //      * (optional) default: true
-  //      * - Specified if permissions (ios) and token (android and ios) will requested or not,
-  //      * - if not, you must call PushNotificationsHandler.requestPermissions() later
-  //      * - if you are not using remote notification or do not have Firebase installed, use this:
-  //      *     requestPermissions: Platform.OS === 'ios'
-  //      */
-  //     requestPermissions: true,
-  //   });
-
-  // try {
-  //   const Login =  AsyncStorage.getItem('@login')
-  //   const Password = AsyncStorage.getItem('@password')
-  //   if (Login !== null) {
-  //      this.props.navigation.navigate("Dashboard")
-  //   }
-  // } catch (e) {
-  //   alert('Failed to fetch the data from storage')
-  // }
-
-  // },[]);
 
   return (
-    <View style={styles.container}>
-      {/* <ScrollView style={{backgroundColor:'white'}}> */}
 
-      {/* <View style={styles.spinnerv}> */}
-      {/* {
-  state?
-  <ActivityIndicator size={100} /> :
-  <Text> loading... </Text>
-} */}
-      {/* </View> */}
+    <DismissKeyboard>
+    <View style={styles.container}>
+
 
       <View style={styles.header}>
         <ImageBackground
@@ -600,12 +452,20 @@ const Signup = ({ navigation }) => {
         </ImageBackground>
       </View>
 
+
+
+
+      <KeyboardAvoidingView
+          style={{ flex: 5.5 }}
+          behavior={Platform.OS == "ios" ? "padding" : null}
+
+        >
+
+
       <View style={styles.footer}>
-        {/* <View style={styles.g_container}> */}
-        {/* <KeyboardAvoidingView
-           behavior="padding"
-           keyboardVerticalOffset={50}
-        > */}
+
+
+
         <ScrollView showsVerticalScrollIndicator={false}>
           {/* <FormSignup type="SignUp"/> */}
           <View style={{ flexDirection: "row", alignSelf: "center" }}>
@@ -738,22 +598,22 @@ const Signup = ({ navigation }) => {
             >
               <Picker.Item label="Male" value="key" />
               <Picker.Item label="Female" value="key0" />
-            
+
             </Picker>
           </View> */}
 
-          <View>
+          <View >
             <PhoneInput
               containerStyle={styles.phoneStyle}
               textContainerStyle={styles.textStyle}
-              textInputStyle={{ height: 40, marginTop: 7 }}
+              textInputStyle={{ height: 40, justifyContent:'flex-start', marginTop: Platform.OS == "android"? 2.5: -1 , fontSize:15.5,  }}
               ref={phoneInput}
               defaultValue={value}
               // initialCountry={"UK"}
               // withCountryNameButton="United Kingdom"
               defaultCode="GB"
               onChangeText={(text) => {
-                setValue(text);
+              setValue(text);
               }}
               onChangeFormattedText={(text) => {
                 setFormattedValue(text);
@@ -804,8 +664,8 @@ const Signup = ({ navigation }) => {
                   {packageName}
                 </Text>
                 {/* <Text style={{ fontSize: 12, color: "#666666" }}>
-      {riderAddress}
-    </Text> */}
+                   {riderAddress}
+                 </Text> */}
               </TouchableOpacity>
             </Card>
             <BottomSheet
@@ -1091,14 +951,16 @@ const Signup = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </ScrollView>
-        {/* </KeyboardAvoidingView> */}
 
         {/* </View> */}
       </View>
+      </KeyboardAvoidingView>
       {/* </ScrollView> */}
 
       {/* </ScrollView> */}
     </View>
+    </DismissKeyboard>
+
   );
 };
 
@@ -1110,12 +972,13 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   phoneStyle: {
+    //borderWidth:1,
     marginVertical: 10,
-    height: Platform.OS == "android" ? 50 : 60,
+    height: Platform.OS == "android" ? 60 : 60,
     width: "90%",
     alignSelf: "center",
     backgroundColor: "#F2F1F3",
-    borderRadius: 25,
+    borderRadius: 30,
     paddingHorizontal: 10,
 
     flexDirection: "row",
@@ -1125,9 +988,10 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     //  paddingTop:5,
     //marginTop:10,
+    //borderWidth:1,
 
     // textAlign:'center',
-    // alignContent: "center",
+     alignContent: "center",
     // justifyContent:'center',
     backgroundColor: "#F2F1F3",
     //color:'black'
@@ -1214,6 +1078,7 @@ const styles = StyleSheet.create({
     flex: 6,
     width: "100%",
     backgroundColor: "#ffffff",
+    //backgroundColor:'green'
     // borderTopLeftRadius: 30,
     // borderTopRightRadius: 30,
     // paddingVertical: 10,

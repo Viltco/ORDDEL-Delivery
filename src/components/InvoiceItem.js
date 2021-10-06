@@ -15,39 +15,39 @@ import Colors from '../ColorCodes/Colors';
 const InvoiceItem = props => {
 
 
- 
+
 
   return (
 
 
-    <View style={{flexDirection:'row',borderBottomWidth:0.5,borderBottomColor:'grey',marginTop:10,alignItems:'space-around',width:'100%',marginBottom:1,paddingRight:10}}>
+    <View style={{flexDirection:'row',borderBottomWidth:0.5,borderBottomColor:'grey',marginTop:10,alignItems:'space-around',width:'100%', }}>
 
-        <View style = {{width:'25%'}}>
+        <View style = {{width:'25%', }}>
             <Text style={{marginLeft:2,color:Colors.productGrey,fontWeight:'bold',textAlign:'left'}}>{props.name}</Text>
         </View>
         {/* <View style = {{width:'20%',alignItems:'center'}}>
-        
+
         <Text style={{color:Colors.productGrey}}>{props.unit}</Text>
         </View> */}
-        <View style = {{width:'15%',alignItems:"center"}}>
-        
+        <View style = {{width:'20%',alignItems:"center",}}>
+
             <Text style={{color:Colors.productGrey}}>{props.quantity}</Text>
         </View>
-        
-        
-        <View style = {{width:'20%'}}>
-        
-            <Text style={{color:Colors.productGrey,textAlign:'right'}}>£ {parseFloat(props.price).toFixed(2)}</Text>
+
+
+        <View style = {{width:'20%',}}>
+
+            <Text style={{color:Colors.productGrey,textAlign:"center"}}>£ {parseFloat(props.price).toFixed(2)}</Text>
         </View>
-        <View style = {{width:'18%',paddingLeft:"2%"}}>
-        
-            <Text style={{color:Colors.productGrey,textAlign:'right',marginRight:5}}>£ {parseFloat(props.vat).toFixed(2)}</Text>
+        <View style = {{width:'16%',paddingLeft:"2%",}}>
+
+            <Text style={{color:Colors.productGrey,textAlign:"center",marginRight:5}}>£ {parseFloat(props.vat).toFixed(2)}</Text>
         </View>
-        <View style = {{width:'25%'}}>
-        
-            <Text style={{color:Colors.productGrey,textAlign:'right',marginRight:5}}>£ {parseFloat(props.amount).toFixed(2)}</Text>
+        <View style = {{width:'20%',}}>
+
+            <Text style={{color:Colors.productGrey,textAlign:"center",marginRight:5}}>£ {parseFloat(props.amount).toFixed(2)}</Text>
         </View>
-        
+
     </View>
 
 
@@ -57,11 +57,11 @@ const InvoiceItem = props => {
     //   <View style={styles.itemData}>
     //     <Text style={styles.quantity}>{props.quantity} </Text>
     //     <Text style={styles.title}>{props.name}  </Text>
-        
+
     //   </View>
     //   <View style={styles.itemData}>
     //     <Text style={styles.rupees}> Rs.{props.amount.toFixed(2)}</Text>
-        
+
     //     {props.deletable && (
     //       <TouchableOpacity
     //         onPress={props.onRemove}
@@ -84,7 +84,7 @@ const InvoiceItem = props => {
     //         {MyIcon2}
     //       </TouchableOpacity>
     //     )} */}
-        
+
     //   </View>
     // </View>
   );
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
   itemData: {
     flexDirection: 'row',
     alignItems: 'center',
-    
+
   },
   quantity:{
     color: "#EE0202",
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginRight: 4,
   },
- 
+
   title: {
     fontFamily: 'open-sans-bold',
     fontSize: 16,
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   deleteButton: {
     marginLeft: 20
   },
-  
+
   button: {
     marginLeft:15,
   },

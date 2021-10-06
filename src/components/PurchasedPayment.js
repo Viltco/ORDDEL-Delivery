@@ -287,9 +287,7 @@ const PurchasedPayment = ({ navigation, route }) => {
     }
   };
 
-  //   useEffect(() => {
-  //     LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-  // }, [])
+
   useEffect(() => {
     setIsLoading(true);
 
@@ -320,7 +318,7 @@ const PurchasedPayment = ({ navigation, route }) => {
             setIsLoading(true);
             let data = await response.json();
 
-            // console.log("---------------------------------",data[0])
+            //console.log("------------ unpaid Api response  ------------------",data)
 
             // console.log("status code",response.status)
             console.log(
@@ -328,13 +326,13 @@ const PurchasedPayment = ({ navigation, route }) => {
               data
             );
             if (response.status == 200) {
-              console.log("Unpaid:", data);
+              console.log("Unpaid.........", data.order_products);
               if (data == "") {
                 setLoading(true);
                 setIsLoading(false);
               } else {
                 setData(data);
-                //console.log("length",data.data.length)
+                //console.log("length",data)
                 setLoading(false);
                 setIsLoading(false);
                 setLength(data.data.length);
@@ -343,13 +341,7 @@ const PurchasedPayment = ({ navigation, route }) => {
               }
             }
 
-            // console.log("Buisness Detail:",responseJson.client_businesses[0]['name']);
-            // if (json["response"] == "Record does not exist or not found") {
-            //   setLoading(true);
-            // } else {
 
-            //   //console.log(json);
-            // }
           })
           .catch((error) => console.error("From Consolidate", error));
       } else {
@@ -367,7 +359,7 @@ const PurchasedPayment = ({ navigation, route }) => {
             setIsLoading(true);
             let data = await response.json();
 
-            // console.log("status code",response.status)
+
             console.log("Unpaid..........     ", data);
             if (response.status == 200) {
               console.log("Consolidateeeeeeee:", data);
@@ -383,13 +375,7 @@ const PurchasedPayment = ({ navigation, route }) => {
               }
             }
 
-            // console.log("Buisness Detail:",responseJson.client_businesses[0]['name']);
-            // if (json["response"] == "Record does not exist or not found") {
-            //   setLoading(true);
-            // } else {
 
-            //   //console.log(json);
-            // }
           })
           .catch((error) => console.error(error));
       }
@@ -402,18 +388,16 @@ const PurchasedPayment = ({ navigation, route }) => {
 
   const modifyDate = (item) => {
     setSupplierDate(item);
-    //   let data=item.gDetailDS.activeFrom;
-    //   // alert(data.getDate())
-    // let myDate=("0" + data.getDate()).slice(-2);
-    // let myMonth=("0" + (data.getMonth() + 1)).slice(-2);
-    // let myYear=data.getFullYear();
 
-    // let myHour=("0" + data.getHours()).slice(-2);
-    // let myMinute=("0" + data.getMinutes()).slice(-2);
-
-    // setSupplierDate(myDate+"-"+myMonth+"-"+myYear);
-    // setSupplierTime(myHour+":"+myMinute);
   };
+
+  const totalPayables = () => {
+
+    // data.map((item) => (
+
+    //     ))
+
+  }
 
   return (
     <View
@@ -431,7 +415,7 @@ const PurchasedPayment = ({ navigation, route }) => {
         >
           <View
             style={{
-            
+
               width: 320,
               height: 40,
               backgroundColor: Colors.themeColor,
@@ -497,76 +481,7 @@ const PurchasedPayment = ({ navigation, route }) => {
           </View>
         </TouchableOpacity>
       </View>
-      {/* <View style={{ padding: 5, alignSelf: "center" }}>
-        <TouchableOpacity
-          style={{ marginTop: 15, marginBottom: 5 }}
-          onPress={showDatepicker}
-        >
-          <View
-            style={{
-              width: 320,
-              height: 40,
-              backgroundColor: Colors.themeColor,
-              justifyContent: "center",
-              alignItems: "center",
-              alignSelf: "center",
-              borderRadius: 10,
-              // flexDirection:'row',
-              shadowColor: "#000",
-              shadowOffset: { width: 0, height: 2 },
-              shadowOpacity: 0.25,
-              shadowRadius: 3.84,
-              // elevation: 5,
-            }}
-          >
-            <View style={{ flexDirection: "row" }}>
-              {formattedDate == "" ? (
-                <Text
-                  style={{
-                    fontSize: 16,
-                    fontWeight: "bold",
-                    textAlign: "center",
-                    color: "white",
-                    letterSpacing: 2,
-                  }}
-                >
-                  {currentDate}
-                </Text>
-              ) : (
-                <Text
-                  style={{
-                    fontSize: 16,
-                    fontWeight: "bold",
-                    textAlign: "center",
-                    color: "white",
-                  }}
-                >
-                  {formattedDate}
-                </Text>
-              )}
-              <FontAwesome
-                name="chevron-down"
-                color={Colors.themeColor}
-                size={14}
-                style={{ marginLeft: 20, color: "white", alignSelf: "center" }}
-              />
-            </View>
-          </View>
-        </TouchableOpacity>
-        {show && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={date}
-            mode={"date"}
-            // minimumDate={new Date()}
-            // is24Hour={true}
-            style={{ color: Colors.themeColor }}
-            display="default"
-            dateFormat="day month year"
-            onChange={onChange}
-          />
-        )}
-      </View> */}
+
 
       {isLoading ? (
         <Spinner color={Colors.themeColor} />
@@ -611,9 +526,7 @@ const PurchasedPayment = ({ navigation, route }) => {
                   renderItem={({ item }) =>
                     item.supplier_check != "True" && (
                       <TouchableOpacity
-                        // {item.supplier_check == "True" ? disabled : ""}
-                        // disabled={item.supplier_check == "True" ? true : false}
-                        //style={styles.signupButton}
+
                         activeOpacity={0.7}
                         //disabled={sendButtonCheck}
                         onPress={() => {
@@ -633,8 +546,8 @@ const PurchasedPayment = ({ navigation, route }) => {
                       >
                         {/* {loading ? (
                 <Spinner color={"white"} />
-              ) 
-              : 
+              )
+              :
               (
                 <Text style={styles.signupButtonText}>SEND ORDER</Text>
               )
@@ -713,24 +626,7 @@ const PurchasedPayment = ({ navigation, route }) => {
                               >
                                 £ {parseFloat(item.amount).toFixed(2)}
                               </Text>
-                              {/* <TouchableOpacity
-              style={{padding:2,
-                width: 70,
-                // padding:10,
-                marginTop:5,
-              backgroundColor: item.supplier_payment_status=="paid"?Colors.textGreyColor:Colors.themeColor,
-              
-              borderRadius: 5,
-        }}
-              activeOpacity={0.7}
-              disabled={item.supplier_payment_status=="paid"?true:false}
-              onPress={()=>{
-                  onPaid();
-              }}
-            //   onPress={OnSubmit}
-              >
-                <Text style={styles.paidText}>{item.supplier_payment_status.toUpperCase()}</Text>
-              </TouchableOpacity> */}
+
                             </View>
                           </View>
                         </View>
@@ -852,227 +748,97 @@ const PurchasedPayment = ({ navigation, route }) => {
                   </View>
                 </View>
 
-                {/* <View
-                style={{
-                  flexDirection: "row",
-                  alignSelf: "center",
-                  padding: 5,
-                  paddingTop:0
-                }}
-              >
-                
 
-                <View style = {{width:"50%",backgroundColor:'#e6e6e6',alignSelf:"center",borderRadius:10,
-          shadowColor: "#000",
-          shadowOffset: { width: 0, height: 2 },
-          // shadowOpacity: 0.25,
-          shadowRadius: 3.84,
-          elevation: 0,
-          padding:10,
-          
-          }}>
-                  <View style={{ padding: 5 }}>
-                    
-                      <Text style={{ color: Colors.themeColor, fontSize: 12 }}>
-                        Date:
-                      </Text>
-                      <Text
-                        style={{
-                          fontSize: 16,
-                          fontWeight: "bold",
-                          textAlign: "center",
-                        }}
-                      >
-                        {supplierDate}
-                    
-                  </View>
-                </View>
-
-                <View style = {{width:"50%",backgroundColor:'#e6e6e6',alignSelf:"center",borderRadius:10,
-          shadowColor: "#000",
-          shadowOffset: { width: 0, height: 2 },
-          // shadowOpacity: 0.25,
-          shadowRadius: 3.84,
-          elevation: 0,
-          padding:10,
-          marginLeft:5
-          }}>
-                  <View style={{ padding: 5 }}>
-                    
-                      <Text style={{ color: Colors.themeColor, fontSize: 12 }}>
-                        Time:
-                      </Text>
-                      <Text
-                        style={{
-                          fontSize: 16,
-                          fontWeight: "bold",
-                          textAlign: "center",
-                        }}
-                      >
-                        {("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2)}
-                      </Text>
-                    
-                  </View>
-                </View>
-              </View> */}
 
                 <View
                   style={{
-                 
-                    justifyContent:"center",
+
+                    //justifyContent:'space-between',
                     flexDirection: "row",
-                    
+                    alignItems: "center",
                     marginTop: 10,
-                    // borderWidth: 1,
+                     //borderWidth: 1,
                     // borderColor: "black",
                   }}
                 >
                   {/* <Text style={{color:Colors.themeColor,fontWeight:"bold",marginLeft:"1%",width:"20%",textAlign:"left"}}>Invoice</Text> */}
                   <Text
                     style={{
-                   
+
                       color: Colors.themeColor,
                       fontWeight: "bold",
                       //marginLeft: "2%",
-                      width: "21%",
-                      textAlign: "left",
+                      width: "27%",
+                      textAlign: 'center',
                       // borderWidth: 1,
                       // borderColor: "black",
                     }}
                   >
                     Product
                   </Text>
-                  {/* <Text
-                    style={{
-                      color: Colors.themeColor,
-                      fontWeight: "bold",
-                      textAlign: "center",
-                      width: "22%",
-                      marginLeft: 18,
-                    }}
-                  >
-                    Porterage Price
-                  </Text> */}
+
                   <Text
                     style={{
-                  
+
                       color: Colors.themeColor,
                       fontWeight: "bold",
                       textAlign: "center",
-                      width: "21%",
-                      marginLeft: 5,
+                      width: "23%",
+                      //marginLeft: 5,
                       // borderWidth: 1,
                       // borderColor: "black",
                     }}
                   >
                     Quantity
                   </Text>
-                  {/* <Text
-                    style={{
-                      color: Colors.themeColor,
-                      fontWeight: "bold",
-                      textAlign: "center",
-                      width: "30%",
-                      marginLeft: 5,
-                      // borderWidth: 1,
-                      // borderColor: "black",
-                    }}
-                  >
-                    Purchase Price
-                  </Text> */}
+
                   <Text
                     style={{
-                   
+
+                      color: Colors.themeColor,
+                      fontWeight: "bold",
+                      textAlign: 'center',
+                      width: "25%",
+                      //marginLeft: 1,
+                     // borderWidth: 1,
+
+                    }}
+                  >
+
+                   Rate
+                  </Text>
+
+
+                  <Text
+                    style={{
+
                       color: Colors.themeColor,
                       fontWeight: "bold",
                       textAlign: "right",
-                      width: "21%",
-                      marginLeft: 1,
+                      width: "25%",
+                      textAlign:"center",
+                      paddingLeft:"3%",
+                      //marginLeft: 1,
+                      //borderWidth: 1,
+
                     }}
                   >
-                    {/* Last month Avg.Price */}
+
                     Amount
                   </Text>
 
 
-                  <Text
-                    style={{
-                 
-                      color: Colors.themeColor,
-                      fontWeight: "bold",
-                      textAlign: "right",
-                      width: "27%",
-                      textAlign:"center",
-                      paddingLeft:"3%",
-                      marginLeft: 1,
-                    }}
-                  >
-                    {/* Last month Avg.Price */}
-                    Porterage Price 
-                  </Text>
 
 
-
-                  
                 </View>
 
-                      
+
 
                 <View style={{ padding: 2 }}>
-                  {/* <FlatList
-                          nestedScrollEnabled
-                          //data={.order_products}
-                          data={}
-                          // sort={true}
-                          // inverted={true}
-                          keyExtractor={(item) => item.id}
-                          renderItem={(itemData) => (
-                            //<CardItem
-                            <PreviewCart
-                              id={itemData.product_name }
-                              quantity={itemData.quantity_total}
-                              total_amount={itemData.amount}
-                              //name={itemData.product_name}
-                              //unit={itemData.order_products.unit}
-                              price={itemData.portrage_price}
-                              // addable
-                              // onAddPress={() => {
-                              //   dispatch(
-                              //     cartActions.addToQtty(itemData.item.id)
-                              //   );
-                              // }}
-                              // // deletable
-                              // onRemove={() => {
-                              //   dispatch(
-                              //     cartActions.removeFromCart(itemData.item.id)
-                              //   );
-                              // }}
-                              // // removeable
-                              // onDelete={() => {
-                              //   dispatch(
-                              //     cartActions.deleteProduct(itemData.item.id)
-                              //   );
-                              // }}
-                            />
-                          )}
-                        /> */}
 
-                  {/* [{"datetime": "2021-05-11T07:44:08.104141Z", "id": 89, "portrage_price": 2, 
-"product_name": "Garlic loose-China", "profit_margin": 2, "profit_margin_choice": "percentage",
- "purchased_quantity_total": 5, "quantity_total": 5, "supplier_invoice_number": null,
- "supplier_payment_status": "unpaid", "unit_purchase_price": 22, "quantity_total": 24.44}] */}
-
-                  {/* {id, product_name, quantity_total, purchased_quantity_total, 
-unit_sale_price, datetime, profit_margin, portrage_price, 
-unit_purchase_price, supplier_invoice_number, supplier_payment_status, profit_margin_choice} */}
-
-                  {/* {"amount": "122.2", "datetime": "2021-05-11T07:44:08.104141Z", "invoice_number": null,
- "order_products": [[Object]], "supplier": "47", "supplier_name": null, "supplier_payment_status": "unpaid"} */}
 
                   <FlatList
                     nestedScrollEnabled
-                    //data={[{ key: 'a', name:'haseeb' }, { key: 'b',name:'haseebi' }]}
-                    //data={showOrder}
                     inverted={true}
                     data={supplier}
                     keyExtractor={(item) => item.id}
@@ -1085,52 +851,23 @@ unit_purchase_price, supplier_invoice_number, supplier_payment_status, profit_ma
                               ? item.quantity_total
                               : item.purchased_quantity_total
                           }
-                          //quantity={item.purchased_quantity_total}
-                          // amount={
-                          //   (a = +(
-                          //     (item.purchased_quantity_total == 0
-                          //       ? item.quantity_total
-                          //       : item.purchased_quantity_total) *
-                          //     item.unit_purchase_price_total
-                          //   ))
-                          // }
+
                  name={item.product_name}
                  price={item.purchase_price_per_unit}
-                 portragePprice={item.unit_portrage_price_total}
+                 portragePrice={item.unit_portrage_price_total}
+                 perchasePrice = {item.unit_purchase_price_total}
 
-            //     portagePrice={item.unit_portrage_price_total}
 
-                
-                 
-                         
-                          //unit={item.order_products.unit}
-                          // portrage_price={
-                          //   (a = +(
-                          //     (item.purchased_quantity_total == 0
-                          //       ? item.quantity_total
-                          //       : item.purchased_quantity_total) *
-                          //     item.unit_purchase_price_total
-                          //   ))
-                          // }
-                       
-
-              
-                  
-               
-                       
-                   
-                          // purchase={item.purchase_price_per_unit}
                         />
                       )
                       //<Text>{item.id} {item.product_name}</Text>
                     }
 
-                    //renderItem={({ item }) => <Text>{item.key} {item.name}</Text>}
                   />
                 </View>
                 <View
                   style={{
-                    
+
                     justifyContent: "center",
                     alignItems: "center",
                     flexDirection: "row",
@@ -1159,8 +896,7 @@ unit_purchase_price, supplier_invoice_number, supplier_payment_status, profit_ma
                   >
                     £ {parseFloat(amount).toFixed(2)}
                   </Text>
-                  {/* width:Platform.OS=="android"?"20%":"20%" */}
-                  {/* <Text style={{color:Colors.themeColor,width:Platform.OS=="android"?"20%":"20%",fontWeight:'bold',fontSize:14,textAlign:"right"}}>£ {parseFloat(amount).toFixed(2)}</Text> */}
+
                 </View>
 
                 <View style={{ marginTop: "20%" }}>
@@ -1212,44 +948,7 @@ unit_purchase_price, supplier_invoice_number, supplier_payment_status, profit_ma
                     <Text style={styles.bu_signupButtonText1}>CANCEL</Text>
                   </Pressable>
                 </View>
-                {/* <View
-                  style={{
-                    width: "95%",
-                    height: "20%",
-                    alignSelf: "center",
-                    // borderColor: "gray",
-                    // borderWidth: 0.5,
-                    // flexDirection: "row",
-                    alignItems: "center",
 
-                    padding: 5,
-                  }}
-                >
-                  <View>
-                    <FontAwesome
-                      style={{ alignItems: "center" }}
-                      name="exclamation-circle"
-                      color={Colors.themeColor}
-                      size={50}
-                    />
-                  </View>
-                  <View style={{ width: "80%" }}>
-                    <Text
-                      style={{
-                        marginLeft: 15,
-                        fontSize: 13,
-                        width: "80%",
-                        alignSelf: "center",
-                        textAlign: "center",
-                        fontWeight: "600",
-                        // alignItems: "center",
-                      }}
-                    >
-                      Only those quantity will be shown whose orders are
-                      delivered.
-                    </Text>
-                  </View>
-                </View> */}
               </ScrollView>
             </View>
           </View>

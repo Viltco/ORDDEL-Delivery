@@ -278,24 +278,11 @@ function DeliveryNote({ navigation, route }) {
         let data = await response.json();
         console.log("put", data);
         console.log("put", response.status);
-        //  if(response.status==200){
-        //  alert("Delivery Note Created Successfully.");
-        //  dispatch(DeliveryNoteAction.AllClear(1));
-        //  console.log("Its work");
-        //  setDeliveryNote("");
-        //  checkPermission();
+
         Linking.openURL(
           URL + "/payment/generate_delivery_note_pdf/" + id + "/?download=true"
         );
 
-        // checkPermission();
-        //  changeStatus();
-        //   setCount(0);
-        //  navigation.navigate("Dashboard")
-        //  }
-
-        //send_Verification_Code()
-        // navigation.navigate("VerificationCode" , {Email : email , Phone_No : phoneNumber})
       })
       .catch((error) => console.log("Something went wrong", error));
   };
@@ -537,6 +524,7 @@ function DeliveryNote({ navigation, route }) {
                       style={{
                         marginLeft: Platform.OS == "android" ? 0 : 0,
                         width: "35%",
+                        //borderWidth: 2
                       }}
                     >
                       <Image
@@ -573,24 +561,7 @@ function DeliveryNote({ navigation, route }) {
                   </View>
                 </Card>
               </View>
-              {/* <View style={{flexDirection:'row',alignSelf:'center',padding:15,paddingTop:0,paddingBottom:0}}>
 
-     <Card style={{padding:10,width:'50%',backgroundColor:'#e6e6e6',elevation:0,borderRadius:7}}>
-      
-            <Text style={{color:Colors.themeColor,fontSize:12}}>Delivery Person:</Text>
-            <Text style={{fontSize:16,fontWeight:'bold'}}>{data.delivery_person_name}</Text>
-            <Text style={{width:150,fontSize:12,color:'#666666'}}>{data.delivery_person_address}</Text>
-       
-    </Card>
-
-    <Card style={{padding:10,marginLeft:10,width:'50%',backgroundColor:'#e6e6e6',elevation:0,borderRadius:7}}>
-            
-        <Text style={{color:Colors.themeColor,fontSize:12}}>Customer:</Text>
-        <Text style={{fontSize:16,fontWeight:'bold'}}>{data.client}</Text>
-        <Text style={{width:150,fontSize:12,color:'#666666'}}>{data.business_address}</Text>
-                
-            </Card>
-            </View> */}
 
               <View
                 style={{
@@ -611,31 +582,23 @@ function DeliveryNote({ navigation, route }) {
                   {data.purchase_order_no}
                 </Text>
               </View>
-              {/* <View style={{flexDirection:'row',marginBottom:'5%',alignItems:'center'}}>
-     <View style={{paddingTop:Platform.OS=='ios'? 55:15,paddingLeft:15}}>
-       <Image source={require('../assets/profilelogo.png')} style={{width:Platform.OS=='ios'? 130:80,height:Platform.OS=='ios'? 130:80}}  />
-     </View>
-     
-       <View style={{paddingTop:Platform.OS=='ios'? 25:0,paddingLeft:12,alignSelf:'center'}}>
-       <Text style={{color:'black',fontWeight:'bold',borderBottomWidth:2,borderBottomColor:Colors.textGreyColor,fontSize:Platform.OS=='android'? 20:22,alignSelf:'center',width:230}}>{data.delivery_person_name}</Text>
-       <Text style={{fontSize:13,marginTop:2}}>DN No: {DN}</Text>
-       </View>
-     </View> */}
+
             </View>
 
             {/* <View style={{backgroundColor:"#E2E2E2"}}> */}
             <View
-              style={{ flexDirection: "row", marginTop: 20, paddingLeft: 10 }}
+
+              style={{ flexDirection: "row", marginTop: 20,  width: "95%",  alignSelf: "center", }}
             >
               <Text
                 style={{
                   color: Colors.themeColor,
-                  width: "41%",
+                  width: "35%",
                   fontSize: 17,
                   fontWeight: "bold",
                   textAlign: "left",
                   // borderColor: "black",
-                  // borderWidth: 1,
+                  //borderWidth: 1,
                 }}
               >
                 Product
@@ -643,13 +606,13 @@ function DeliveryNote({ navigation, route }) {
               <Text
                 style={{
                   color: Colors.themeColor,
-                  width: "25%",
+                  width: "35%",
                   fontSize: 17,
                   fontWeight: "bold",
                   textAlign: "center",
-                  marginLeft: 5,
+                  //marginLeft: 5,
                   // borderColor: "black",
-                  // borderWidth: 1,
+                   //borderWidth: 1,
                 }}
               >
                 Unit
@@ -657,13 +620,13 @@ function DeliveryNote({ navigation, route }) {
               <Text
                 style={{
                   color: Colors.themeColor,
-                  width: "25%",
+                  width: "30%",
                   fontSize: 17,
                   fontWeight: "bold",
                   textAlign: "center",
-                  marginLeft: 20,
+                  //marginLeft: 20,
                   // borderColor: "black",
-                  // borderWidth: 1,
+                   //borderWidth: 1,
                 }}
               >
                 {" "}
@@ -692,32 +655,41 @@ function DeliveryNote({ navigation, route }) {
             <View
               style={{
                 flexDirection: "row",
-                width: "100%",
+                width: "95%",
                 // borderBottomWidth: 0.5,
                 // borderBottomColor: "grey",
                 marginTop: 10,
+                //borderWidth: 1,
+                alignSelf: "center",
+                justifyContent:'space-between'
               }}
             >
               <Text
                 style={{
                   color: Colors.themeColor,
-                  width: "42%",
+                  width: "40%",
                   textAlign: "left",
                   // marginLeft: "2%",
                   fontWeight: "bold",
-                  marginLeft: 10,
+                  //marginLeft: 10,
+                   //borderWidth: 1
+
                 }}
               >
                 Total Packages
               </Text>
+
+
               {newTotalQty == "" ? (
                 <Text
                   style={{
                     color: Colors.themeColor,
-                    width: "75%",
-                    textAlign: "center",
+                    width: "30%",
+                    textAlign: 'center',
                     // paddingLeft: "15%",
                     fontWeight: "bold",
+                    //borderWidth: 1,
+
                   }}
                 >
                   {SubQuantity}
@@ -726,10 +698,12 @@ function DeliveryNote({ navigation, route }) {
                 <Text
                   style={{
                     color: Colors.themeColor,
-                    width: "75%",
-                    textAlign: "center",
+                    width: "30%",
+                    textAlign: 'center',
                     // paddingLeft: "15%",
                     fontWeight: "bold",
+                    //borderWidth: 1,
+
                   }}
                 >
                   {newTotalQty}
@@ -738,12 +712,8 @@ function DeliveryNote({ navigation, route }) {
             </View>
             {/* <View style={{flexDirection:'row'}}>
 
-<Text style={{color:Colors.themeColor,marginLeft:"5%"}}>Total Packages:</Text>
-{newTotalQty==""?<Text style={{color:Colors.themeColor,marginLeft:Platform.OS=="android"?"39%":"43%"}}>{SubQuantity}</Text>:<Text style={{color:Colors.themeColor,marginLeft:Platform.OS=="android"?"39%":"43%"}}>{newTotalQty}</Text>}
-</View> */}
-            {/* </View> */}
-            {/* <Card style={{width:"90%",alignSelf:'center',backgroundColor:"#E2E2E2",elevation:0,marginTop:20,padding:10}}> */}
-            <View style={{ padding: 10 }}>
+  {/* <Card style={{width:"90%",alignSelf:'center',backgroundColor:"#E2E2E2",elevation:0,marginTop:20,padding:10}}> */}
+            <View style={{ padding: 10 , }}>
               <TextInput
                 style={styles.note_inputArea}
                 placeholder="Write any Note"
@@ -767,44 +737,70 @@ function DeliveryNote({ navigation, route }) {
                 justifyContent: "center",
               }}
             >
+
+
+
+
+
               <View
                 style={{
-                  height: 90,
-                  width: 90,
+                  height: 100,
+                  width: 100,
                   borderRadius: 100,
                   borderColor: Colors.textGreyColor,
                   borderWidth: 5,
                   marginTop: "3%",
-                  marginBottom: 10,
+                  marginBottom: 12,
                 }}
               >
-
-<Text
+                <Text
                   style={{
                     textAlign: "center",
                     color: Colors.themeColor,
-                    marginTop: "20%",
+                    marginTop: "12%",
                     fontWeight: "bold",
                     fontSize: 12,
-                    margin:'2%'
+                    margin:'2%',
+
                   }}
                 >
-                
-                Date & Time
-                  {/* {boxData.order_delivery_datetime} */}
+
+                Delivery
+
                 </Text>
-                <Text 
+                <Text
                   style={{
                     textAlign: "center",
                     color: Colors.themeColor,
-                   // marginTop: "35%",
+                    //marginTop: "20%",
                     fontWeight: "bold",
+                    fontSize: 12,
+                    margin:'2%',
+
+                  }}
+                >
+                Date & Time
+
+                </Text>
+                <Text
+                  style={{
+                    textAlign: "center",
+                    color: Colors.themeColor,
+                    //marginTop: "35%",
+                    //fontWeight: "bold",
                     fontSize: Platform.OS == "android" ? 12 : 11,
                   }}
                 >
+
                   {data.order_delivery_datetime}
                 </Text>
               </View>
+
+
+
+
+
+
               <View style={{ alignSelf: "center", marginLeft: "5%" }}>
                 {/* <View style={{backgroundColor:Colors.themeColor,height:17, borderRadius:4,width:"40%"}}>
 <Text style={{color:"white",fontSize:12,fontWeight:'bold',textAlign:'center',}}>{data.status.toUpperCase()}</Text>
@@ -1043,14 +1039,17 @@ function DeliveryNote({ navigation, route }) {
                         </View>
                       </View>
 
-                      <View style={{ flexDirection: "row", marginTop: 30 }}>
+                      <View style={{ flexDirection: "row", marginTop: 30,
+                      //borderWidth: 1
+                      }}>
                         <Text
                           style={{
                             color: Colors.themeColor,
-                            width: "30%",
+                            width: "35%",
                             fontSize: 17,
                             fontWeight: "bold",
                             textAlign: "left",
+                            //borderWidth: 1
                           }}
                         >
                           Product
@@ -1063,6 +1062,7 @@ function DeliveryNote({ navigation, route }) {
                             fontSize: 17,
                             fontWeight: "bold",
                             textAlign: "center",
+                            //borderWidth: 1
                           }}
                         >
                           Unit
@@ -1070,10 +1070,11 @@ function DeliveryNote({ navigation, route }) {
                         <Text
                           style={{
                             color: Colors.themeColor,
-                            width: "30%",
+                            width: "35%",
                             fontSize: 17,
                             fontWeight: "bold",
-                            textAlign: "right",
+                            textAlign: 'center',
+                            //borderWidth: 1
                           }}
                         >
                           Quantity
@@ -1121,82 +1122,7 @@ function DeliveryNote({ navigation, route }) {
                             />
                           )}
                         />
-                        {/* <View
-                          style={{
-                            flexDirection: "row",
-                            borderBottomWidth: 0.5,
-                            borderBottomColor: "grey",
-                            marginTop: 10,
-                          }}
-                        > */}
-                        {/* <Text
-                            style={{
-                              color: Colors.themeColor,
-                              width: "22%",
-                              textAlign: "left",
-                              fontWeight: "bold",
-                            }}
-                          >
-                            Total
-                          </Text>
-                          <Text
-                            style={{
-                              color: Colors.themeColor,
-                              width: Platform.OS == "android" ? "20%" : "20%",
-                              fontWeight: "bold",
-                              fontSize: 14,
-                              textAlign: "center",
-                            }}
-                          >
-                            {invoiceData.total_qty}
-                          </Text>
-                          {invoiceData.total_vat == 0 ? (
-                            <Text
-                              style={{
-                                color: Colors.themeColor,
-                                width: "33%",
-                                fontWeight: "bold",
-                                textAlign: "right",
-                                fontSize: 14,
-                              }}
-                            >
-                              £ {invoiceData.total_vat}
-                            </Text>
-                          ) : (
-                            <Text
-                              style={{
-                                color: Colors.themeColor,
-                                width: "33%",
-                                fontWeight: "bold",
-                                textAlign: "right",
-                                fontSize: 14,
-                              }}
-                            >
-                              £ {parseFloat(invoiceData.total_vat).toFixed(2)}
-                            </Text>
-                          )}
 
-                          <Text
-                            style={{
-                              color: Colors.themeColor,
-                              width: "24%",
-                              fontWeight: "bold",
-                              textAlign: "right",
-                              fontSize: 14,
-                            }}
-                          >
-                            £ {parseFloat(invoiceData.total_amount).toFixed(2)}
-                          </Text>
-                        </View>
-                      </View> */}
-
-                        {/* {invoiceData.delivery_note == "" ? null : (
-                        <View
-                          style={{ alignSelf: "center", paddingTop: "20%" }}
-                        >
-                          <Text>Note: {invoiceData.delivery_note}</Text>
-                        </View>
-                      )} */}
                       </View>
 
                       <View
@@ -1206,46 +1132,61 @@ function DeliveryNote({ navigation, route }) {
                           // borderBottomWidth: 0.5,
                           // borderBottomColor: "grey",
                           marginTop: 10,
+                          //borderWidth:1,
+                          justifyContent: 'space-between'
                         }}
                       >
                         <Text
                           style={{
                             color: Colors.themeColor,
-                            width: "42%",
+                            width: "40%",
                             textAlign: "left",
                             // marginLeft: "2%",
                             fontWeight: "bold",
-                            marginLeft: 10,
+                            //marginLeft: 10,
+                          //borderWidth: 1,
+
                           }}
                         >
                           Total Packages
                         </Text>
                         {newTotalQty == "" ? (
                           <Text
-                            style={{
-                              color: Colors.themeColor,
-                              width: "75%",
-                              textAlign: "center",
-                              // paddingLeft: "15%",
-                              fontWeight: "bold",
-                            }}
-                          >
+                      style={{
+                        color: Colors.themeColor,
+                        width: "35%",
+                        textAlign: 'center',
+                        // paddingLeft: "15%",
+                        fontWeight: "bold",
+                        //borderWidth: 1,
+                        justifyContent: 'flex-end',
+
+                        }}
+                        >
+
                             {SubQuantity}
                           </Text>
                         ) : (
                           <Text
                             style={{
-                              color: Colors.themeColor,
-                              width: "75%",
-                              textAlign: "center",
-                              // paddingLeft: "15%",
-                              fontWeight: "bold",
-                            }}
+                        color: Colors.themeColor,
+                        width: "35%",
+                        textAlign: 'center',
+                        // paddingLeft: "15%",
+                        fontWeight: "bold",
+                        //borderWidth: 1,
+                        justifyContent: 'flex-end',
+
+                        }}
                           >
                             {newTotalQty}
                           </Text>
                         )}
                       </View>
+
+
+
+
 
                       <View style={{ marginTop: "10%", alignSelf: "center" }}>
                         <Pressable
@@ -1259,19 +1200,7 @@ function DeliveryNote({ navigation, route }) {
                             <Text style={styles.signupButtonText1}>OK</Text>
                           )}
                         </Pressable>
-                        {/* <Pressable
-                          style={{
-                            ...styles.bu_signupButton1,
-                            borderWidth: 1,
-                            marginBottom: "10%",
-                          }}
-                          activeOpacity={0.7}
-                          onPress={() => setModalVisible(!modalVisible)}
-                        >
-                          <Text style={styles.bu_signupButtonText1}>
-                            CANCEL
-                          </Text>
-                        </Pressable> */}
+
                       </View>
                     </ScrollView>
                   </View>
@@ -1302,11 +1231,7 @@ function DeliveryNote({ navigation, route }) {
         )}
         {/* </View> */}
 
-        {/* )}
-        {/* <View style={{flexDirection:'row'}}>
-            <Text style={{color:Colors.themeColor,marginLeft:"35%"}}>Total Price:</Text>
-            <Text style={{color:Colors.themeColor,marginLeft:50}}>78656/-</Text>
-        </View> */}
+
       </ScrollView>
     </View>
   );

@@ -13,7 +13,9 @@ import {
   Modal,
   Pressable,
   Alert,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Keyboard,
+  TouchableWithoutFeedback
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
@@ -33,6 +35,7 @@ import {
   Right,
   View,
 } from "native-base";
+import { Dimensions } from 'react-native';
 // import Toast from 'react-native-simple-toast'
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Feather from "react-native-vector-icons/Feather";
@@ -61,6 +64,17 @@ import MyAlert from "../MyAlert";
 import * as CounterAction from "../../store/actions/CountCheck";
 import ConsolidatedItem from "../../Models/Consolidate";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+
+
+
+const DismissKeyboard = ({ children }) => (
+  <TouchableWithoutFeedback
+  onPress={() => Keyboard.dismiss()}>
+   {children}
+  </TouchableWithoutFeedback>
+  );
+
+
 const Consolidate = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
@@ -166,18 +180,7 @@ const Consolidate = ({ navigation, route }) => {
   };
   //......-------------------------------------
 
-  // const showMode = (currentMode) => {
-  //   setShow(true);
-  //   setMode(currentMode);
-  // };
 
-  // const showDatepicker = () => {
-  //   showMode("date");
-  // };
-
-  // const showTimepicker = () => {
-  //   showMode("time");
-  // };
   console.log(cartItems.unit_sales_price, "---------");
   var unitSale = cartItems.unit_sales_price;
   console.log("CartItem: ", cartItems);
@@ -202,31 +205,28 @@ const Consolidate = ({ navigation, route }) => {
       })
         .then(async (response) => {
           let data = await response.json();
-          console.log("put", data);
+          console.log("consolidate Api data response...... ", data);
           console.log("put", response.status);
           if (response.status == 200) {
             console.log("Its work");
             // dropDownAlertRef.alertWithType('success', 'Success', 'Your Detail was Submitted.');
             alert("Your details has been submitted.");
-            // Toast.show("Your Details has been Submitted.", Toast.LONG);
 
-            //  alert("Your Detail was Submitted")
             dispatch(ConsolidateAction.AllClear(1)), setCount(0);
             dispatch(CounterAction.ClearCounter());
-            navigation.navigate("Dashboard");
+
+            navigation.navigate('PurchasedOrdersList');
+
           }
 
-          //send_Verification_Code()
-          // navigation.navigate("VerificationCode" , {Email : email , Phone_No : phoneNumber})
         })
         .catch((error) => console.log("Something went wrong", error));
     } else {
-      // dropDownAlertRef.alertWithType('error', '', "Please Fill all the Tables then Press Submit");
 
       alert("Please fill all product pricing details.");
     }
   };
-  //   const { Shipper_ID } = route.params;
+
 
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
@@ -248,11 +248,8 @@ const Consolidate = ({ navigation, route }) => {
   const [selectedUnit, setSelectedUnit] = useState("");
   const [selectedProductId, setSelectedProductId] = useState("");
   const [checked, setChecked] = useState("value");
-  
-  //var reg = ^[0-9]*\.[0-9]{2}$ //or ^[0-9]*\.[0-9][0-9]$
-  //var reg = /^\d+(\.\d{1,2})/ + /g/?$/
-  //var reg = /^\d+(\.\d{1,2})?$/
-  //var reg = /d[0-9]*\.\d[0-9]*\d[0-9]*\$/
+
+
   var reg = /[\-\+]?[0-9]*(\.[0-9]+)?/
   var reg1 = /^\d+$/;
   const bgColor = [
@@ -341,13 +338,7 @@ const Consolidate = ({ navigation, route }) => {
               }
             }
 
-            // console.log("Buisness Detail:",responseJson.client_businesses[0]['name']);
-            // if (json["response"] == "Record does not exist or not found") {
-            //   setLoading(true);
-            // } else {
 
-            //   //console.log(json);
-            // }
           })
           .catch((error) => console.error("From Consolidate", error));
       } else {
@@ -401,16 +392,19 @@ const Consolidate = ({ navigation, route }) => {
 
   return (
 
-    // <KeyboardAvoidingView style={{ flex: 1 }}
-    // behavior={Platform.OS == "ios" ? "padding" : null} >
 
+    <DismissKeyboard>
     <View style={{ flex: 1, backgroundColor: "white" }}>
       {/* <View style={{height:"70%"}}>  */}
-      {/* <DropdownAlert ref={ref => dropDownAlertRef = ref} updateStatusBar={false} tapToCloseEnabled={true} errorColor={Colors.themeColor} closeInterval={1000} /> */}
+
+        <View style={{justifyContent:"center", alignSelf:"center", paddingTop:14}}>
+        <Text style={{fontSize:19, fontWeight:'bold', color:Colors.themeColor}}>Delivery Date</Text>
+        </View>
+
 
       <View style={{ padding: 5, alignSelf: "center" }}>
         <TouchableOpacity
-          style={{ marginTop: 15, marginBottom: 5 }}
+          style={{ marginTop: 10, marginBottom: 5}}
           onPress={showDatePicker}
         >
           <View
@@ -477,51 +471,11 @@ const Consolidate = ({ navigation, route }) => {
                 style={{ marginLeft: 20, color: "white", alignSelf: "center" }}
               />
             </View>
-            {/* <View style={{flexDirection:'row',width:320}}>
-      <Text>Items</Text>
-      <Text style={{}}>Quantity</Text>
 
-    </View> */}
-            {/* </View> */}
-            {/* </View>
-        </TouchableOpacity>
-        {show && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={date}
-            mode={"date"}
-            minimumDate={new Date()}
-            // is24Hour={true}
-            style={{
-              textAlign: "center",
-              color: "white",
-              backgroundColor: Colors.themeColor,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-            textColor={"white"}
-            display="default"
-            dateFormat="day month year"
-            onChange={onChange}
-          />
-        )} */}
           </View>
         </TouchableOpacity>
       </View>
-      {/* {loading && (
-        <View
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: "20%",
-          }}
-        >
-          <FontAwesome name="exclamation-circle" color={Colors.themeColor} size={150} />
-          <Text style={{ color: Colors.themeColor, fontWeight: "bold",marginTop:20, fontSize: 25 }}>
-            NO RECORD
-          </Text>
-        </View>
-      )} */}
+
 
       {isLoading ? (
         <Spinner color={Colors.themeColor} />
@@ -555,9 +509,7 @@ const Consolidate = ({ navigation, route }) => {
               </View>
             ) : (
               <View style={{ marginTop: 10 }}>
-                {/* <Card style={{padding:5,marginLeft:10,width:'50%',backgroundColor:'white',elevation:0,alignSelf:'center'}}> */}
 
-                {/* </Card> */}
                 <FlatList
                   data={data.data}
                   style={{ alignSelf: "center" }}
@@ -570,7 +522,7 @@ const Consolidate = ({ navigation, route }) => {
                       onPress={() => {
                         console.log("idddd", jogar[item.product_id]);
                         if (jogar[item.product_id]) {
-                          // dropDownAlertRef.alertWithType('error', '', item.product_name+" is already filled");
+
                           alert(item.product_name + " is already filled");
                           //disabled={true}
                         } else {
@@ -585,7 +537,7 @@ const Consolidate = ({ navigation, route }) => {
                       <View
                         style={{
                           width: "95%",
-                          
+
                           height: 60,
                           backgroundColor: jogar[item.product_id]
                             ? "#ffe6e6"
@@ -651,6 +603,11 @@ const Consolidate = ({ navigation, route }) => {
               </View>
             )}
           </View>
+
+
+
+
+
           <Modal
             animationType="slide"
             transparent={true}
@@ -719,8 +676,12 @@ const Consolidate = ({ navigation, route }) => {
 
                   {/* <Text style={styles.s_verticleLine}></Text>  */}
                   {/* <Text style={{color:'white',fontSize:16,fontWeight:'bold',textAlign:'right',paddingRight:20}}></Text> */}
-                  {/* <Text style={{color:'white',fontSize:22,fontWeight:'bold',textAlign:'right',paddingRight:20}}>{cartItems.unit_sales_price}</Text>  */}
-                  <View style={{ padding: 10 }}>
+
+
+
+
+
+                  <View style={{ padding: 10,   }}>
                     {/* <Card style={{}}> */}
                     <TextInput
                       style={styles.name_inputArea}
@@ -818,7 +779,7 @@ const Consolidate = ({ navigation, route }) => {
                         </Text>
                         {/* <Text> {cash} </Text> */}
                       </TouchableOpacity>
-                      <TouchableOpacity 
+                      <TouchableOpacity
                       onPress = { () => {
                         setChecked("percentage")
                       }
@@ -849,6 +810,9 @@ const Consolidate = ({ navigation, route }) => {
                       </TouchableOpacity>
                     </View>
                   </View>
+
+
+
                   <View
                     style={{
                       flexDirection: "row",
@@ -888,7 +852,8 @@ const Consolidate = ({ navigation, route }) => {
                                 selectedQty * profitMargin) /
                                 selectedQty +
                                 parseFloat(portagePrice)
-                            ).toFixed(2)}
+                            ).toFixed(2)
+                            }
                       </Text>
                     ) : (
                       <Text
@@ -937,18 +902,7 @@ const Consolidate = ({ navigation, route }) => {
                         setPortagePrice("");
                         return false;
                       }
-                      // else if(reg.test(unitPurchasedPrice) === false) {
 
-                      //   alert("Invalid Unit Purchased Price");
-                      //   setUnitPurchasedPrice("");
-                      //     return false;
-                      // }
-                      // else if(reg.test() === false) {
-
-                      //   alert("Invalid Unit Purchased Price");
-                      //   setUnitPurchasedPrice("");
-                      //     return false;
-                      // }
                       else {
                         setModalVisible(!modalVisible);
                         //setUnitSalePrice(((unitPurchasedPrice*item.qty)+(unitPurchasedPrice*item.qty/100*profitMargin))),
@@ -966,11 +920,7 @@ const Consolidate = ({ navigation, route }) => {
                           )
                         ),
                           alert(selectedProductName + " record is saved"),
-                          // Toast.show(selectedProductName+" Record is saved", Toast.LONG);
 
-                          // dropDownAlertRef.alertWithType('error', '',selectedProductName+" Record is saved");
-
-                          //   setUnitSalePrice(unitPurchasedPrice*selectedQty+unitPurchasedPrice*selectedQty/100*profitMargin);
                           setSupplier(""),
                           setUnitPurchasedPrice(""),
                           setProfitMargin(""),
@@ -1002,6 +952,17 @@ const Consolidate = ({ navigation, route }) => {
             </View>
             </KeyboardAvoidingView>
           </Modal>
+
+
+
+
+
+
+
+
+
+
+
           {loading ? null : (
             <View
               style={{
@@ -1021,7 +982,7 @@ const Consolidate = ({ navigation, route }) => {
                   fontWeight: "bold",
                 }}
               >
-                Total Packages 
+                Total Packages
               </Text>
               <Text
                 style={{
@@ -1036,33 +997,7 @@ const Consolidate = ({ navigation, route }) => {
               </Text>
             </View>
           )}
-          {/* <View style = {{
-      width:"100%",
-    height:40,
-    backgroundColor:Colors.themeColor,
-    justifyContent:'center',
-    alignItems:'center',
-    alignSelf:"center",
-    // borderRadius:10,
-    // flexDirection:'row',
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-  // elevation: 5,
-}}>
-  
 
-  
-    <View style={{flexDirection:'row',}}>
-    <Text style={{fontSize:16,fontWeight:'bold',textAlign:'center',color:"white",letterSpacing:2}}>Total Packages: </Text>
-      <Text style={{fontSize:16,fontWeight:'bold',textAlign:'center',color:"white",letterSpacing:2}}>{data.total_packages}</Text>
-      
-    </View>
-    
-
-
-</View> */}
           {loading ? null : (
             <TouchableOpacity
               style={styles.Create_Delivery_N_Voice}
@@ -1074,40 +1009,11 @@ const Consolidate = ({ navigation, route }) => {
           )}
         </Content>
       )}
-      {/* </View> */}
-      {/* //   <View style={{height:"30%",justifyContent:'flex-end', */}
-      {/* // bottom:0}}> */}
 
-      {/* <View style = {{
-      width:"100%",
-    height:40,
-    backgroundColor:Colors.themeColor,
-    justifyContent:'center',
-    alignItems:'center',
-    alignSelf:"center",
-    // borderRadius:10,
-    // flexDirection:'row',
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-  // elevation: 5,
-}}>
-  
-
-  
-    <View style={{flexDirection:'row',}}>
-    <Text style={{fontSize:16,fontWeight:'bold',textAlign:'center',color:"white",letterSpacing:2}}>Total Packages: </Text>
-      <Text style={{fontSize:16,fontWeight:'bold',textAlign:'center',color:"white",letterSpacing:2}}>{data.total_packages}</Text>
-      
     </View>
-    
 
+    </DismissKeyboard>
 
-</View> */}
-      {/* </View> */}
-    </View>
-    /* </KeyboardAvoidingView> */
   );
 };
 

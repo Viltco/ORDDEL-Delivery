@@ -1,49 +1,4 @@
-// import React,{useState ,useEffect} from 'react';
-// import { StyleSheet, View,ImageBackground , TouchableOpacity,Image, ScrollView,StatusBar,SafeAreaView} from 'react-native'
-// import { Container,Card,CardItem,Header,Content,Left,Footer ,Body,Icon, Right, Button,Drawer, Title,Text , Item,Input } from 'native-base';
 
-// import URL from '../api/ApiURL';
-// import Ionicons from 'react-native-vector-icons/Ionicons';
-// import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-// import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-// import Colors from '../ColorCodes/Colors';
-
-// function BuisnessDetail({route ,navigation}) {
-//     return (
-//         <View style = {{height:"15%"}}>
-//         <Header iosBarStyle="light-content"
-//              androidStatusBarColor={Colors.themeColor} style = {{backgroundColor:Colors.themeColor,borderBottomColor:'#ffffff00',marginTop:Platform.OS=='android'? null:null,height:150}}>
-
-//                <Left>
-//                  <Button
-//                  onPress={() => navigation.openDrawer()}
-//                  transparent>
-//                 <Ionicons name="menu" size={35} color="white" />
-//                  </Button>
-//                </Left>
-//                {/* <Body> */}
-//                  <Title style = {{color:'white',fontWeight:'bold',alignSelf:'center',justifyContent:'center'}}>BUISNESS DETAILS</Title>
-//                {/* </Body> */}
-//               <Right>
-//                 <Image source={require('../assets/colorLogo.png')} style={{width:Platform.OS=='ios'? 50:40,height:Platform.OS=='ios'? 50:40}} />
-//               </Right>
-
-//              </Header>
-//              {/* <Header searchBar rounded>
-//           <Item>
-//             <Icon name="ios-search" />
-//             <Input placeholder="Search" />
-//             <Icon name="ios-people" />
-//           </Item>
-//           <Button transparent>
-//             <Text>Search</Text>
-//           </Button>
-//         </Header> */}
-//          </View>
-//     )
-// }
-
-// export default BuisnessDetail
 
 import React from "react";
 import { useState, useEffect } from "react";
@@ -109,12 +64,12 @@ const BuisnessDetail = ({ navigation,route }) => {
         // ]);
         return true;
       };
-  
+
       const backHandler = BackHandler.addEventListener(
         "hardwareBackPress",
         backAction
       );
-  
+
       return () => backHandler.remove();
     }, [route])
   );
@@ -329,7 +284,7 @@ const BuisnessDetail = ({ navigation,route }) => {
                       marginTop: -5,
                     }}
                   >
-                    
+
                   </View> */}
                           </View>
                           <View style={{ alignSelf: "center" }}>

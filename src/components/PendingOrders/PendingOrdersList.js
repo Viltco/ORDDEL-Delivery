@@ -106,22 +106,7 @@ const PendingOrdersList = ({ navigation, route }) => {
 
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
-      {/* <MyHeader name="PENDING ORDERS" nav={navigation}/> */}
 
-      {/* {loading && (
-        <View
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: "20%",
-          }}
-        >
-          <FontAwesome name="exclamation-circle" color={Colors.themeColor} size={150} />
-          <Text style={{ color: Colors.themeColor, fontWeight: "bold",marginTop:20, fontSize: 25 }}>
-            NO RECORD
-          </Text>
-        </View>
-      )} */}
 
       {isLoading ? (
         <Spinner color={Colors.themeColor} />
@@ -158,7 +143,7 @@ const PendingOrdersList = ({ navigation, route }) => {
               <View style={{ marginTop: 10 }}>
                 <FlatList
                   data={data}
-                  inverted
+                  //inverted
                   style={{ alignSelf: "center" }}
                   showsVerticalScrollIndicator={false}
                   // keyExtractor={item => item.index_id.toString()}
@@ -168,13 +153,7 @@ const PendingOrdersList = ({ navigation, route }) => {
                       style={{ marginTop: 5, marginBottom: 5 }}
                       onPress={() => {
                         console.log("Id", item.id);
-                        // navigation.navigate({
-                        //     routeName: ('OrderStatus'),
-                        //     params: {
-                        //         OrderBox:item.order_box
 
-                        //     }
-                        //   });
                         navigation.navigate("OrderStatus", {
                           OrderBox: item.order_box,
                           OrderId: item.id,
@@ -182,10 +161,7 @@ const PendingOrdersList = ({ navigation, route }) => {
                           Quantity: item.total_quantity,
                         });
                       }}
-                      // onPress = {() => navigation.navigate("PendingDetails" , {Due_Date : item.due_date , Invoice_Total : item.grand_total,Carrier_Name : item.carrier_company ,Load_Type : item.load_type,Origin_City : item.Origin_city,Destination_City : item.Destination_city,Delivery_Option : item.Delivery_Option,Cargo_Amount : item.Cargo_amount,Cargo_Type : item.Cargo_Type,Cargo_Product_Type : item.Cargo_Product_type,Cargo_Product_List : item.Cargo_Product_List,Booking_Status : item.booking_status})}
-                      //   onPress={() =>
-                      //     navigation.navigate("PaymentHistoryDetail")
-                      //   }
+
                     >
                       <View
                         style={{
@@ -229,19 +205,7 @@ const PendingOrdersList = ({ navigation, route }) => {
                           >
                             {item.order_delivery_datetime.split(" ")[0]}
 
-                            {/* {`${
-                              item?.order_created_datetime
-                                ?.split("T")[0]
-                                ?.split("-")[2]
-                            }-${
-                              item?.order_created_datetime
-                                ?.split("T")[0]
-                                ?.split("-")[1]
-                            }-${
-                              item?.order_created_datetime
-                                ?.split("T")[0]
-                                ?.split("-")[0]
-                            }`} */}
+
                           </Text>
                         </View>
                         <View

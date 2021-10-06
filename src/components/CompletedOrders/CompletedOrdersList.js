@@ -158,7 +158,7 @@ const CompletedOrdersList = ({ navigation, route }) => {
               <View style={{ marginTop: 10 }}>
                 <FlatList
                   data={data}
-                  inverted
+                  // inverted
                   style={{ alignSelf: "center" }}
                   showsVerticalScrollIndicator={false}
                   // keyExtractor={item => item.index_id.toString()}

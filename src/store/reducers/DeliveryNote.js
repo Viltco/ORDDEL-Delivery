@@ -1,6 +1,6 @@
 import { ADD_DeliveryNote_DATA,ALL_CLEAR,SET_TOTAL_QUANTITY,ADD} from '../actions/DeliveryNote';
 import DeliveryNoteItem from '../../Models/DeliveryNoteItem';
- 
+
 
 const initialState = {
     data:{},
@@ -48,8 +48,8 @@ export default (state = initialState, action) => {
 
         case ADD_DeliveryNote_DATA:
 
-        
-          
+
+
           const ProductId=action.ProductId;
           const Quantity=action.Quantity;
         //   state.manage=Quantity;
@@ -57,51 +57,46 @@ export default (state = initialState, action) => {
           var TotalQuantity=action.totalQuantity;
           var OldQty=action.oldQty;
           var cal=0;
-          
+
         //   state.totalQtty=parseInt(state.totalQtty)-parseInt(OldQty);
-           
-                 OldQty=Quantity;  
-                 
+
+                 OldQty=Quantity;
+
                 //  console.log(state.data.length,"-----------------------Q DATA")
              for(var i = 0 ; i < state.data.length ; i++){
 
                 //if(ProductId == state.data[i].product_id){
                     //state.data[i].quantity = Quantity
-                   
+
                 state.sumQuantity[i] = state.data[i].quantity;
                 console.log(state.sumQuantity,"----------------------Sum")
             //}
-             } 
-             
-// 
+             }
+
+//
                  var sum = state.sumQuantity.reduce(function(a, b){
                     return parseInt(a) + parseInt(b);
 
-                
+
                 }, 0);
-                // console.log("-------------SUM ===== " ,sum)
-                // cal=OldQty-state.manage;
-                // state.totalQtty=state.totalQtty+cal;
-                
-                // cal=OldQty-Quantity;
-                // state.totalQtty=parseInt(state.totalQtty)-parseInt(OldQty);
+
                 state.totalQtty=sum;
-                
-              
-          
+
+
+
           //console.log("Supplier===",supplier)
           console.log("state.mange",state.manage)
           console.log("oldQty: ",OldQty)
          console.log("subtract",cal)
         console.log("newTotalQty",state.totalQtty)
-          
+
     //   console.log("total",kuch)
 
 
       let updatedOrNewCartItem;
 
       // if (state.items[addedProduct.id]) {
-        
+
       //   // alert("This Product is already in Added");
       // //   // already have the item in the cart
       // //   updatedOrNewCartItem = new ProductItem(
@@ -111,7 +106,7 @@ export default (state = initialState, action) => {
       // //     prodName,prodUnit,prodPrice
       // //   // alert("This Product is already in Added");
       // //   );
-        
+
       // } else {
         updatedOrNewCartItem = new DeliveryNoteItem(ProductId,Quantity);
         console.log("yummy",updatedOrNewCartItem);
@@ -139,7 +134,7 @@ export default (state = initialState, action) => {
           count: 0,
         };
 
-      
+
     }
     return state;
 };

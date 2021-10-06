@@ -373,7 +373,7 @@ const NewBuisnessDetail = ({ navigation }) => {
 
   return (
     <>
-     <KeyboardAvoidingView style={{ flex: 1 }}
+     <KeyboardAvoidingView style={{ flex: 1}}
   behavior={Platform.OS == "ios" ? "padding" : null} >
       <ScrollView
         keyboardShouldPersistTaps="always"
@@ -449,7 +449,8 @@ const NewBuisnessDetail = ({ navigation }) => {
 
               <TextInput
                 style={styles.inputArea}
-                placeholder="Business Name"
+                color="black"
+                placeholder="Name"
                 autoCapitalize="words"
                 placeholderTextColor={Colors.textGreyColor}
                 value={BusinessName}
@@ -480,7 +481,8 @@ const NewBuisnessDetail = ({ navigation }) => {
 
               <TextInput
                 style={styles.inputArea}
-                placeholder="Business Nature"
+                //placeholder="Business Nature"
+                placeholder="Nature (Shop, Restaurant, Café etc)"
                 autoCapitalize="words"
                 placeholderTextColor={Colors.textGreyColor}
                 maxLength={50}
@@ -511,7 +513,7 @@ const NewBuisnessDetail = ({ navigation }) => {
 
               <TextInput
                 style={styles.inputArea}
-                placeholder="Business Type"
+                placeholder= "Type (Company, Sole Trader etc) "
                 autoCapitalize="words"
                 placeholderTextColor={Colors.textGreyColor}
                 maxLength={50}
@@ -589,7 +591,7 @@ const NewBuisnessDetail = ({ navigation }) => {
                   </TouchableOpacity> */}
                   <TouchableOpacity
                     disabled={buttonCheck}
-                    style={{ ...styles.signupButton, marginTop: 10 }}
+                    style={{ ...styles.signupButton, marginTop: 20 }}
                     activeOpacity={0.7}
                     onPress={postDetail}
                   >
@@ -627,7 +629,7 @@ const NewBuisnessDetail = ({ navigation }) => {
       </TouchableOpacity> */}
               {/* //)} */}
             </View>
-            
+
           </View>
         </View>
       </ScrollView>
@@ -647,7 +649,7 @@ const styles = StyleSheet.create({
 
   inputArea: {
     marginVertical: 10,
-    height: 40,
+    height: 45,
     width: "100%",
     backgroundColor: "#F2F1F3",
     //  borderColor:'black',

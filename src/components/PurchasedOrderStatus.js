@@ -216,7 +216,7 @@ function PurchasedOrderStatus({ navigation, route }) {
   // console.log("Order Box Id:",OrderBoxId);
   // console.log("Order Box Id:",boxDetail);
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, }}>
       {/* <MyHeader name="ORDERS STATUS" nav={navigation}/> */}
       <ScrollView>
         {isLoading ? (
@@ -287,7 +287,9 @@ function PurchasedOrderStatus({ navigation, route }) {
                 alignSelf: "center",
               }}
             >
-              <View
+
+
+              {/* <View
                 style={{
                   height: 90,
                   width: 90,
@@ -310,7 +312,7 @@ function PurchasedOrderStatus({ navigation, route }) {
                   }}
                 >
                 Date & Time
-                  {/* {boxData.order_delivery_datetime} */}
+
                 </Text>
                 <Text
                   style={{
@@ -323,7 +325,64 @@ function PurchasedOrderStatus({ navigation, route }) {
                 >
                   {boxData.order_delivery_datetime}
                 </Text>
+              </View> */}
+
+              <View
+                style={{
+                  height: 100,
+                  width: 100,
+                  borderRadius: 100,
+                  borderColor: Colors.textGreyColor,
+                  borderWidth: 5,
+                  marginTop: "3%",
+                  marginBottom: 12,
+                }}
+              >
+                <Text
+                  style={{
+                    textAlign: "center",
+                    color: Colors.themeColor,
+                    marginTop: "12%",
+                    fontWeight: "bold",
+                    fontSize: 12,
+                    margin:'2%',
+
+                  }}
+                >
+
+                Delivery
+
+                </Text>
+                <Text
+                  style={{
+                    textAlign: "center",
+                    color: Colors.themeColor,
+                    //marginTop: "20%",
+                    fontWeight: "bold",
+                    fontSize: 12,
+                    margin:'2%',
+
+                  }}
+                >
+                Date & Time
+
+                </Text>
+                <Text
+                  style={{
+                    textAlign: "center",
+                    color: Colors.themeColor,
+                    //marginTop: "35%",
+                    //fontWeight: "bold",
+                    fontSize: Platform.OS == "android" ? 12 : 11,
+                  }}
+                >
+                  {boxData.order_delivery_datetime}
+                </Text>
               </View>
+
+
+
+
               <View style={{ alignSelf: "center", marginLeft: "5%" }}>
                 <View
                   style={{
@@ -357,16 +416,21 @@ function PurchasedOrderStatus({ navigation, route }) {
               style={{
                 flexDirection: "row",
                 marginTop: 30,
-                justifyContent: "space-around",
+                justifyContent: 'center',
+               // width:'98%',
+                alignContent:'center',
+                //alignSelf:'center',
+               //borderWidth:2
               }}
             >
               <Text
                 style={{
                   color: Colors.themeColor,
-                  width: 103,
                   fontSize: 17,
                   fontWeight: "bold",
                   textAlign: "left",
+                  // borderWidth:1,
+                  width:'30%'
                 }}
               >
                 Product
@@ -374,10 +438,12 @@ function PurchasedOrderStatus({ navigation, route }) {
               <Text
                 style={{
                   color: Colors.themeColor,
-                  width: 35,
+
                   fontSize: 17,
                   fontWeight: "bold",
                   textAlign: "center",
+                  width:'15%',
+                  // borderWidth:1,
                 }}
               >
                 Unit
@@ -385,10 +451,12 @@ function PurchasedOrderStatus({ navigation, route }) {
               <Text
                 style={{
                   color: Colors.themeColor,
-                  width: 72,
+
                   fontSize: 17,
                   fontWeight: "bold",
                   textAlign: "center",
+                  width:'20%',
+                  // borderWidth:1,
                 }}
               >
                 Quantity
@@ -399,8 +467,10 @@ function PurchasedOrderStatus({ navigation, route }) {
                   fontSize: 17,
                   fontWeight: "bold",
                   marginRight: 10,
-                  width: 70,
+
                   textAlign: "center",
+                  width:'30%',
+                  // borderWidth:1,
                 }}
               >
                 Price Per Unit
@@ -430,6 +500,7 @@ function PurchasedOrderStatus({ navigation, route }) {
                   // borderBottomWidth: 0.5,
                   // borderBottomColor: "grey",
                   marginTop: 10,
+                  // borderWidth:1
                 }}
               >
                 <Text
@@ -439,6 +510,7 @@ function PurchasedOrderStatus({ navigation, route }) {
                     textAlign: "left",
                     marginLeft: 2,
                     fontWeight: "bold",
+                    // borderWidth:1
                   }}
                 >
                   Total Packages
@@ -446,10 +518,11 @@ function PurchasedOrderStatus({ navigation, route }) {
                 <Text
                   style={{
                     color: Colors.themeColor,
-                    width: "45%",
+                    width: "39%",
                     textAlign: "center",
                     // paddingLeft: "15%",
                     fontWeight: "bold",
+                    // borderWidth:1
                   }}
                 >
                   {totalQuantity}

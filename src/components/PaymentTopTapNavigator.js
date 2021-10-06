@@ -14,23 +14,16 @@ import Colors from '../ColorCodes/Colors';
 import { Container,Card,CardItem,Header,Content,Left,Footer ,Body, Right, Button,Drawer, Title,Text , Item,Input } from 'native-base';
 
 const Tab= createMaterialTopTabNavigator();
-// const func=({navigation})=>{
-//     return(
-//         <MyHeader name="IN PROGRESS ORDERS" nav={navigation}/>
 
-//     )
-// }
 function MyTabs({navigation}) {
     // func({navigation});
   return (
       <View style={{flex:1}}>
-      {/* <DropdownAlert ref={ref => dropDownAlertRef = ref} updateStatusBar={false} tapToCloseEnabled={true} errorColor={Colors.themeColor}/> */}
-
-   {/* <MyHeader name="IN PROGRESS ORDERS" nav={navigation}/> */}
-    <Tab.Navigator
-    
-      initialRouteName="Unpaid"
       
+    <Tab.Navigator
+
+      initialRouteName="Unpaid"
+
       tabBarOptions={{
         activeTintColor: Colors.themeColor,
         inactiveTintColor:Colors.textGreyColor,
@@ -51,7 +44,7 @@ function MyTabs({navigation}) {
         component={PaidPayments}
         options={{ tabBarLabel: 'PAID' }}
       />
-      
+
     </Tab.Navigator>
      </View>
   );

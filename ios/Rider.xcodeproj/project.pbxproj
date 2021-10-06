@@ -789,18 +789,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = T93G3X5Q5T;
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				EXCLUDED_ARCHS = " armv7 armv7s";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "armv7 armv7s";
 				INFOPLIST_FILE = Rider/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.4.1;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-lc++",
-				);
+				MARKETING_VERSION = 2.4.5;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.oddel.rider;
 				PRODUCT_NAME = Rider;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -821,17 +817,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = T93G3X5Q5T;
+				ENABLE_BITCODE = YES;
 				EXCLUDED_ARCHS = " armv7 armv7s";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = " armv7 armv7s";
 				INFOPLIST_FILE = Rider/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.4.1;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					"-ObjC",
-					"-lc++",
-				);
+				MARKETING_VERSION = 2.4.5;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.oddel.rider;
 				PRODUCT_NAME = Rider;
 				PROVISIONING_PROFILE_SPECIFIER = "";

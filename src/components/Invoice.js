@@ -473,20 +473,20 @@ function Invoice({ navigation, route }) {
               {/* <View style={{flexDirection:'row',alignSelf:'center',padding:15,paddingTop:0,paddingBottom:0}}>
 
      <Card style={{padding:10,width:'50%',backgroundColor:'#e6e6e6',elevation:0,borderRadius:7}}>
-       
+
             <Text style={{color:Colors.themeColor,fontSize:12}}>Delivery Person:</Text>
             <Text style={{fontSize:16,fontWeight:'bold'}}>{invoiceData.delivery_person_name}</Text>
             <Text style={{width:150,fontSize:12,color:'#666666'}}>{invoiceData.delivery_person_address}</Text>
 
-           
+
     </Card>
 
     <Card style={{padding:10,marginLeft:10,width:'50%',backgroundColor:'#e6e6e6',elevation:0,borderRadius:7}}>
-            
+
         <Text style={{color:Colors.themeColor,fontSize:12}}>Customer:</Text>
         <Text style={{fontSize:16,fontWeight:'bold'}}>{invoiceData.client}</Text>
         <Text style={{width:150,fontSize:12,color:'#666666'}}>{invoiceData.business_address}</Text>
-                
+
             </Card>
             </View> */}
               <Modal
@@ -692,14 +692,15 @@ function Invoice({ navigation, route }) {
                           </View>
                         </View>
 
-                        <View style={{ flexDirection: "row", marginTop: 30 }}>
+                        <View style={{ flexDirection: "row", marginTop: 30,   }}>
                           <Text
                             style={{
                               color: Colors.themeColor,
-                              width: "20%",
+                              width: "24%",
                               fontSize: 17,
                               fontWeight: "bold",
                               textAlign: "left",
+                              // borderWidth: 1
                             }}
                           >
                             Product
@@ -708,10 +709,11 @@ function Invoice({ navigation, route }) {
                           <Text
                             style={{
                               color: Colors.themeColor,
-                              width: "23%",
+                              width: "21%",
                               fontSize: 17,
                               fontWeight: "bold",
                               textAlign: "center",
+                              // borderWidth: 1
                             }}
                           >
                             Quantity
@@ -723,6 +725,7 @@ function Invoice({ navigation, route }) {
                               fontSize: 17,
                               fontWeight: "bold",
                               textAlign: "center",
+                              // borderWidth: 1
                             }}
                           >
                             Unit Price
@@ -735,6 +738,7 @@ function Invoice({ navigation, route }) {
                               fontSize: 17,
                               fontWeight: "bold",
                               textAlign: "center",
+                              //borderWidth: 1
                             }}
                           >
                             VAT
@@ -746,7 +750,8 @@ function Invoice({ navigation, route }) {
                               fontSize: 17,
                               fontWeight: "bold",
                               width: "20%",
-                              textAlign: "right",
+                              textAlign: 'center',
+                              // borderWidth: 1
                             }}
                           >
                             Amount
@@ -781,9 +786,10 @@ function Invoice({ navigation, route }) {
                             <Text
                               style={{
                                 color: Colors.themeColor,
-                                width: "22%",
+                                width: "24%",
                                 textAlign: "left",
                                 fontWeight: "bold",
+                                // borderWidth: 1
                               }}
                             >
                               Total
@@ -791,34 +797,41 @@ function Invoice({ navigation, route }) {
                             <Text
                               style={{
                                 color: Colors.themeColor,
-                                width: Platform.OS == "android" ? "20%" : "20%",
+                                width: Platform.OS == "android" ? "22%" : "22%",
                                 fontWeight: "bold",
                                 fontSize: 14,
                                 textAlign: "center",
+                                // borderWidth: 1
                               }}
                             >
                               {invoiceData.total_qty}
                             </Text>
+
+
+                            <Text style={{ width:'20%', color:"#e6e6e6",}}> {null} </Text>
+
                             {invoiceData.total_vat == 0 ? (
                               <Text
                                 style={{
                                   color: Colors.themeColor,
-                                  width: "33%",
+                                  width: "15%",
                                   fontWeight: "bold",
-                                  textAlign: "right",
+                                  textAlign: 'center',
                                   fontSize: 14,
+                                  // borderWidth: 1
                                 }}
                               >
-                                £ {invoiceData.total_vat}
+                                £ {parseFloat(invoiceData.total_vat).toFixed(2)}
                               </Text>
                             ) : (
                               <Text
                                 style={{
                                   color: Colors.themeColor,
-                                  width: "33%",
+                                  width: "15%",
                                   fontWeight: "bold",
-                                  textAlign: "right",
+                                  textAlign: 'center',
                                   fontSize: 14,
+                                  // borderWidth: 1
                                 }}
                               >
                                 £ {parseFloat(invoiceData.total_vat).toFixed(2)}
@@ -828,10 +841,11 @@ function Invoice({ navigation, route }) {
                             <Text
                               style={{
                                 color: Colors.themeColor,
-                                width: "24%",
+                                width: "19%",
                                 fontWeight: "bold",
-                                textAlign: "right",
+                                textAlign: "center",
                                 fontSize: 14,
+                                // borderWidth: 1
                               }}
                             >
                               £{" "}
@@ -842,7 +856,7 @@ function Invoice({ navigation, route }) {
 
                         {invoiceData.delivery_note == "" ? null : (
                           <View
-                            style={{ alignSelf: "center", paddingTop: "20%" }}
+                            style={{ alignSelf: "center", paddingTop: "20%" ,borderWidth: 1 }}
                           >
                             <Text>Note: {invoiceData.delivery_note}</Text>
                           </View>
@@ -900,14 +914,15 @@ function Invoice({ navigation, route }) {
               </View>
             </View>
 
-            <View style={{ flexDirection: "row", marginTop: 30 }}>
+            <View style={{ flexDirection: "row", marginTop: 30,  width:'100%' }}>
               <Text
                 style={{
                   color: Colors.themeColor,
-                  width: "20%",
+                  width: "25%",
                   fontSize: 17,
                   fontWeight: "bold",
                   textAlign: "left",
+                  //borderWidth:1
                 }}
               >
                 Product
@@ -916,10 +931,11 @@ function Invoice({ navigation, route }) {
               <Text
                 style={{
                   color: Colors.themeColor,
-                  width: "23%",
+                  width: "20%",
                   fontSize: 17,
                   fontWeight: "bold",
                   textAlign: "center",
+                  //borderWidth:1
                 }}
               >
                 Quantity
@@ -931,6 +947,7 @@ function Invoice({ navigation, route }) {
                   fontSize: 17,
                   fontWeight: "bold",
                   textAlign: "center",
+                  // borderWidth:1
                 }}
               >
                 Unit Price
@@ -943,6 +960,7 @@ function Invoice({ navigation, route }) {
                   fontSize: 17,
                   fontWeight: "bold",
                   textAlign: "center",
+                  //borderWidth:1
                 }}
               >
                 VAT
@@ -953,8 +971,10 @@ function Invoice({ navigation, route }) {
                   color: Colors.themeColor,
                   fontSize: 17,
                   fontWeight: "bold",
-                  width: "20%",
-                  textAlign: "right",
+                  width: "19%",
+                  textAlign: 'center',
+                  alignItems: 'center',
+                  //borderWidth:1
                 }}
               >
                 Amount
@@ -984,14 +1004,16 @@ function Invoice({ navigation, route }) {
                   borderBottomWidth: 0.5,
                   borderBottomColor: "grey",
                   marginTop: 10,
+                  // borderWidth:3
                 }}
               >
                 <Text
                   style={{
                     color: Colors.themeColor,
-                    width: "22%",
+                    width: "25%",
                     textAlign: "left",
                     fontWeight: "bold",
+                    //borderWidth:1
                   }}
                 >
                   Total
@@ -1003,30 +1025,39 @@ function Invoice({ navigation, route }) {
                     fontWeight: "bold",
                     fontSize: 14,
                     textAlign: "center",
+                    //borderWidth:1
                   }}
                 >
                   {invoiceData.total_qty}
                 </Text>
+
+
+                <Text style={{ width:'20%', color:"#e6e6e6",}}> {null} </Text>
+
                 {invoiceData.total_vat == 0 ? (
                   <Text
                     style={{
                       color: Colors.themeColor,
-                      width: "33%",
+                      width: "16%",
                       fontWeight: "bold",
-                      textAlign: "right",
+                      textAlign: 'center',
                       fontSize: 14,
+                      //borderWidth:1
+                     // borderWidth:1,
                     }}
                   >
-                    £ {invoiceData.total_vat}
+                    £ {parseFloat(invoiceData.total_vat).toFixed(2)}
                   </Text>
                 ) : (
                   <Text
                     style={{
                       color: Colors.themeColor,
-                      width: "33%",
+                      width: "20%",
                       fontWeight: "bold",
-                      textAlign: "right",
+                      textAlign: 'center',
                       fontSize: 14,
+                      //borderWidth:1,
+                      //borderWidth:1
                     }}
                   >
                     £ {parseFloat(invoiceData.total_vat).toFixed(2)}
@@ -1036,10 +1067,11 @@ function Invoice({ navigation, route }) {
                 <Text
                   style={{
                     color: Colors.themeColor,
-                    width: "24%",
+                    width: "20%",
                     fontWeight: "bold",
-                    textAlign: "right",
+                    textAlign: 'center',
                     fontSize: 14,
+                   // borderWidth:1
                   }}
                 >
                   £ {parseFloat(invoiceData.total_amount).toFixed(2)}
@@ -1082,7 +1114,7 @@ function Invoice({ navigation, route }) {
                 justifyContent: "center",
               }}
             >
-              <View
+              {/* <View
                 style={{
                   height: 90,
                   width: 90,
@@ -1092,7 +1124,7 @@ function Invoice({ navigation, route }) {
                   marginTop: "3%",
                 }}
               >
-                
+
                 <Text
                   style={{
                     textAlign: "center",
@@ -1103,13 +1135,11 @@ function Invoice({ navigation, route }) {
                     margin:'2%'
                   }}
                 >
-                
                 Date & Time
-                  {/* {boxData.order_delivery_datetime} */}
                 </Text>
                 <Text
                   style={{
-                   
+
                     textAlign: "center",
                     color: Colors.themeColor,
                     //marginTop: "35%",
@@ -1119,7 +1149,62 @@ function Invoice({ navigation, route }) {
                 >
                  {invoiceData.order_delivery_datetime}
                 </Text>
+              </View> */}
+
+              <View
+                style={{
+                  height: 100,
+                  width: 100,
+                  borderRadius: 100,
+                  borderColor: Colors.textGreyColor,
+                  borderWidth: 5,
+                  marginTop: "3%",
+                  marginBottom: 12,
+                }}
+              >
+                <Text
+                  style={{
+                    textAlign: "center",
+                    color: Colors.themeColor,
+                    marginTop: "12%",
+                    fontWeight: "bold",
+                    fontSize: 12,
+                    margin:'2%',
+
+                  }}
+                >
+
+                Delivery
+
+                </Text>
+                <Text
+                  style={{
+                    textAlign: "center",
+                    color: Colors.themeColor,
+                    //marginTop: "20%",
+                    fontWeight: "bold",
+                    fontSize: 12,
+                    margin:'2%',
+
+                  }}
+                >
+                Date & Time
+
+                </Text>
+                <Text
+                  style={{
+                    textAlign: "center",
+                    color: Colors.themeColor,
+                    fontSize: Platform.OS == "android" ? 12 : 11,
+                  }}
+                >
+            {invoiceData.order_delivery_datetime}
+                </Text>
               </View>
+
+
+
+
               <View style={{ alignSelf: "center", marginLeft: "5%" }}>
                 <Text style={{ color: Colors.productGrey, fontSize: 14 }}>
                   Delivery Address:{" "}
@@ -1174,9 +1259,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     justifyContent: "center",
     alignItems: "center",
-    // paddingTop: 30,
-    //backgroundColor: '#ecf0f1',
-    //padding: 8,
+
   },
   note_inputArea: {
     alignSelf: "center",
@@ -1218,10 +1301,7 @@ const styles = StyleSheet.create({
 
   footer: {
     backgroundColor: "#ffffff",
-    // borderTopLeftRadius: 30,
-    // borderTopRightRadius: 30,
-    //paddingVertical: 10,
-    // paddingHorizontal: 60,
+
   },
   g_container: {
     // flexGrow: 1,

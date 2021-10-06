@@ -703,7 +703,7 @@ const styles = StyleSheet.create({
   n_inputArea: {
     marginVertical: 5,
     // marginTop: 20,
-    height: 40,
+    height: 50,
     width: "85%",
     alignSelf: "center",
     backgroundColor: "#F2F1F3",

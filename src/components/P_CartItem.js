@@ -35,25 +35,26 @@ const P_CartItem = props => {
   return (
 
 
-    <View style={{flexDirection:'row',borderBottomWidth:0.5,borderBottomColor:'grey',marginTop:10,alignItems:'space-around',width:'100%',marginTop:5,marginBottom:1,paddingRight:10}}>
+    <View style={{flexDirection:'row',borderBottomWidth:0.5,borderBottomColor:'grey',marginTop:10,alignItems:'center',
+    width:'100%',marginTop:5,marginBottom:1,justifyContent: "center", }}>
 
-        <View style = {{width:'33%'}}>
+        <View style = {{width:'30%', }}>
             <Text style={{marginLeft:2,color:Colors.productGrey,fontWeight:'bold',textAlign:"left"}}>{props.name}</Text>
         </View>
-        <View style = {{width:'18%',alignItems:'center'}}>
-        
-        <Text style={{color:Colors.productGrey,textAlign:'center'}}>{props.unit}</Text>
+        <View style = {{width:'15%',alignItems:'center',}}>
+
+        <Text style={{color:Colors.productGrey,textAlign:'center',}}>{props.unit}</Text>
         </View>
-        <View style = {{width:'18%',alignItems:'center'}}>
-        
+        <View style = {{width:'20%',alignItems:'center',}}>
+
             <Text style={{color:Colors.productGrey,textAlign:'center',marginLeft:10}}>{props.quantity}</Text>
         </View>
-        
-        <View style = {{width:'25%'}}>
-        
-            <Text style={{color:Colors.productGrey,textAlign:"right"}}>£ {parseFloat(props.price).toFixed(2)}</Text>
+
+        <View style = {{width:'33%',}}>
+
+            <Text style={{color:Colors.productGrey,textAlign:'center'}}>£ {parseFloat(props.price).toFixed(2)}</Text>
         </View>
-        
+
     </View>
 
 
@@ -63,11 +64,11 @@ const P_CartItem = props => {
     //   <View style={styles.itemData}>
     //     <Text style={styles.quantity}>{props.quantity} </Text>
     //     <Text style={styles.title}>{props.name}  </Text>
-        
+
     //   </View>
     //   <View style={styles.itemData}>
     //     <Text style={styles.rupees}> Rs.{props.amount.toFixed(2)}</Text>
-        
+
     //     {props.deletable && (
     //       <TouchableOpacity
     //         onPress={props.onRemove}
@@ -90,7 +91,7 @@ const P_CartItem = props => {
     //         {MyIcon2}
     //       </TouchableOpacity>
     //     )} */}
-        
+
     //   </View>
     // </View>
   );
@@ -112,7 +113,7 @@ const styles = StyleSheet.create({
   itemData: {
     flexDirection: 'row',
     alignItems: 'center',
-    
+
   },
   quantity:{
     color: "#EE0202",
@@ -120,7 +121,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginRight: 4,
   },
- 
+
   title: {
     fontFamily: 'open-sans-bold',
     fontSize: 16,
@@ -138,7 +139,7 @@ const styles = StyleSheet.create({
   deleteButton: {
     marginLeft: 20
   },
-  
+
   button: {
     marginLeft:15,
   },

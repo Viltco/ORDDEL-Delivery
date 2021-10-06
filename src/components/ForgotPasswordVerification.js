@@ -97,7 +97,7 @@ const ForgotPasswordVerification = ({ navigation }) => {
               letterSpacing: 2,
             }}
           >
-            FORGOT
+            RESET
           </Text>
           <Text
             style={{

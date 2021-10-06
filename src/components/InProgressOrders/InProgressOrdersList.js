@@ -153,7 +153,7 @@ const InProgressOrdersList = ({ navigation, route }) => {
               <View style={{ marginTop: 10 }}>
                 <FlatList
                   data={data}
-                  inverted
+                  // inverted
                   style={{ alignSelf: "center" }}
                   showsVerticalScrollIndicator={false}
                   // keyExtractor={item => item.index_id.toString()}
@@ -222,7 +222,7 @@ const InProgressOrdersList = ({ navigation, route }) => {
                               //   marginTop: "4%",
                             }}
                           >
-                         
+
                             {item.order_delivery_datetime.split(" ")[0]}
                             {/* {`${
                               item?.order_created_datetime
@@ -281,11 +281,11 @@ const InProgressOrdersList = ({ navigation, route }) => {
                 //   borderRadius: 10,
                 //   backgroundColor: "white",
                 //   overflow: "hidden",
-                
+
                   flexDirection: "column",
                 //   justifyContent: "flex-start",
                 //   alignSelf: "center",
-                  
+
                 //   marginTop: 10,
                 //   shadowColor: "#000",
                 //   shadowOffset: { width: 0, height: 2 },
@@ -317,7 +317,7 @@ const InProgressOrdersList = ({ navigation, route }) => {
                     //   marginTop: "4%",
                     }}
                   >
-                      
+
                     {item.client_name}
                   </Text> */}
 
@@ -326,15 +326,15 @@ const InProgressOrdersList = ({ navigation, route }) => {
                       // width: 200,
                        flexDirection: "row",
                       alignItems: "center",
-                      
+
                       marginTop: "1.5%",
                     }}
                   >
                     <Text style={{ fontSize: 14, color: "grey",width:240 }}>
-                    
+
                       {item.shipment_address}
                     </Text>
-                   
+
                   </View> */}
 
                       {/* </View> */}
@@ -347,7 +347,7 @@ const InProgressOrdersList = ({ navigation, route }) => {
                       marginTop: -5,
                     }}
                   >
-                    
+
                   </View> */}
 
                       {/* </View> */}
@@ -369,43 +369,43 @@ const InProgressOrdersList = ({ navigation, route }) => {
                 <Body>
 
                 </Body>
-              
+
               <Right><Text style =  {{fontSize:12,fontWeight:'bold'}}>Rs:{item.grand_total}/-</Text></Right>
             </CardItem>
 
-    
-           
-           
-            <CardItem style = {{borderTopWidth:1,borderTopColor:'lightgray'}}> 
+
+
+
+            <CardItem style = {{borderTopWidth:1,borderTopColor:'lightgray'}}>
               <Left>
               <Text style = {{color:'gray'}}>{item.Origin_city}</Text>
-      
+
               </Left>
               <Body>
-               
-                 
+
+
               <Image
         style={{height:15,width:150,alignSelf:'center'}}
         source={require('../../assets/route.png')}
       />
-               
-                
+
+
               </Body>
               <Right>
               <Text style = {{color:'gray'}}>{item.Destination_city}</Text>
-           
+
               </Right>
             </CardItem>
 
-            {/* <CardItem> 
+            {/* <CardItem>
               <Left>
               <Text style = {{color:'gray'}}>{item.Origin_city}</Text>
               </Left>
               <Body>
-               
-                 
-    
-                
+
+
+
+
               </Body>
               <Right>
               <Text style = {{color:'gray'}}>{item.Destination_city}</Text>

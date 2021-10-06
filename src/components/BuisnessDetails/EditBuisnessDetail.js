@@ -69,10 +69,10 @@ const EditBuisnessDetail = ({ navigation, route }) => {
   const [securePass, setSecurePass] = useState(true);
   const [secureConfirmPass, setSecureConfirmPass] = useState(true);
 
-  const [BusinessName, setBusinessName] = useState("");
-  const [BusinessNature, setBusinessNature] = useState("");
-  const [BusinessType, setBusinessType] = useState("");
-  const [address, setAddress] = useState("");
+  const [BusinessName, setBusinessName] = useState(BName);
+  const [BusinessNature, setBusinessNature] = useState(BNature);
+  const [BusinessType, setBusinessType] = useState(BType);
+  const [address, setAddress] = useState(BAdress);
   const [isLoading, setIsLoading] = useState(false);
 
   const [BusinessNameMsg, setBusinessNameMsg] = useState(false);
@@ -339,20 +339,15 @@ const EditBuisnessDetail = ({ navigation, route }) => {
 
   return (
     <>
-      <KeyboardAvoidingView style={{ flex: 1 }}
-  behavior={Platform.OS == "ios" ? "padding" : null} >
+      {/* <KeyboardAvoidingView style={{ flex: 10 }}
+  behavior={Platform.OS == "ios" ? "padding" : null} > */}
+
       <ScrollView
         keyboardShouldPersistTaps="always"
         style={{ backgroundColor: "white" }}
       >
         <View style={styles.container}>
-          {/* <View style={styles.spinnerv}> */}
-          {/* {
-  state?
-  <ActivityIndicator size={100} /> :
-  <Text> loading... </Text>
-} */}
-          {/* </View> */}
+
 
           <View style={{ ...styles.header, paddingBottom: 10 }}>
             <ImageBackground
@@ -364,7 +359,7 @@ const EditBuisnessDetail = ({ navigation, route }) => {
                   <Thumbnail
                     scaleX={2}
                     scaleY={2}
-                    style={{ margin: 35 }}
+                    //style={{ margin: 35 }}
                     source={
                       RiderImage == null
                         ? require("../../assets/profilelogo.png")
@@ -399,9 +394,9 @@ const EditBuisnessDetail = ({ navigation, route }) => {
             </ImageBackground>
           </View>
 
-     
+
           <View style={{ ...styles.footer }}>
-        
+
             <View
               style={{
                 width: "90%",
@@ -415,7 +410,7 @@ const EditBuisnessDetail = ({ navigation, route }) => {
 
               <TextInput
                 style={styles.inputArea}
-                placeholder={BName}
+                placeholder="Name"
                 autoCapitalize="words"
                 placeholderTextColor={Colors.textGreyColor}
                 value={BusinessName}
@@ -446,7 +441,7 @@ const EditBuisnessDetail = ({ navigation, route }) => {
 
               <TextInput
                 style={styles.inputArea}
-                placeholder={BNature}
+                placeholder="Nature (Shop, Restaurant, Cafe etc)"
                 autoCapitalize="words"
                 placeholderTextColor={Colors.textGreyColor}
                 maxLength={50}
@@ -477,7 +472,7 @@ const EditBuisnessDetail = ({ navigation, route }) => {
               )}
               <TextInput
                 style={styles.inputArea}
-                placeholder={BType}
+                placeholder="Type (Company, Sole, Trader etc)"
                 autoCapitalize="words"
                 placeholderTextColor={Colors.textGreyColor}
                 maxLength={50}
@@ -509,7 +504,7 @@ const EditBuisnessDetail = ({ navigation, route }) => {
 
               <TextInput
                 style={styles.inputArea}
-                placeholder={BAdress}
+                placeholder="Address"
                 autoCapitalize="words"
                 placeholderTextColor={Colors.textGreyColor}
                 value={address}
@@ -555,7 +550,7 @@ const EditBuisnessDetail = ({ navigation, route }) => {
                   </TouchableOpacity> */}
                   <TouchableOpacity
                     onPress={updateBuisnessDetail}
-                    style={{ ...styles.signupButton, marginTop: 10 }}
+                    style={{ ...styles.signupButton, marginTop: 20 }}
                     activeOpacity={0.7}
                   >
                     {loading ? (
@@ -591,15 +586,19 @@ const EditBuisnessDetail = ({ navigation, route }) => {
       </TouchableOpacity> */}
               {/* //)} */}
             </View>
-          
+
 
           </View>
 
+
+
+
+
         </View>
       </ScrollView>
-      </KeyboardAvoidingView>
 
-      
+      {/* </KeyboardAvoidingView> */}
+
     </>
   );
 };
@@ -610,11 +609,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#EE0202",
+   // borderWidth:1
   },
 
   inputArea: {
     marginVertical: 10,
-    height: 40,
+    height: 45,
     width: "100%",
     backgroundColor: "#F2F1F3",
     //  borderColor:'black',

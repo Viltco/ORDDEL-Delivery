@@ -305,7 +305,7 @@ function MyStack() {
             headerBackTitleVisible: false,
 
             headerShown: true,
-            title: "PENDING ORDERS",
+            title: "NEW ORDERS",
             headerTitleStyle: {
               color: "white",
               alignSelf: "center",
@@ -368,7 +368,7 @@ function MyStack() {
     },
     headerTintColor: '#ffffff',
     headerRight: ()=><Image source={require('../assets/colorLogo.png')} style={{width:Platform.OS=='ios'? 40:50,height:Platform.OS=='ios'? 40:50}} />
- 
+
    }}/> */}
 
         <Stack.Screen
@@ -632,7 +632,7 @@ function MyStack() {
             headerBackTitleVisible: false,
 
             headerShown: true,
-            title: "FORGOT PASSWORD",
+            title: "RESET PASSWORD",
             headerTitleStyle: {
               color: "white",
               alignSelf: "center",
@@ -797,7 +797,7 @@ function MyStack() {
             headerBackTitleVisible: false,
 
             headerShown: true,
-            title: "FORGOT PASSWORD",
+            title: "RESET PASSWORD",
             headerTitleStyle: {
               color: "white",
               alignSelf: "center",
@@ -846,7 +846,7 @@ function MyStack() {
         />
 
         {/* <Stack.Screen name="BuisnessDetail" component={BuisnessDetail}  options={{headerShown: false}}/>
-   <Stack.Screen name="NewBuisnessDetail" component={NewBuisnessDetail} 
+   <Stack.Screen name="NewBuisnessDetail" component={NewBuisnessDetail}
    options={{headerShown: false}} />
    <Stack.Screen name="ShippmentAddresses" component={ShippmentAddresses} options={{headerShown: false}}/>
    <Stack.Screen name="NewShippmentAddress" component={NewShippmentAddress} options={{headerShown: false}}/>

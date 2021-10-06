@@ -129,17 +129,8 @@ const DeliveryCart = (props) => {
   const MyIcon2 = <FontAwesome name="plus" size={15} color="#EE0202" solid />;
   const [qtty, setQtty] = useState("");
   console.log("Qtty", qtty);
-  // const [quantity,setQuantity]=useState(props.quantity);
-  //const mealId = useSelector(state => state.cart.items.id);
-  // setQuantity(props.quantity);
-  //const availableMeals=useSelector(state=>state.mealReducer.selectedMeal);
-  //const availableMeals=useSelector(state=>state.selectedMeal);
-  //console.log(availableMeals,'  selected')
-  //const selectedMeal = MEALS.find(meal => meal.id === mealId);
-  //const dispatch = useDispatch();
-  //const mealId = props.navigation.getParam('mealId');
-  //console.log(mealId,"  mealID  ")
-  // console.log(props.id,"============")
+
+
   return (
     <View
       style={{
@@ -147,37 +138,51 @@ const DeliveryCart = (props) => {
         borderBottomWidth: 0.5,
         borderBottomColor: "grey",
         alignItems: "space-around",
-        width: "100%",
-        marginLeft: 10,
-        paddingRight: 10,
+        width: "95%",
+        alignSelf:'center',
+        //marginLeft: 10,
+        //paddingRight: 10,
+        //borderWidth:1
       }}
     >
-      <View style={{ width: "40%" }}>
+
+      <View style={{ width: "40%" ,justifyContent: "center", flex:1 , height:40,}}>
         <Text
           style={{
-            marginLeft: 2,
+            //marginLeft: 2,
             color: Colors.productGrey,
             fontWeight: "bold",
             textAlign: "left",
+
+
           }}
         >
           {props.name}
         </Text>
       </View>
-      <View style={{ width: "30%", alignItems: "center" }}>
+
+
+      <View style={{ width: "30%", justifyContent: "center",alignItems: "center",   flex:1, height:40,}}>
         <Text style={{ color: Colors.productGrey }}>{props.unit}</Text>
       </View>
-      {/* <View style = {{width:'20%',alignItems:'center'}}>
-        
-            <Text style={{color:Colors.productGrey}}>{props.quantity}</Text>
-        </View> */}
-      <View style={{ width: "25%" }}>
+
+      <View style={{
+
+      height:40,
+      width: "30%",
+       alignItems: "center",
+       //alignSelf:'flex-end',
+       justifyContent: "center",
+      //borderWidth:2
+       }}>
         <TextInput
           style={{
             alignSelf: "center",
             color: Colors.productGrey,
-            paddingBottom: 0,
-            textAlign: "right",
+            //paddingBottom: 0,
+            textAlign: 'center',
+           flex:1,
+           //borderWidth:2
           }}
           placeholder={props.quantity.toString()}
           autoCapitalize="none"
@@ -196,10 +201,7 @@ const DeliveryCart = (props) => {
         />
       </View>
 
-      {/* <View style = {{width:'25%',alignItems:'center'}}>
-        
-            <Text style={{color:Colors.productGrey}}>£ {props.price}</Text>
-        </View> */}
+
     </View>
   );
 };

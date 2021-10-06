@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/macbookpro/Desktop/Orddel-app/Latest-uploaded-apps/ORDDEL-Delivery-17sept/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-xlarge-v4/values-xlarge-v4.xml",
+            "outputFile": "/Users/macbookpro/Desktop/Orddel-app/Latest-uploaded-apps/ORDDEL-Delivery-3Oct/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-xlarge-v4/values-xlarge-v4.xml",
             "map": [
                 {
-                    "source": "/Users/macbookpro/.gradle/caches/transforms-2/files-2.1/fb2177c62df4fce10e2afc52e90533fa/appcompat-1.1.0/res/values-xlarge-v4/values-xlarge-v4.xml",
+                    "source": "/Users/macbookpro/.gradle/caches/transforms-2/files-2.1/6f0d8f1736cf552f80c2e4841b87c6e7/appcompat-1.1.0/res/values-xlarge-v4/values-xlarge-v4.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7",
                         "startColumns": "4,4,4,4,4,4",

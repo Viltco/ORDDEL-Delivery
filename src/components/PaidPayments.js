@@ -168,7 +168,7 @@ const PurchasedPayment = ({ navigation, route }) => {
     var date2 = date.getDate();
     var month2 = date.getMonth();
 
-    // add line to resolve month 010 problem 
+    // add line to resolve month 010 problem
     var month2= month2 + 1;
     var year2 = date.getFullYear();
 
@@ -183,7 +183,7 @@ const PurchasedPayment = ({ navigation, route }) => {
     //                 "-" +
     //                 ("0" + (formattedDate.getMonth() + 1)).slice(-2) +
     //                 "-" +
-    //                 formattedDate.getFullYear() 
+    //                 formattedDate.getFullYear()
 
     // setFormattedDate(date);
     console.warn(
@@ -411,7 +411,7 @@ const PurchasedPayment = ({ navigation, route }) => {
         >
           <View
             style={{
-           
+
               width: 320,
               height: 40,
               backgroundColor: Colors.themeColor,
@@ -591,8 +591,6 @@ const PurchasedPayment = ({ navigation, route }) => {
                   renderItem={({ item }) =>
                     item.supplier_check != "True" && (
                       <TouchableOpacity
-                        // disabled={item.supplier_check == "True" ? true : false}
-                        //style={styles.signupButton}
                         activeOpacity={0.7}
                         //disabled={sendButtonCheck}
                         onPress={() => {
@@ -607,19 +605,11 @@ const PurchasedPayment = ({ navigation, route }) => {
                         }}
                         //onPress={()=>{ console.log(item.order_products,'dataaaaaaaa'); }}
                       >
-                        {/* {loading ? (
-                <Spinner color={"white"} />
-              ) 
-              : 
-              (
-                <Text style={styles.signupButtonText}>SEND ORDER</Text>
-              )
-              } */}
 
-                        {/* // card main veiw */}
+
                         <View
                           style={{
-                            
+
                             width: "95%",
                             height: 100,
                             backgroundColor: "white",
@@ -639,7 +629,7 @@ const PurchasedPayment = ({ navigation, route }) => {
 
                           <View
                             style={{
-                              
+
                               width: "60%",
                               justifyContent: "center",
                               paddingLeft: 23,
@@ -667,7 +657,7 @@ const PurchasedPayment = ({ navigation, route }) => {
                           >
                             <View
                               style={{
-                               
+
                                 justifyContent: "center",
                                 alignItems: "center",
                               }}
@@ -732,6 +722,8 @@ const PurchasedPayment = ({ navigation, route }) => {
           </View>
         </Content>
       )}
+
+
       <Modal
         animationType="slide"
         transparent={true}
@@ -839,198 +831,98 @@ const PurchasedPayment = ({ navigation, route }) => {
                   </View>
                 </View>
 
-                {/* <View
-                style={{
-                  flexDirection: "row",
-                  alignSelf: "center",
-                  padding: 5,
-                  paddingTop:0
-                }}
-              >
-                
 
-                <View style = {{width:"50%",backgroundColor:'#e6e6e6',alignSelf:"center",borderRadius:10,
-          shadowColor: "#000",
-          shadowOffset: { width: 0, height: 2 },
-          // shadowOpacity: 0.25,
-          shadowRadius: 3.84,
-          elevation: 0,
-          padding:10,
-          
-          }}>
-                  <View style={{ padding: 5 }}>
-                    
-                      <Text style={{ color: Colors.themeColor, fontSize: 12 }}>
-                        Date:
-                      </Text>
-                      <Text
-                        style={{
-                          fontSize: 16,
-                          fontWeight: "bold",
-                          textAlign: "center",
-                        }}
-                      >
-                        {supplierDate}
-                      </Text>
-                    
-                  </View>
-                </View>
-
-                <View style = {{width:"50%",backgroundColor:'#e6e6e6',alignSelf:"center",borderRadius:10,
-          shadowColor: "#000",
-          shadowOffset: { width: 0, height: 2 },
-          // shadowOpacity: 0.25,
-          shadowRadius: 3.84,
-          elevation: 0,
-          padding:10,
-          marginLeft:5
-          }}>
-                  <View style={{ padding: 5 }}>
-                    
-                      <Text style={{ color: Colors.themeColor, fontSize: 12 }}>
-                        Time:
-                      </Text>
-                      <Text
-                        style={{
-                          fontSize: 16,
-                          fontWeight: "bold",
-                          textAlign: "center",
-                        }}
-                      >
-                        {("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2)}
-                      </Text>
-                    
-                  </View>
-                </View>
-              </View> */}
 
                 <View
                   style={{
-                    justifyContent:"center",
+
+                    //justifyContent:'space-between',
                     flexDirection: "row",
+                    alignItems: "center",
                     marginTop: 10,
+                     //borderWidth: 1,
                     // borderColor: "black",
-                    // borderWidth: 1,
                   }}
                 >
                   {/* <Text style={{color:Colors.themeColor,fontWeight:"bold",marginLeft:"1%",width:"20%",textAlign:"left"}}>Invoice</Text> */}
                   <Text
                     style={{
-                   
+
                       color: Colors.themeColor,
                       fontWeight: "bold",
                       //marginLeft: "2%",
-                      width: "21%",
-                      textAlign: "left",
+                      width: "27%",
+                      textAlign: 'center',
                       // borderWidth: 1,
                       // borderColor: "black",
                     }}
                   >
                     Product
                   </Text>
-                  {/* <Text style={{color:Colors.themeColor,fontWeight:"bold",textAlign:"center",width:"22%",marginLeft:18}}>Porterage Price</Text> */}
+
                   <Text
                     style={{
-                  
+
                       color: Colors.themeColor,
                       fontWeight: "bold",
                       textAlign: "center",
-                      width: "21%",
-                      marginLeft: 5,
+                      width: "23%",
+                      //marginLeft: 5,
                       // borderWidth: 1,
                       // borderColor: "black",
                     }}
                   >
                     Quantity
                   </Text>
+
                   <Text
                     style={{
-                   
+
+                      color: Colors.themeColor,
+                      fontWeight: "bold",
+                      textAlign: 'center',
+                      width: "25%",
+                      //marginLeft: 1,
+                     // borderWidth: 1,
+
+                    }}
+                  >
+
+                   Rate
+                  </Text>
+
+
+                  <Text
+                    style={{
+
                       color: Colors.themeColor,
                       fontWeight: "bold",
                       textAlign: "right",
-                      width: "21%",
-                      marginLeft: 1,
+                      width: "25%",
+                      textAlign:"center",
+                      paddingLeft:"3%",
+                      //marginLeft: 1,
+                      //borderWidth: 1,
+
                     }}
                   >
-                    {/* Last month Avg.Price */}
+
                     Amount
                   </Text>
 
-                  <Text
-                    style={{
-                 
-                      color: Colors.themeColor,
-                      fontWeight: "bold",
-                      textAlign: "right",
-                      width: "27%",
-                      textAlign:"center",
-                      paddingLeft:"3%",
-                      marginLeft: 1,
-                    }}
-                  >
-                    {/* Last month Avg.Price */}
-                    Porterage Price 
-                  </Text>
+
 
 
                 </View>
+
+
+
                 <View style={{ padding: 2 }}>
-                  {/* <FlatList
-                          nestedScrollEnabled
-                          //data={.order_products}
-                          data={}
-                          // sort={true}
-                          // inverted={true}
-                          keyExtractor={(item) => item.id}
-                          renderItem={(itemData) => (
-                            //<CardItem
-                            <PreviewCart
-                              id={itemData.product_name }
-                              quantity={itemData.quantity_total}
-                              total_amount={itemData.amount}
-                              //name={itemData.product_name}
-                              //unit={itemData.order_products.unit}
-                              price={itemData.portrage_price}
-                              // addable
-                              // onAddPress={() => {
-                              //   dispatch(
-                              //     cartActions.addToQtty(itemData.item.id)
-                              //   );
-                              // }}
-                              // // deletable
-                              // onRemove={() => {
-                              //   dispatch(
-                              //     cartActions.removeFromCart(itemData.item.id)
-                              //   );
-                              // }}
-                              // // removeable
-                              // onDelete={() => {
-                              //   dispatch(
-                              //     cartActions.deleteProduct(itemData.item.id)
-                              //   );
-                              // }}
-                            />
-                          )}
-                        /> */}
 
-                  {/* [{"datetime": "2021-05-11T07:44:08.104141Z", "id": 89, "portrage_price": 2, 
-"product_name": "Garlic loose-China", "profit_margin": 2, "profit_margin_choice": "percentage",
- "purchased_quantity_total": 5, "quantity_total": 5, "supplier_invoice_number": null,
- "supplier_payment_status": "unpaid", "unit_purchase_price": 22, "quantity_total": 24.44}] */}
-
-                  {/* {id, product_name, quantity_total, purchased_quantity_total, 
-unit_sale_price, datetime, profit_margin, portrage_price, 
-unit_purchase_price, supplier_invoice_number, supplier_payment_status, profit_margin_choice} */}
-
-                  {/* {"amount": "122.2", "datetime": "2021-05-11T07:44:08.104141Z", "invoice_number": null,
- "order_products": [[Object]], "supplier": "47", "supplier_name": null, "supplier_payment_status": "unpaid"} */}
 
                   <FlatList
                     nestedScrollEnabled
-                    //data={[{ key: 'a', name:'haseeb' }, { key: 'b',name:'haseebi' }]}
-                    //data={showOrder}
-                    // inverted={true}
+                    inverted={true}
                     data={supplier}
                     keyExtractor={(item) => item.id}
                     renderItem={
@@ -1042,92 +934,78 @@ unit_purchase_price, supplier_invoice_number, supplier_payment_status, profit_ma
                               ? item.quantity_total
                               : item.purchased_quantity_total
                           }
-                          //amount={itemData.amount}
-                          name={item.product_name}
-                          //unit={item.order_products.unit}
-                          // portrage_price={item.portrage_price}
-                          // price={item.unit_purchase_price}
-                          portrage_price={item.unit_portrage_price_total}
-                          price={item.purchase_price_per_unit}
-                          portragePprice={item.unit_portrage_price_total}
+
+                 name={item.product_name}
+                 price={item.purchase_price_per_unit}
+                 portragePrice={item.unit_portrage_price_total}
+                 perchasePrice = {item.unit_purchase_price_total}
+
+
                         />
                       )
                       //<Text>{item.id} {item.product_name}</Text>
                     }
 
-                    //renderItem={({ item }) => <Text>{item.key} {item.name}</Text>}
                   />
                 </View>
                 <View
                   style={{
+
                     justifyContent: "center",
                     alignItems: "center",
                     flexDirection: "row",
                     marginTop: 30,
-                    width: "100%",
                   }}
                 >
                   <Text
                     style={{
                       color: Colors.themeColor,
                       fontWeight: "bold",
-                      textAlign: "center",
-                      // width: "25%",
-                      // marginLeft: "6%",
-                      // textAlign: "left",
+                      width: "35%",
+                      marginLeft: "15%",
+                      textAlign: "left",
                     }}
                   >
-                    Total Paid:
+                    Total Payable:
                   </Text>
-                  {/* <Text style={{color:Colors.themeColor,width:Platform.OS=="android"?"20%":"20%",marginRight:"23%" ,fontWeight:'bold',fontSize:14,textAlign:"right"}}>£ {parseFloat(454).toFixed(2)}</Text> */}
                   <Text
                     style={{
                       color: Colors.themeColor,
-                      // marginRight: "23%",
+                      marginRight: "23%",
                       fontWeight: "bold",
                       fontSize: 14,
-                      // textAlign: "right",
+                      textAlign: "right",
                     }}
                   >
                     £ {parseFloat(amount).toFixed(2)}
                   </Text>
+
                 </View>
 
-                <View style={{ marginTop: "20%", alignItems: "center" }}>
-                  <Text style={{ marginBottom: 10, fontWeight: "bold" }}>
-                    Invoice Number#
-                  </Text>
-                  <Text
-                    style={{
-                      height: 40,
-                      width: "80%",
-                      backgroundColor: "#F2F1F3",
-                      textAlign: "center",
-                      alignItems: "center",
-                      borderRadius: 5,
-                      paddingTop: 7,
+
+
+                <View style={{ marginTop: "20%", alignItems: "center",  }}>
+                  <TextInput
+                    style={styles.name_inputArea}
+                    //editable={invoiceNumber==null?true:false}
+                    editable={false}
+                    placeholder="Invoice Number"
+                    autoCapitalize="none"
+                    placeholderTextColor={
+                      invoiceNumber == null ? "black": "black"
+                    }
+                    value={invoiceNumber}
+                    // required={true}
+                    onChangeText={(value) => {
+                      setInvoiceNumber(value);
                     }}
-                  >
-                    {invoiceNumber}
-                  </Text>
-                  {/* <TextInput
-
-            style={styles.name_inputArea}
-            //editable={invoiceNumber==null?true:false}
-            placeholder="Invoice Number"
-            autoCapitalize="none"
-            placeholderTextColor={invoiceNumber==null?"grey":"black"}
-            value={invoiceNumber}
-            required={true}
-            //disabled={true}
-            // onChangeText={(value) => {
-            //     setInvoiceNumber(value);
-            // }}
-            initialValue=""
-          /> */}
+                    initialValue=""
+                  />
                 </View>
 
-                <View style={{ marginTop: "10%", alignSelf: "center" }}>
+
+
+                <View style={{marginTop: "10%", alignSelf: "center" }}>
                   {status == "unpaid" ? (
                     <Pressable
                       style={styles.signupButton1}
@@ -1137,10 +1015,11 @@ unit_purchase_price, supplier_invoice_number, supplier_payment_status, profit_ma
                       {loading ? (
                         <Spinner color={"white"} size={20} />
                       ) : (
-                        <Text style={styles.signupButtonText1}>UNPAID</Text>
+                        <Text style={styles.signupButtonText1}>PAY</Text>
                       )}
                     </Pressable>
                   ) : null}
+
                   <Pressable
                     style={{
                       ...styles.bu_signupButton1,
@@ -1148,16 +1027,23 @@ unit_purchase_price, supplier_invoice_number, supplier_payment_status, profit_ma
                       marginBottom: "10%",
                     }}
                     activeOpacity={0.7}
-                    onPress={() => setModalVisible(!modalVisible)}
+                    onPress={
+                      () => setModalVisible(!modalVisible)
+                      //setLoading(false)
+                    }
                   >
-                    <Text style={styles.bu_signupButtonText1}>OK</Text>
+                    <Text style={styles.bu_signupButtonText1}>CANCEL</Text>
                   </Pressable>
                 </View>
+
               </ScrollView>
             </View>
           </View>
         </View>
       </Modal>
+
+
+
     </View>
   );
 };
@@ -1190,18 +1076,13 @@ const styles = StyleSheet.create({
   },
   name_inputArea: {
     //   marginVertical:0,
-    // textAlign:"center",
-    // alignSelf:"center",
+     textAlign:"center",
+    //alignSelf:"center",
     height: 40,
     width: "80%",
     backgroundColor: "#F2F1F3",
     //backgroundColor: 'black',
     borderRadius: 5,
-    // paddingHorizontal:20,
-    // marginVertical:5
-    //marginTop:10,
-    //marginRight:'120%'
-    //marginRight:10
   },
   verticleLine: {
     height: 1,
@@ -1210,12 +1091,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.textGreyColor,
   },
   s_verticleLine: {
-    // marginRight:30,
-    // marginTop:10,
-    //alignSelf:'center',
-    // alignContent:'center',
-    // alignItems:'center',
-    // justifyContent:'center',
+
     height: 3,
     width: "100%",
     // alignSelf:'center',

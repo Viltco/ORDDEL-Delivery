@@ -286,7 +286,7 @@ function OrdersStatus({ navigation, route }) {
                 alignSelf: "center",
               }}
             >
-              <View
+              {/* <View
                 style={{
                   height: 90,
                   width: 90,
@@ -307,22 +307,78 @@ function OrdersStatus({ navigation, route }) {
                     margin:'2%'
                   }}
                 >
-                
+
                 Date & Time
-                  {/* {boxData.order_delivery_datetime} */}
+
                 </Text>
                 <Text
                   style={{
                     textAlign: "center",
                     color: Colors.themeColor,
-                    //marginTop: "35%",
+
                     fontWeight: "bold",
                     fontSize: Platform.OS == "android" ? 12 : 11,
                   }}
                 >
                   {boxData.order_delivery_datetime}
                 </Text>
+              </View> */}
+
+              <View
+                style={{
+                  height: 100,
+                  width: 100,
+                  borderRadius: 100,
+                  borderColor: Colors.textGreyColor,
+                  borderWidth: 5,
+                  marginTop: "3%",
+                  marginBottom: 12,
+                }}
+              >
+                <Text
+                  style={{
+                    textAlign: "center",
+                    color: Colors.themeColor,
+                    marginTop: "12%",
+                    fontWeight: "bold",
+                    fontSize: 12,
+                    margin:'2%',
+
+                  }}
+                >
+
+                Delivery
+
+                </Text>
+                <Text
+                  style={{
+                    textAlign: "center",
+                    color: Colors.themeColor,
+                    //marginTop: "20%",
+                    fontWeight: "bold",
+                    fontSize: 12,
+                    margin:'2%',
+
+                  }}
+                >
+                Date & Time
+
+                </Text>
+                <Text
+                  style={{
+                    textAlign: "center",
+                    color: Colors.themeColor,
+                    //marginTop: "35%",
+                    //fontWeight: "bold",
+                    fontSize: Platform.OS == "android" ? 12 : 11,
+                  }}
+                >
+                  {boxData.order_delivery_datetime}
+                </Text>
               </View>
+
+
+
               <View style={{ alignSelf: "center", marginLeft: "5%" }}>
                 <View
                   style={{
@@ -352,7 +408,7 @@ function OrdersStatus({ navigation, route }) {
               </View>
             </View>
 
-            <View style={{ flexDirection: "row", marginTop: 30 }}>
+            <View style={{ flexDirection: "row", marginTop: 30 , }}>
               <Text
                 style={{
                   color: Colors.themeColor,

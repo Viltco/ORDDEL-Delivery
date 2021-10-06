@@ -40,7 +40,7 @@ const Login = ({navigation,route}) => {
   const [loading,setLoading]=useState("");
 const [rememberMe, setRememberMe] = useState(true);
 const isFocused = useIsFocused();
-  
+
 useFocusEffect(
   React.useCallback(() => {
     const backAction = () => {
@@ -89,7 +89,7 @@ const check=()=>{
 
      }
    }
-  
+
 }
 
 
@@ -132,7 +132,7 @@ const sendTokken=()=>{
       })
       .catch((error) => console.log(error));
   }
-  
+
 }
 
   const loadData = () => {
@@ -141,7 +141,7 @@ const sendTokken=()=>{
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
       if (reg.test(email) === false) {
         setToastMessage("Email is Not Correct");
-        setLoading(false); 
+        setLoading(false);
         return false;
       } else{
         setLoading(true);
@@ -152,16 +152,16 @@ const sendTokken=()=>{
         'Content-Type': 'application/json'
       },
       body:JSON.stringify({
-      
-      
+
+
         "username": email,
         "password": password
-       
+
      })
-    
-       
+
+
     })
-  
+
     .then( async (response) => {
       let data = await response.json();
         console.log("status code",response.status)
@@ -174,7 +174,7 @@ const sendTokken=()=>{
           storeToken(email,password);
           dispatch(ApiDataActions.SetLoginData(data));
           setLoading(false);
-          sendTokken(); 
+          sendTokken();
           navigation.navigate("MyDrawer");
           setEmail("");
           setPassword("");
@@ -184,7 +184,7 @@ const sendTokken=()=>{
         ) {
           // console.log("data",data);
           setLoading(false);
-          
+
           alert(response.message);
         } else {
           setLoading(false);
@@ -198,14 +198,14 @@ const sendTokken=()=>{
         alert(data.message);
       }
           // code that can access both here
-     
+
     })
     .catch ((error)=>
       console.log("Something went wrong", error)
     )
   }
 
-    
+
   //  if(email=="")
   //  {
   //    setEmailMsg(true);
@@ -215,15 +215,15 @@ const sendTokken=()=>{
   //  }
 
     //console.log(email,password,tokken)
-    
+
     // return fetch(URL+'/client_app/client_login/')
-    
+
     // .then((response) => response.json())
     // .then((responseJson) => {
-    //   if(responseJson[0] != "Login doesn't exist or password is incorrect"){     
-  
+    //   if(responseJson[0] != "Login doesn't exist or password is incorrect"){
 
-      
+
+
     //   // setData({data : responseJson})
     //   // setCompanyInfo({companyInfo : responseJson[0]})
     //   // setPersonInfo({personInfo : responseJson[1]})
@@ -236,28 +236,28 @@ const sendTokken=()=>{
     // //   AsyncStorage.setItem(STORAGE_PASSWORD, password)
 
     // // console.log("Shaheer",STORAGE_LOGIN)
-     
+
     // storeToken(email,password)
-  
-    //   navigation.navigate("MyDrawer" , { Company_Data : responseJson }) 
+
+    //   navigation.navigate("MyDrawer" , { Company_Data : responseJson })
     //   }else{
     //   alert("Wrong email or password")
-      
+
     //   }
-       
+
     //})
 
-    
+
   }
 
 
 
-  
+
 
   // const loadData = () => {
 
 
-    
+
   //   return fetch(URL+'/shipment/search?login='+email.trim()+'&password='+password+'&token='+tokken)
   //   .then((response) => response.json())
   //   .then((responseJson) => {
@@ -274,21 +274,21 @@ const sendTokken=()=>{
   //   //   AsyncStorage.setItem(STORAGE_LOGIN, "email")
   //   //   AsyncStorage.setItem(STORAGE_PASSWORD, password)
 
-    
+
   //   // console.log("Shaheer",STORAGE_LOGIN)
-     
+
   //   storeToken(email,password)
-  
-  //     navigation.navigate("MyDrawer" , { Company_Data : responseJson }) 
-       
+
+  //     navigation.navigate("MyDrawer" , { Company_Data : responseJson })
+
   //   })
   //   .catch((error) => {
   //     alert("Email or Password Incorrect")
 
   //   });
-  
+
   // }
-  
+
 
   var storeToken = async (e, p) => {
     try {
@@ -325,7 +325,7 @@ const sendTokken=()=>{
       setEmail(datae);
       console.log("emailllllllllllll",email)
 
-      
+
       setPassword(datap);
       }
       else{
@@ -349,9 +349,9 @@ const sendTokken=()=>{
 
 
   useEffect(() => {
-    
+
     console.log("TOKEN: 1");
-      
+
     Firebase.initializeApp
       PushNotification.configure({
         // (optional) Called when Token is generated (iOS and Android)
@@ -396,15 +396,15 @@ const sendTokken=()=>{
          */
         requestPermissions: true,
       });
- 
-  }, []); 
+
+  }, []);
 
 
 
 
   return (
     <View style={{...styles.container}}>
-     
+
 
       <View style={styles.header}>
         <ImageBackground
@@ -504,7 +504,7 @@ const sendTokken=()=>{
               </View>
             </View>
 
-            <View style={{flexDirection:'row',alignSelf:'center'}}>   
+            <View style={{flexDirection:'row',alignSelf:'center'}}>
             <CheckBox
           value={rememberMe}
           onValueChange={setRememberMe}
@@ -513,16 +513,16 @@ const sendTokken=()=>{
           onTintColor={Colors.themeColor}
           onCheckColor={Colors.themeColor}
           tintColors={{ true: Colors.themeColor, false: 'black' }}
-         
+
           style={{marginTop:Platform.OS=="android"?null:5, transform: [{ scaleX: Platform.OS=="android"? 0.8:0.7 }, { scaleY: Platform.OS=="android"? 0.8:0.7 }] }}
         />
                 <View style={{alignSelf:"center",marginBottom:Platform.OS=="android"?null:4}}>
-                  <Text style={{fontSize:Platform.OS=="android"?12:14, marginRight:0,color:Colors.productGrey }}>Remember me</Text> 
-                 
+                  <Text style={{fontSize:Platform.OS=="android"?12:14, marginRight:0,color:Colors.productGrey }}>Remember me</Text>
+
 
                 </View>
 
-               
+
         </View>
             {/* {passMsg == true ? (
               <Animatable.View animation="fadeInLeft" duration={500}>
@@ -541,7 +541,7 @@ const sendTokken=()=>{
               onPress={() => navigation.navigate("ForgotPasswordVerification")}
             >
               <Text style={{ color: Colors.darkRedColor, fontSize: 12,fontWeight:'700' }}>
-                Change Password
+                Reset Password
               </Text>
             </TouchableOpacity>
           </View>
@@ -601,7 +601,7 @@ const sendTokken=()=>{
           </KeyboardAvoidingView>
       </View>
     </View>
-    
+
 );
 };
 
@@ -672,7 +672,7 @@ const styles = StyleSheet.create({
     // borderTopRightRadius: 30,
     //paddingVertical: 10,
     width:"100%",
-    
+
   },
   g_container: {
     // flexGrow: 1,

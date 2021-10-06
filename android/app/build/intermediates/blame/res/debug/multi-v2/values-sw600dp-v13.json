@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/macbookpro/Desktop/Orddel-app/Latest-uploaded-apps/ORDDEL-Delivery-17sept/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-sw600dp-v13/values-sw600dp-v13.xml",
+            "outputFile": "/Users/macbookpro/Desktop/Orddel-app/Latest-uploaded-apps/ORDDEL-Delivery-3Oct/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-sw600dp-v13/values-sw600dp-v13.xml",
             "map": [
                 {
-                    "source": "/Users/macbookpro/.gradle/caches/transforms-2/files-2.1/fb2177c62df4fce10e2afc52e90533fa/appcompat-1.1.0/res/values-sw600dp-v13/values-sw600dp-v13.xml",
+                    "source": "/Users/macbookpro/.gradle/caches/transforms-2/files-2.1/6f0d8f1736cf552f80c2e4841b87c6e7/appcompat-1.1.0/res/values-sw600dp-v13/values-sw600dp-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "/Users/macbookpro/.gradle/caches/transforms-2/files-2.1/4d86a81f37164f9e0feb6204b7867275/material-1.1.0/res/values-sw600dp-v13/values-sw600dp-v13.xml",
+                    "source": "/Users/macbookpro/.gradle/caches/transforms-2/files-2.1/1612716fdfec2b4e6b6b96eee32e2c82/material-1.1.0/res/values-sw600dp-v13/values-sw600dp-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,10,11,12,13,14",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4",

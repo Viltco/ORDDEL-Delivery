@@ -19,27 +19,23 @@ const PreviewCart = (props) => {
   return (
     <View
       style={{
-        
+        // borderWidth:1,
         flexDirection: "row",
         borderBottomWidth: 0.5,
         borderBottomColor: "grey",
         marginTop: 20,
-       // alignItems: "space-around",
-        width: "90%",
+        width: "100%",
         marginTop: 5,
         marginBottom: 1,
-        //paddingRight: 10,
-        //marginLeft: 20,
+
+
       }}
     >
-      {/* <View style = {{width:'15%',alignItems:'center'}}>
-        <Text style={{color:Colors.productGrey,textAlign:'center'}}>{props.id}</Text>
-        </View> */}
 
       <View
         style={{
-        
-          width: "28%",
+        //borderWidth:1,
+          width: "27%",
           justifyContent: "center",
           // alignItems: "center",
         }}
@@ -47,7 +43,6 @@ const PreviewCart = (props) => {
         <Text
           style={{
             textAlign:"center",
-            // marginLeft: 15,
             color: Colors.productGrey,
             fontWeight: "bold",
           }}
@@ -57,10 +52,10 @@ const PreviewCart = (props) => {
       </View>
       <View
         style={{
-      
-          width: "26%",
+        //borderWidth:1,
+          width: "23%",
           justifyContent: "center",
-          // alignItems: "center",
+          alignItems: "center",
         }}
       >
         <Text
@@ -73,52 +68,38 @@ const PreviewCart = (props) => {
           {props.quantity}
         </Text>
       </View>
-      {/* <View style = {{width:'18%',alignItems:'center'}}>
-        
-        <Text style={{color:Colors.productGrey,textAlign:'center'}}>{props.amount}</Text>
-        </View> */}
 
-      {/* <View style={{ width: "20%" }}>
-        {props.portrage_price == 0 ? (
-          <Text style={{ color: Colors.productGrey, textAlign: "right" }}>
-            £ 0
-          </Text>
-        ) : (
-          <Text style={{ color: Colors.productGrey, textAlign: "right" }}>
-            £ {parseFloat(props.portrage_price).toFixed(2)}
-          </Text>
-        )}
-      </View> */}
 
 
       <View
         style={{
-   
-          width: "24%",
-          // marginLeft: 25,
+
+          width: "25%",
           justifyContent: "center",
-          //alignItems: "flex-end",
+
         }}
       >
         {/* <Text style={{color:Colors.productGrey,textAlign:"right",}}>£ {props.portrage_price}</Text> */}
-        {props.price == 0 ? (
+        {props.portragePrice + props.perchasePrice == 0 ? (
           <Text style={{ color: Colors.productGrey, textAlign:"center" }}>
             £ 0
           </Text>
         ) : (
           <Text style={{ color: Colors.productGrey, textAlign: "center" }}>
-            £ {parseFloat(props.price).toFixed(2)}
+            £ { parseFloat(props.portragePrice + props.perchasePrice).toFixed(2) }
+            {/* {parseFloat(props.price).toFixed(2)} */}
+
           </Text>
         )}
       </View>
 
       <View
         style={{
-          
-          width: "24%",
+
+          width: "25%",
           // marginLeft: 25,
           justifyContent: "center",
-          alignItems: "flex-end",
+          alignItems: "center",
         }}
       >
         {/* <Text style={{color:Colors.productGrey,textAlign:"right",}}>£ {props.portrage_price}</Text> */}
@@ -128,35 +109,12 @@ const PreviewCart = (props) => {
           </Text>
         ) : (
           <Text style={{ color: Colors.productGrey, textAlign: "center" }}>
-            £ {parseFloat(props.portragePprice).toFixed(2)}
+            £ { parseFloat(props.quantity * ( props.portragePrice + props.perchasePrice ) ).toFixed(2)}
+            {/* {parseFloat(props.portragePprice).toFixed(2)} */}
           </Text>
         )}
       </View>
 
-
-      {/* <View
-        style={{
-          borderWidth:1,
-          borderColor:"black",
-          width: "24%",
-          // marginLeft: 10,
-          justifyContent: "center",
-          alignItems: "center",
-          // borderWidth: 1,
-          // borderColor: "black",
-        }}
-      >
-        <Text
-          style={{
-            textAlign:"center",
-            color: Colors.productGrey,
-            textAlign: "right",
-           // marginLeft: 5,
-          }}
-        >
-          {props.portragePprice}
-        </Text>
-      </View> */}
     </View>
   );
 };

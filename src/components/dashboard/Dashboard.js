@@ -12,6 +12,7 @@ import {
   Alert,
   Platform,
 } from "react-native";
+import { Dimensions } from 'react-native';
 import {
   Container,
   Card,
@@ -52,7 +53,7 @@ const Dashboard = ({ navigation }) => {
   const dispatch = useDispatch();
   const route = useRoute();
   const isFocused = useIsFocused();
-
+  const windowHeight = Dimensions.get('window').height;
   const RiderId = useSelector((state) => state.ApiData.RiderId);
   const RiderName = useSelector((state) => state.ApiData.RiderName);
   const RiderPackage = useSelector((state) => state.ApiData.RiderPackage);
@@ -239,9 +240,10 @@ const Dashboard = ({ navigation }) => {
                         : { uri: RiderImage }
                     }
                     style={{
-                      width: Platform.OS == "ios" ? 110 : 110,
-                      height: Platform.OS == "ios" ? 110 : 110,
-                      borderRadius: 100,
+                      width: Platform.OS == "ios" ? 100 : 100,
+                      height: Platform.OS == "ios" ? 100 : 100,
+                      overflow: "hidden",
+                      borderRadius: 100/2,
                     }}
                   />
                 </View>
@@ -370,6 +372,8 @@ const Dashboard = ({ navigation }) => {
                 </View>
               </View>
             </View>
+
+
           </View>
 
           <View style={styles.footer}>
@@ -382,7 +386,8 @@ const Dashboard = ({ navigation }) => {
                   justifyContent: "space-around",
                 }}
               >
-                <View style={{ flexDirection: "column" }}>
+                <TouchableOpacity style={{ flexDirection: "column" }}
+                onPress={() => navigation.navigate("TopTabNavigator")}>
                   <View style={{ flexDirection: "row", alignSelf: "center" }}>
                     <View style={{ alignSelf: "center" }}>
                       <MaterialIcons
@@ -410,7 +415,7 @@ const Dashboard = ({ navigation }) => {
                       IN PROGRESS ORDERS
                     </Text>
                   </View>
-                </View>
+                </TouchableOpacity>
 
                 <Text
                   style={{
@@ -420,7 +425,9 @@ const Dashboard = ({ navigation }) => {
                     marginLeft: "2%",
                   }}
                 ></Text>
-                <View style={{ flexDirection: "column" }}>
+                <TouchableOpacity style={{ flexDirection: "column" }}
+                 onPress={() => navigation.navigate("CompletedOrdersList")}
+                >
                   <View style={{ flexDirection: "row", alignSelf: "center" }}>
                     <View style={{ alignSelf: "center" }}>
                       <MaterialCommunityIcons
@@ -446,10 +453,14 @@ const Dashboard = ({ navigation }) => {
                   >
                     COMPLETED ORDERS
                   </Text>
-                </View>
+                </TouchableOpacity>
                 <Text style={styles.verticleLine}></Text>
 
-                <View style={{ flexDirection: "column" }}>
+
+
+                <TouchableOpacity style={{ flexDirection: "column" }}
+                onPress={() => navigation.navigate("PendingOrdersList")}
+                >
                   <View style={{ flexDirection: "row", alignSelf: "center" }}>
                     {/* <Image source={require('../../assets/red_pending.png')} style={{width:Platform.OS=='ios'? 60:30,height:Platform.OS=='ios'? 65:30,alignSelf:'center'}}  /> */}
                     <View style={{ alignSelf: "center" }}>
@@ -475,22 +486,15 @@ const Dashboard = ({ navigation }) => {
                       color: Colors.productGrey,
                     }}
                   >
-                    PENDING ORDERS
+                    NEW ORDERS
                   </Text>
-                </View>
+                </TouchableOpacity>
               </View>
             </View>
 
-            <View style={{ flexDirection: "column", alignItems: "center" }}>
-              <View style={{ flexDirection: "row", paddingHorizontal: 25 }}>
-                {/* <TouchableOpacity
-    onPress = { ()=>alert("This screen is not exist yet")}
-    style = {{justifyContent:'center',marginLeft:20,backgroundColor:Colors.themeColor,padding:10,borderRadius:18}}>
-          <View style={{alignSelf:'center',flexDirection:'row'}}>
-          <Ionicons name="ios-add-circle-outline" color ='white' size={Platform.OS=='android'?25:30} style={{alignSelf:'center'}}/>
-          <Text style={{color:'white',fontWeight:'bold',justifyContent:'center',marginLeft:5,fontSize:20}}>Create New Order</Text>
-          </View>
-    </TouchableOpacity> */}
+            <View style={{ flexDirection: "column", alignItems: "center" ,  }}>
+              <View style={{ flexDirection: "row", paddingHorizontal: 25, }}>
+
                 <TouchableOpacity
                   onPress={() => navigation.navigate("PendingOrdersList")}
                   style={{
@@ -524,7 +528,7 @@ const Dashboard = ({ navigation }) => {
                         marginTop: 5,
                       }}
                     >
-                      Pending Orders
+                      New Orders
                     </Text>
                   </View>
                 </TouchableOpacity>
@@ -738,9 +742,14 @@ const styles = StyleSheet.create({
   topSafeArea: {
     flex: 0,
     // backgroundColor: 'blue'
+    //borderWidth:1,
+    //backgroundColor: "#ffffff",
+
   },
   bottomSafeArea: {
     flex: 1,
+    //borderWidth:1,
+    backgroundColor: "#ffffff",
     // backgroundColor: 'red'
   },
   avatar: {
